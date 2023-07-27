@@ -1,6 +1,6 @@
-const fs = require('fs');
+import fs from 'fs';
 
-class ProductManager{
+export default class ProductManager{
     constructor(filePath) {
         this.products = [];
         this.lastId = 0;
@@ -115,8 +115,6 @@ class ProductManager{
       }
     }
 }
-
-export default ProductManager;
 
 /*
 console.log(new ProductManager().getProducts());
