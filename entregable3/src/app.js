@@ -9,8 +9,8 @@ const productManager = new ProductManager('./products.json');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-app.get('/products', (req, res) => {
-    const products = productManager.getProducts();
+app.get('/products', async (req, res) => {
+    const products = await productManager.getProducts();
     const limit = parseInt(req.query.limit);
     let productsToSend = products;
     
@@ -21,9 +21,9 @@ app.get('/products', (req, res) => {
     res.send(productsToSend)
 })
 
-app.get('/products/:pid', (req, res) => {
+app.get('/products/:pid', async (req, res) => {
     const productId = parseInt(req.params.pid);
-    const product = productManager.getProductById(productId);
+    const product = await productManager.getProductById(productId);
 
     if (!product) {
         return res.send({

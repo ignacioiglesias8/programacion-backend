@@ -41,12 +41,12 @@ class ProductManager{
             }
         }
 
-    getProducts() {
+    async getProducts() {
       if (this.products.length > 0) {
         return this.products;
       }else{
         try {
-          const data = fs.readFileSync(this.path, 'utf8');
+          const data = await fs.promises.readFile(this.path, 'utf8');
           const products = JSON.parse(data);
           this.products = products;
           console.log(products);
@@ -58,9 +58,9 @@ class ProductManager{
         }}
       }
 
-    getProductById(id) {
+    async getProductById(id) {
         try {
-          const data = fs.readFileSync(this.path, 'utf8');
+          const data = await fs.promises.readFile(this.path, 'utf8');
           const products = JSON.parse(data);
           this.products = products;
       
