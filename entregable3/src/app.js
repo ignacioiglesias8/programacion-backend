@@ -1,44 +1,16 @@
 import express from 'express';
 import ProductManager from "./ProductManager.js";
 
-//const productManager = new ProductManager();
-
 const app = express();
 const PORT= 8080;
 
+const productManager = new ProductManager('./products.json');
+
+app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-const products = [
-    {
-        id: "1",
-        title: "producto prueba 1",
-        description: "Este es un producto prueba",
-        price: 100,
-        thumbnail: "Sin imagen",
-        code: "abc101",
-        stock: 25
-    },
-    {
-        id: "2",
-        title: "producto prueba 2",
-        description: "Este es un producto prueba",
-        price: 200,
-        thumbnail: "Sin imagen",
-        code: "abc102",
-        stock: 25
-    },
-    {
-        id: "3",
-        title: "producto prueba 3",
-        description: "Este es un producto prueba",
-        price: 300,
-        thumbnail: "Sin imagen",
-        code: "abc103",
-        stock: 25
-    }
-]
-
 app.get('/products', (req, res) => {
+    const products = productManager.getProducts();
     const limit = parseInt(req.query.limit);
     let productsToSend = products;
     
@@ -50,13 +22,12 @@ app.get('/products', (req, res) => {
 })
 
 app.get('/products/:pid', (req, res) => {
-    const productId = req.params.pid;
-    
-    let product = products.find((product)=>product.id === productId);
-    
+    const productId = parseInt(req.params.pid);
+    const product = productManager.getProductById(productId);
+
     if (!product) {
         return res.send({
-            error: 'Product not found'
+            error: 'Producto no encontrado'
         });
     }
 

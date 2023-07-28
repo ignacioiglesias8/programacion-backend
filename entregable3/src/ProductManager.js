@@ -1,6 +1,6 @@
 import fs from 'fs';
 
-export default class ProductManager{
+class ProductManager{
     constructor(filePath) {
         this.products = [];
         this.lastId = 0;
@@ -42,7 +42,7 @@ export default class ProductManager{
         }
 
     getProducts() {
-      if (this.products.length === 0) {
+      if (this.products.length > 0) {
         return this.products;
       }else{
         try {
@@ -116,11 +116,12 @@ export default class ProductManager{
     }
 }
 
+export default ProductManager;
+
 /*
 console.log(new ProductManager().getProducts());
 //A través de este console.log se demuestra el retorno de un arreglo vacío.
-
-const productManager = new ProductManager('products.json');
+const productManager = new ProductManager('./products.json');
 
 productManager.addProduct("producto prueba 1", "Este es un producto prueba", 100, "Sin imagen", "abc101", 25);
 productManager.addProduct('producto prueba 2', 'Este es un producto prueba', 200, 'Sin imagen', 'abc102', 25);
