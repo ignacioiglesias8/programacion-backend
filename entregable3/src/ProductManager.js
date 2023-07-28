@@ -117,35 +117,3 @@ class ProductManager{
 }
 
 export default ProductManager;
-
-/*
-console.log(new ProductManager().getProducts());
-//A través de este console.log se demuestra el retorno de un arreglo vacío.
-const productManager = new ProductManager('./products.json');
-
-productManager.addProduct("producto prueba 1", "Este es un producto prueba", 100, "Sin imagen", "abc101", 25);
-productManager.addProduct('producto prueba 2', 'Este es un producto prueba', 200, 'Sin imagen', 'abc102', 25);
-//En lugar de agregar un producto, se agregaron dos para chequear que el id se genere automaticamente.
-
-productManager.getProducts();
-//Comparación de que ambos productos hayan sido agregados correctamente.
-
-productManager.addProduct('producto prueba', 'Este es un producto prueba', 200, 'Sin imagen', 'abc101', 25);
-//Se vuelve a agregar un producto con el mismo code para comprobar que de error.
-
-productManager.getProductById(3);
-productManager.getProductById(2);
-//Se buscan por id dos productos. El id 3 al no existir, debe dar un error de no encontrado.
-//El producto id 2 debe ser encontrado y mostrado en consola.
-
-productManager.updateProduct(2, 'price', 250);
-productManager.deleteProduct(1);
-//El precio del producto con Id 2 fue actualizado.
-//Se eliminó el producto con id 1.
-
-productManager.getProducts();
-//Se llama nuevamente a getProducts para comprobar el funcionamiento de updateProduct y deleteProduct.
-
-productManager.deleteProduct(3);
-//Se intenta eliminar un producto que no existe para comprobar el error.
-*/
