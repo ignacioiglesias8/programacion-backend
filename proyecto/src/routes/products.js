@@ -48,6 +48,16 @@ router.get('/:pid', async (req, res) => {
     res.status(201).send ('Producto agregado correctamente')
 })*/
 
+router.put('/:pid', async (req, res) => {
+    const productId = parseInt(req.params.pid);
+    const fieldToUpdate = req.body.fieldToUpdate; 
+    const newValue = req.body.newValue;
+    
+    const product = await productManager.updateProduct(productId, fieldToUpdate, newValue);
+
+    res.send({product});
+})
+
 router.delete('/:pid', async (req, res) => {
     const productId = parseInt(req.params.pid);
     const product = await productManager.deleteProduct(productId);

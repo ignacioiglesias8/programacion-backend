@@ -78,16 +78,16 @@ class ProductManager{
         }
     }
 
-    updateProduct(id, fieldToUpdate, newValue) {
+    async updateProduct(id, fieldToUpdate, newValue) {
       try {
-        const data = fs.readFileSync(this.path, 'utf8');
+        const data = await fs.promises.readFile(this.path, 'utf8');
         const products = JSON.parse(data);
         const productToUpdate = products.find((product) => product.id === id);
   
         if (productToUpdate) {
           productToUpdate[fieldToUpdate] = newValue;
   
-          fs.writeFileSync(this.path, JSON.stringify(products));
+          await fs.promises.writeFile(this.path, JSON.stringify(products));
         } else {
           console.error('Producto no encontrado');
         }
