@@ -8,7 +8,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use('/api/products', routerProducts);
-app.use('/api/cart', routerCart);
+app.use('/api/carts', routerCart);
 
 const PORT= 8080;
 app.listen(PORT, (err, res) => {

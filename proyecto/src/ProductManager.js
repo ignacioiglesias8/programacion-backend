@@ -7,7 +7,7 @@ class ProductManager{
         this.path = filePath;
     }
 
-    addProduct(title, description, price, thumbnail, code, stock) {
+    async addProduct(title, description, price, thumbnail, code, stock) {
         if (!title || !description || !price || !thumbnail || !code || !stock) {
                 console.error('Todos los campos son obligatorios');
                 return;
@@ -35,7 +35,7 @@ class ProductManager{
 
             const productsData = JSON.stringify(this.products);
             try {
-                fs.writeFileSync(this.path, productsData);
+                await fs.promises.writeFile(this.path, productsData);
             } catch (err) {
                 console.error('Error al guardar los productos en el archivo:', err);
             }

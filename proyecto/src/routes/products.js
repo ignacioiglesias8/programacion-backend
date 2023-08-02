@@ -30,23 +30,13 @@ router.get('/:pid', async (req, res) => {
     res.send({product});
 })
 
-/*router.post('/', (req,res)=> {
-    const product = {
-        id: req.body.id ?? 'Sin nombre',
-        title : req.body.title ?? 'Sin curso',
-        description: req.body.description ?? 'Sin descripción',
-        code: req.body.code ?? 'Sin código',
-        price: req.body.price ?? 'Sin precio',
-        status: true,
-        stock: req.body.stock ?? 'Sin stock',
-        category: req.body.category ?? 'Sin categoría',
-        thumbnails: req.body.thumbnails ?? 'Sin imagen'
-    }
+router.post('/', async (req,res)=> {
+    const { title, description, price, thumbnail, code, stock } = req.body;
 
-    users.push(product);
+    const product = await productManager.addProduct(title, description, price, thumbnail, code, stock);
 
-    res.status(201).send ('Producto agregado correctamente')
-})*/
+    res.send({product})
+})
 
 router.put('/:pid', async (req, res) => {
     const productId = parseInt(req.params.pid);
