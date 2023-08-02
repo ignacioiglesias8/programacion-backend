@@ -30,7 +30,7 @@ router.get('/:pid', async (req, res) => {
     res.send({product});
 })
 
-router.post('/', (req,res)=> {
+/*router.post('/', (req,res)=> {
     const product = {
         id: req.body.id ?? 'Sin nombre',
         title : req.body.title ?? 'Sin curso',
@@ -46,6 +46,13 @@ router.post('/', (req,res)=> {
     users.push(product);
 
     res.status(201).send ('Producto agregado correctamente')
+})*/
+
+router.delete('/:pid', async (req, res) => {
+    const productId = parseInt(req.params.pid);
+    const product = await productManager.deleteProduct(productId);
+
+    res.send({product});
 })
 
 export default router;

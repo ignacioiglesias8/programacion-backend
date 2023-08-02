@@ -96,9 +96,9 @@ class ProductManager{
       }
     }
 
-    deleteProduct(id) {
+    async deleteProduct(id) {
       try {
-        const data = fs.readFileSync(this.path, 'utf8');
+        const data = await fs.promises.readFile(this.path, 'utf8');
         const products = JSON.parse(data);
   
         const index = products.findIndex((product) => product.id === id);
@@ -106,7 +106,7 @@ class ProductManager{
           products.splice(index, 1);
   
           const productsData = JSON.stringify(products);
-          fs.writeFileSync(this.path, productsData);
+          await fs.promises.writeFile(this.path, productsData);
         } else {
           console.error('Producto no encontrado');
         }
