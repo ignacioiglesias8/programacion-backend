@@ -8,13 +8,13 @@ const productManager = new ProductManager('./products.json');
 router.get('/', async (req, res) => {
     const products = await productManager.getProducts();
     const limit = parseInt(req.query.limit);
-    let productsToSend = products;
+    let showProducts = products;
     
     if (!isNaN(limit)) {
-        productsToSend = products.slice(0, limit);
+        showProducts = products.slice(0, limit);
     }
 
-    res.send(productsToSend)
+    res.send(showProducts)
 })
 
 router.get('/:pid', async (req, res) => {
@@ -22,9 +22,7 @@ router.get('/:pid', async (req, res) => {
     const product = await productManager.getProductById(productId);
 
     if (!product) {
-        return res.send({
-            error: 'Producto no encontrado'
-        });
+        return res.status(404).send({ error: 'Producto no encontrado' });
     }
 
     res.send({product});
@@ -43,19 +41,24 @@ router.post('/', async (req,res)=> {
 
 router.put('/:pid', async (req, res) => {
     const productId = parseInt(req.params.pid);
-    const fieldToUpdate = req.body.fieldToUpdate; 
-    const newValue = req.body.newValue;
-    
-    const product = await productManager.updateProduct(productId, fieldToUpdate, newValue);
+    const modifications = req.body;
 
-    res.send({product});
-})
+    const product = await productManager.getProductById(productId);
+
+    if (!product) {
+        return res.status(404).send({ error: 'Producto no encontrado' });
+    }
+
+    await productManager.updateProduct(productId, modifications);
+    
+    res.send({ product });
+});
 
 router.delete('/:pid', async (req, res) => {
     const productId = parseInt(req.params.pid);
     const product = await productManager.deleteProduct(productId);
 
-    res.send({product});
+    res.send({product, message: `El producto con Id ${productId} fue eliminado`});
 })
 
 export default router;

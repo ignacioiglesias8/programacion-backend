@@ -89,21 +89,36 @@ class ProductManager{
         }
     }
 
-    async updateProduct(id, fieldToUpdate, newValue) {
+    async updateProduct(id, modifications) {
       try {
-        const data = await fs.promises.readFile(this.path, 'utf8');
-        const products = JSON.parse(data);
-        const productToUpdate = products.find((product) => product.id === id);
+          const data = await fs.promises.readFile(this.path, 'utf8');
+          const products = JSON.parse(data);
+          const productToUpdate = products.find((product) => product.id === id);
   
-        if (productToUpdate) {
-          productToUpdate[fieldToUpdate] = newValue;
+          if (productToUpdate) {
+            for (const modification of modifications) {
+                const { field, value } = modification;
+                if (field === 'price' || field === 'stock') {
+                    productToUpdate[field] = Number(value);
+                } else if (field === 'status') {
+                    productToUpdate[field] = value === 'true';
+                } else if (field === 'thumbnail') {
+                    if (typeof value === 'string') {
+                        productToUpdate[field] = [value];
+                    } else if (Array.isArray(value)) {
+                        productToUpdate[field] = value;
+                    }
+                } else {
+                    productToUpdate[field] = value;
+                }
+            }
   
-          await fs.promises.writeFile(this.path, JSON.stringify(products));
-        } else {
-          console.error('Producto no encontrado');
-        }
+              await fs.promises.writeFile(this.path, JSON.stringify(products));
+          } else {
+              console.error('Producto no encontrado');
+          }
       } catch (err) {
-        console.error('Error al leer o escribir el archivo de productos:', err);
+          console.error('Error al leer o escribir el archivo de productos:', err);
       }
     }
 
