@@ -7,9 +7,10 @@ class ProductManager{
         this.path = filePath;
     }
 
-    async addProduct(title, description, price, thumbnails, code, stock, category, status = true) {
+    async addProduct(title, description, price, thumbnails, code, stock, category) {
+        const status=true;
+      
         if (!title || !description || !price || !code || !stock || !category) {
-          //no se comprende si status también debe ser obligatorio en esta parte
                 console.error('Todos los campos son obligatorios');
                 return;
             }
