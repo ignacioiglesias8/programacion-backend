@@ -88,11 +88,11 @@ El proyecto está organizado de la siguiente manera:
 
 	Campos obligatorios:
 
-		"title": "",
+                "title": "",
                 "description": "",
-		"code": "",
-		"price": "",
-		"stock": "",
+                "code": "",
+                "price": "",
+                "stock": "",
                 "category": "",
                 "thumbnails": []
 
