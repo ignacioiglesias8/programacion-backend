@@ -90,36 +90,40 @@ class ProductManager{
         }
     }
 
-    async updateProduct(id, modifications) {
-      try {
-          const data = await fs.promises.readFile(this.path, 'utf8');
-          const products = JSON.parse(data);
-          const productToUpdate = products.find((product) => product.id === id);
-  
-          if (productToUpdate) {
-            for (const modification of modifications) {
-                const { field, value } = modification;
-                if (field === 'price' || field === 'stock') {
-                    productToUpdate[field] = Number(value);
-                } else if (field === 'status') {
-                    productToUpdate[field] = value === 'true';
-                } else if (field === 'thumbnail') {
-                    if (typeof value === 'string') {
-                        productToUpdate[field] = [value];
-                    } else if (Array.isArray(value)) {
-                        productToUpdate[field] = value;
-                    }
-                } else {
-                    productToUpdate[field] = value;
-                }
+    async updateProduct(id, product) {
+      const products = await this.getProducts();
+      let productUpdated = {};
+
+      for (let key in products) {
+          if (products[key].id == id) {
+            products[key].title = product.title ? product.title : products[key].title;
+            products[key].description = product.description ? product.description : products[key].description;
+            products[key].price = product.price ? parseInt(product.price) : products[key].price;
+            products[key].code = product.code ? product.code : products[key].code;
+            products[key].stock = product.stock ? parseInt(product.stock) : products[key].stock;
+            products[key].category = product.category ? product.category : products[key].category;
+            if (Array.isArray(product.thumbnails)) {
+              products[key].thumbnails = product.thumbnails;
+            } else if (product.thumbnails) {
+              products[key].thumbnails = [product.thumbnails];
+            } else {
+              products[key].thumbnails = [];
             }
-  
-              await fs.promises.writeFile(this.path, JSON.stringify(products));
-          } else {
-              console.error('Producto no encontrado');
+            if (product.status !== undefined) {
+              products[key].status = typeof product.status === 'string' ? product.status === 'true' : Boolean(product.status);
+            }
+
+            productUpdated = products[key];
           }
-      } catch (err) {
-          console.error('Error al leer o escribir el archivo de productos:', err);
+      }
+
+      try {
+          await fs.promises.writeFile(this.path, JSON.stringify(products, null, "\t"));
+          return productUpdated;
+      } catch(e) {
+          return {
+              message: "Error al actualizar usuario!"
+          };
       }
     }
 
