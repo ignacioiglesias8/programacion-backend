@@ -90,9 +90,9 @@ El proyecto está organizado de la siguiente manera:
 
 	    	"title": "",
     		"description": "",
-   		"code": "",
-  		"price": "",
-    		"stock": "",
+		"code": "",
+		"price": "",
+		"stock": "",
     		"category": "",
     		"thumbnails": []
 
