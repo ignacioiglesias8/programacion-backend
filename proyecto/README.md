@@ -88,13 +88,13 @@ El proyecto está organizado de la siguiente manera:
 
 	Campos obligatorios:
 
-	    	"title": "",
-    		"description": "",
-		"code": "",
-		"price": "",
-		"stock": "",
-    		"category": "",
-    		"thumbnails": []
+	"title": "",
+    	"description": "",
+	"code": "",
+	"price": "",
+	"stock": "",
+    	"category": "",
+    	"thumbnails": []
 
 	El status se agrega por defecto en true.
 
