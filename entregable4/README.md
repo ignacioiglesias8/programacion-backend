@@ -59,14 +59,22 @@ El proyecto está organizado de la siguiente manera:
     |
     |---src/: Directorio contenedor del código fuente de la aplicación.
     |    |
-    |    |---routes/: Directorio contenedor de los rutas.
+    |    |---router/: Directorio contenedor de los rutas.
     |    |   |
-    |    |   |---cart.js: Endpoint carts.
-    |    |   |
-    |    |   |---products.js: Endpoint products.
+    |    |   |---routes/:
+    |    |   |   |---cart.js: Endpoint carts.   
+    |    |   |   | 
+    |    |   |   |---products.js: Endpoint products.  
+    |    |   |       
+    |    |   |---router.js: Router de todos los endpoints.
     |    |
-    |    |---router.js: Router de todos los endpoints.
-    |    |        
+    |    |---views/: Directorio contenedor de plantillas.
+    |    |   |
+    |    |   |---layouts/:
+    |    |   |   |---main.handlebars: Plantilla utilizada como marco principal.   
+    |    |   |       
+    |    |   |---index.handlebars: Plantilla utilizada en página inicial.
+    |    |
     |    |---app.js: Archivo que define la estructura y el comportamiento general de la interfaz de usuario.
     |    |
     |    |---CartManager.js: Archivo que configura las funciones del endpoint carts.
