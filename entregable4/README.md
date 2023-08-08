@@ -55,6 +55,8 @@ El proyecto está organizado de la siguiente manera:
 
     proyecto/: Directorio contenedor de la aplicación.
     |
+    |---public/: Directorio contenedor de carpetas y archivos estáticos.
+    |
     |---src/: Directorio contenedor del código fuente de la aplicación.
     |    |
     |    |---routes/: Directorio contenedor de los rutas.
@@ -63,6 +65,8 @@ El proyecto está organizado de la siguiente manera:
     |    |   |
     |    |   |---products.js: Endpoint products.
     |    |
+    |    |---router.js: Router de todos los endpoints.
+    |    |        
     |    |---app.js: Archivo que define la estructura y el comportamiento general de la interfaz de usuario.
     |    |
     |    |---CartManager.js: Archivo que configura las funciones del endpoint carts.
@@ -70,6 +74,8 @@ El proyecto está organizado de la siguiente manera:
     |    |---ProductManager.js: Archivo que configura las funciones del endpoint products.
     |    |
     |    |---products.json: Archivo contenedor del arreglo de productos.
+    |    |
+    |    |---utils.js: Archivo...    
     |
     |---package-lock.json: Archivo contenedor sobre las dependencias de un proyecto.
     |    
