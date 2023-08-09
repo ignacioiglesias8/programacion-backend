@@ -83,7 +83,7 @@ El proyecto está organizado de la siguiente manera:
     |    |
     |    |---products.json: Archivo contenedor del arreglo de productos.
     |    |
-    |    |---utils.js: Archivo...    
+    |    |---utils.js: Archivo contenedor de funciones y utilidades genéricas.    
     |
     |---package-lock.json: Archivo contenedor sobre las dependencias de un proyecto.
     |    
