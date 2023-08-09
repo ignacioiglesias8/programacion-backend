@@ -8,7 +8,8 @@ router.get('/', (req, res) => {
         'index',
         {
             title: "Nacho",
-            name: name
+            name: name,
+            style: "index.css"
         }
     );
 });
