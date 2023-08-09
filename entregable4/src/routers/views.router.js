@@ -11,8 +11,20 @@ router.get('/', async (req, res) => {
     res.render(
         'home',
         {
-            style: "index.css",
+            style: "home.css",
             products: products 
+        }
+    );
+});
+
+router.get('/realtimeproducts', async (req, res) => {
+    const realTimeProducts = await productManager.getProducts();
+
+    res.render(
+        'realTimeProducts',
+        {
+            style: "realtimeproducts.css",
+            products: realTimeProducts
         }
     );
 });
