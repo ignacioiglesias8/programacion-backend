@@ -56,17 +56,27 @@ El proyecto está organizado de la siguiente manera:
     proyecto/: Directorio contenedor de la aplicación.
     |
     |---public/: Directorio contenedor de carpetas y archivos estáticos.
-    |
+    |    |
+    |    |---css/: Directorio contenedor de archivos css.
+    |    |   |
+    |    |   |---index.js: Stylesheet principal
+    |    |
+    |    |---js/: Directorio contenedor de archivos js.
+    |        |
+    |        |---index.js: Script principal.
+    |    
     |---src/: Directorio contenedor del código fuente de la aplicación.
     |    |
-    |    |---router/: Directorio contenedor de los rutas.
+    |    |---routers/: Directorio contenedor de los rutas.
     |    |   |
     |    |   |---routes/:
     |    |   |   |---cart.js: Endpoint carts.   
     |    |   |   | 
     |    |   |   |---products.js: Endpoint products.  
     |    |   |       
-    |    |   |---router.js: Router de todos los endpoints.
+    |    |   |---routes.router.js: Router de endpoints.
+    |    |   |
+    |    |   |---views.router.js: Router de vistas.
     |    |
     |    |---views/: Directorio contenedor de plantillas.
     |    |   |

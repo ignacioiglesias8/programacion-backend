@@ -1,15 +1,18 @@
 import { Router } from 'express';
+import ProductManager from "../ProductManager.js";
 
 const router = Router();
 
-router.get('/', (req, res) => {
-    const name = req.query.name ?? "Usuario";
+const productManager = new ProductManager('./products.json');
+
+router.get('/', async (req, res) => {
+    const products = await productManager.getProducts();
+
     res.render(
-        'index',
+        'home',
         {
-            title: "Nacho",
-            name: name,
-            style: "index.css"
+            style: "index.css",
+            products: products 
         }
     );
 });

@@ -1,0 +1,15 @@
+<div>
+    <h1>Listado de todos los Productos</h1>
+    <div class="product-list">
+        {{#each products}}
+            <div class="product-card">
+                <h2>{{title}}</h2>
+                <p>{{description}}</p>
+                <p>Precio: {{price}}</p>
+                <p>Stock: {{stock}}</p>
+            </div>
+        {{/each}}
+    </div>
+</div>
+
+<script src="/js/index.js"></script>
