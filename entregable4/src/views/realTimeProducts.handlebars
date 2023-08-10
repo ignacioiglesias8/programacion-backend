@@ -1,3 +1,27 @@
+<h1>Crear Nuevo Producto</h1>
+
+<form action="/realtimeproducts" method="post">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="description">Descripción:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="price">Precio:</label>
+    <textarea id="price" name="price" required></textarea>
+
+    <label for="code">Código:</label>
+    <textarea id="code" name="code" required></textarea>
+
+    <label for="stock">Stock:</label>
+    <textarea id="stock" name="stock" required></textarea>
+
+    <label for="category">Categoría:</label>
+    <textarea id="category" name="category" required></textarea>
+
+    <button type="submit">Crear Producto</button>
+</form>
+
 <div>
     <h1>Productos en tiempo real</h1>
     <div class="product-list">
@@ -12,4 +36,5 @@
     </div>
 </div>
 
+<script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>

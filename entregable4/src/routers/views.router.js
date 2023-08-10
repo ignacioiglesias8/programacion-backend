@@ -29,4 +29,14 @@ router.get('/realtimeproducts', async (req, res) => {
     );
 });
 
+/*router.post('/realtimeproducts', async (req, res) => {
+    const { title, description, price, thumbnails, code, stock, category, status } = req.body;
+    const parsePrice = parseFloat(price);
+    const parseStock = parseFloat(stock);
+    const product = await productManager.addProduct(title, description, parsePrice, thumbnails, code, parseStock, category, status);
+
+    socketServer.emit('product-created', product);
+    res.redirect('/realtimeproducts');
+});*/
+
 export default router;
