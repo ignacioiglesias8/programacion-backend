@@ -2,7 +2,7 @@
 
 <form action="/realtimeproducts" method="post">
     <label for="title">Título:</label>
-    <input type="text" id="title" name="title" required>
+    <textarea type="text" id="title" name="title" required></textarea>
 
     <label for="description">Descripción:</label>
     <textarea id="description" name="description" required></textarea>
@@ -19,7 +19,7 @@
     <label for="category">Categoría:</label>
     <textarea id="category" name="category" required></textarea>
 
-    <button type="submit">Crear Producto</button>
+    <button onClick="sendEvent()">Crear Producto</button>
 </form>
 
 <div>

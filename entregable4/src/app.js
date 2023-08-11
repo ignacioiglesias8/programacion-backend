@@ -4,6 +4,7 @@ import viewsRouter from './routers/views.router.js';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import {Server} from 'socket.io';
+import ProductManager from './ProductManager.js';
 
 const app = express();
 
@@ -24,11 +25,25 @@ const httpServer = app.listen(PORT, (err, res) => {
     console.log(`servidor en el PORT: ${PORT}`)
 });
 
-const socketServer = new Server(httpServer);
+const productManager = new ProductManager(__dirname + '/products.json');
 
-socketServer.on('connection', socket=>{
+const io = new Server(httpServer);
+
+io.on('connection', socket=>{
     console.log('Nuevo cliente conectado')
-    socket.on('message', data=>{
-        console.log(data)
+
+    socket.on('sendProduct', async data=>{
+        const product = await productManager.addProduct(
+            data.title,
+            data.description,
+            parseFloat(data.price),
+            data.thumbnails,
+            data.code,
+            parseFloat(data.stock),
+            data.category,
+            data.status
+        );
+        io.emit('showProduct', product);
     })
 });
+//emit un evento con un get para mostrar todos los productos

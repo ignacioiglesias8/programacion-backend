@@ -2,28 +2,33 @@ console.log('Hola desde un archivo público')
 
 const socket = io();
 
-/*
-socket.on('product-created', (product) => {
-    const productContainer = document.querySelector('.product-list');
-    const newProductDiv = document.createElement('div');
-    newProductDiv.className = 'product-card'; 
+function sendEvent(){
+    const productData = {
+        title: document.querySelector('#title').value,
+        description: document.querySelector('#description').value,
+        price: document.querySelector('#price').value,
+        code: document.querySelector('#code').value,
+        stock: document.querySelector('#stock').value,
+        category: document.querySelector('#category').value,
+    };
 
-    const titleElement = document.createElement('h2');
-    titleElement.textContent = product.title;
+    socket.emit('sendProduct', productData);
 
-    const descriptionElement = document.createElement('p');
-    descriptionElement.textContent = product.description;
+    const inputFields = ['title', 'description', 'price', 'code', 'stock', 'category'];
+    inputFields.forEach(field => document.querySelector(`#${field}`).value = '');
+}
 
-    const priceElement = document.createElement('p');
-    priceElement.textContent = `Precio: ${product.price}`;
+socket.on('showProduct', (product) => {
+    const container = document.querySelector('.product-list');
 
-    const stockElement = document.createElement('p');
-    stockElement.textContent = `Stock: ${product.stock}`;
+    const productCard = `
+        <div class="product-card">
+            <h2>${product.title}</h2>
+            <p>${product.description}</p>
+            <p>Precio: ${product.price}</p>
+            <p>Stock: ${product.stock}</p>
+        </div>
+    `;
 
-    newProductDiv.appendChild(titleElement);
-    newProductDiv.appendChild(descriptionElement);
-    newProductDiv.appendChild(priceElement);
-    newProductDiv.appendChild(stockElement);
-
-    productContainer.appendChild(newProductDiv);
-});*/
+    container.innerHTML += productCard;
+});
