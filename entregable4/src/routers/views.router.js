@@ -29,10 +29,4 @@ router.get('/realtimeproducts', async (req, res) => {
     );
 });
 
-router.post('/realtimeproducts', async (req, res) => {
-    io.emit('showProduct', product);
-
-    res.render('/realtimeproducts');
-});
-
 export default router;

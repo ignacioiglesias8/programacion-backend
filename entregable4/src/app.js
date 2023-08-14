@@ -33,6 +33,7 @@ io.on('connection', socket=>{
     console.log('Nuevo cliente conectado')
 
     socket.on('sendProduct', async data=>{
+        
         const product = await productManager.addProduct(
             data.title,
             data.description,
