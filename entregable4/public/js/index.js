@@ -11,12 +11,13 @@ socket.on('loadproducts', async (products) => {
         const productCard = `
             <div class="product-card">
                 <h2>${product.title}</h2>
+                <p>Id:${product.id}</p>
                 <p>${product.description}</p>
                 <p>Precio: ${product.price}</p>
                 <p>Stock: ${product.stock}</p>
             </div>
         `;
-        
+
         container.innerHTML += productCard;
     });
 });
@@ -43,6 +44,7 @@ socket.on('showProduct', (product) => {
     const productCard = `
         <div class="product-card">
             <h2>${product.title}</h2>
+            <p>Id:${product.id}</p>
             <p>${product.description}</p>
             <p>Precio: ${product.price}</p>
             <p>Stock: ${product.stock}</p>
@@ -51,3 +53,11 @@ socket.on('showProduct', (product) => {
 
     container.innerHTML += productCard;
 });
+
+function deleteProduct() {
+    const productId = document.querySelector('#product-id').value;
+
+    socket.emit('deleteProduct', { id: productId });
+
+    document.querySelector('#product-id').value = '';
+}

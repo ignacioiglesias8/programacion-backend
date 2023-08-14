@@ -49,4 +49,12 @@ io.on('connection', async socket=>{
         );
         io.emit('showProduct', product);
     })
+
+    socket.on('deleteProduct', async data => {
+        const productId = parseInt(data.id);
+        await productManager.deleteProduct(productId);
+
+        const updatedProducts = await productManager.getProducts();
+        io.emit('loadproducts', updatedProducts);
+    });
 });
