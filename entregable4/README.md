@@ -83,7 +83,9 @@ El proyecto está organizado de la siguiente manera:
     |    |   |---layouts/:
     |    |   |   |---main.handlebars: Plantilla utilizada como marco principal.   
     |    |   |       
-    |    |   |---index.handlebars: Plantilla utilizada en página inicial.
+    |    |   |---index.handlebars: Plantilla utilizada en página inicial estática.
+    |    |   |
+    |    |   |---realTimeProducts.handlebars: Plantilla utilizada en página inicial en tiempo real.
     |    |
     |    |---app.js: Archivo que define la estructura y el comportamiento general de la interfaz de usuario.
     |    |
