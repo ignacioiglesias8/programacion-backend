@@ -2,6 +2,25 @@ console.log('Hola desde un archivo público')
 
 const socket = io();
 
+socket.on('loadproducts', async (products) => {
+    const container = document.querySelector('.product-list');
+
+    container.innerHTML = '';
+
+    products.forEach(product => {
+        const productCard = `
+            <div class="product-card">
+                <h2>${product.title}</h2>
+                <p>${product.description}</p>
+                <p>Precio: ${product.price}</p>
+                <p>Stock: ${product.stock}</p>
+            </div>
+        `;
+        
+        container.innerHTML += productCard;
+    });
+});
+
 function sendEvent(){
     const productData = {
         title: document.querySelector('#title').value,

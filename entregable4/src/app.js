@@ -29,8 +29,11 @@ const productManager = new ProductManager(__dirname + '/products.json');
 
 const io = new Server(httpServer);
 
-io.on('connection', socket=>{
+io.on('connection', async socket=>{
     console.log('Nuevo cliente conectado')
+
+    const products = await productManager.getProducts();
+    io.emit('loadproducts', products);
 
     socket.on('sendProduct', async data=>{
         
@@ -47,4 +50,3 @@ io.on('connection', socket=>{
         io.emit('showProduct', product);
     })
 });
-//emit un evento con un get para mostrar todos los productos
