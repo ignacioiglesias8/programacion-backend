@@ -71,7 +71,25 @@ router.get('/', async (req, res) => {
     try{
         const products = await productModel.find();
         res.send({result:"success", payload:products});
-        console.log(products)
+    }
+    catch(error){
+        console.error(error.message);
+        res.status(500).send({
+            status: 'error',
+            message: error.message
+        })
+    }
+})
+
+router.get('/:pid', async (req, res) => {
+    const id= req.params.pid;
+    
+    try{
+        const product= await productModel.find({_id: id});
+        res.status(201).send({
+            status: 'success',
+            payload: product
+        });
     }
     catch(error){
         console.error(error.message);
