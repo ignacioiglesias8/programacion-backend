@@ -4,7 +4,7 @@ import viewsRouter from './routers/views.router.js';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import {Server} from 'socket.io';
-import ProductManager from './ProductManager.js';
+import ProductManager from './dao/ProductManager.js';
 
 const app = express();
 
