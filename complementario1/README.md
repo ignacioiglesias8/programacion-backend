@@ -55,13 +55,37 @@ El proyecto está organizado de la siguiente manera:
 
     proyecto/: Directorio contenedor de la aplicación.
     |
+    |---public/: Directorio contenedor de carpetas y archivos estáticos.
+    |    |
+    |    |---css/: Directorio contenedor de archivos css.
+    |    |   |
+    |    |   |---index.js: Stylesheet principal
+    |    |
+    |    |---js/: Directorio contenedor de archivos js.
+    |        |
+    |        |---index.js: Script principal.
+    |    
     |---src/: Directorio contenedor del código fuente de la aplicación.
     |    |
-    |    |---routes/: Directorio contenedor de los rutas.
+    |    |---routers/: Directorio contenedor de los rutas.
     |    |   |
-    |    |   |---cart.js: Endpoint carts.
+    |    |   |---routes/:
+    |    |   |   |---cart.js: Endpoint carts.   
+    |    |   |   | 
+    |    |   |   |---products.js: Endpoint products.  
+    |    |   |       
+    |    |   |---routes.router.js: Router de endpoints.
     |    |   |
-    |    |   |---products.js: Endpoint products.
+    |    |   |---views.router.js: Router de vistas.
+    |    |
+    |    |---views/: Directorio contenedor de plantillas.
+    |    |   |
+    |    |   |---layouts/:
+    |    |   |   |---main.handlebars: Plantilla utilizada como marco principal.   
+    |    |   |       
+    |    |   |---index.handlebars: Plantilla utilizada en página inicial estática.
+    |    |   |
+    |    |   |---realTimeProducts.handlebars: Plantilla utilizada en página inicial en tiempo real.
     |    |
     |    |---app.js: Archivo que define la estructura y el comportamiento general de la interfaz de usuario.
     |    |
@@ -70,6 +94,8 @@ El proyecto está organizado de la siguiente manera:
     |    |---ProductManager.js: Archivo que configura las funciones del endpoint products.
     |    |
     |    |---products.json: Archivo contenedor del arreglo de productos.
+    |    |
+    |    |---utils.js: Archivo contenedor de funciones y utilidades genéricas.    
     |
     |---package-lock.json: Archivo contenedor sobre las dependencias de un proyecto.
     |    
