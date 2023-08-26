@@ -5,6 +5,7 @@ import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import {Server} from 'socket.io';
 import ProductManager from './dao/ProductManager.js';
+import mongoose from 'mongoose';
 
 const app = express();
 
@@ -16,6 +17,9 @@ app.use(express.static(__dirname + '/../public'));
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+const uri= "mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority"
+mongoose.connect(uri)
 
 app.use('/api', routesRouter);
 app.use('/', viewsRouter);
