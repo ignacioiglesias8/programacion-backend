@@ -33,6 +33,7 @@ const productManager = new ProductManager(__dirname + '/products.json');
 
 const io = new Server(httpServer);
 
+//websocket para realTimeProducts
 io.on('connection', async socket=>{
     console.log('Nuevo cliente conectado')
 
@@ -61,4 +62,20 @@ io.on('connection', async socket=>{
         const updatedProducts = await productManager.getProducts();
         io.emit('loadproducts', updatedProducts);
     });
+});
+
+//websocket para chat
+const messages = [];
+io.on('connection', socket => {
+    console.log('Nuevo cliente conectado ', socket.id);
+
+    socket.on('message', data => {
+        messages.push(data);
+        io.emit('messagesLogs', messages);
+    });
+
+    socket.on('userConnect', data => {
+        socket.emit('messagesLogs', messages);
+        socket.broadcast.emit('newUser', data);
+    })
 });
