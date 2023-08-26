@@ -6,6 +6,7 @@ import __dirname from './utils.js';
 import {Server} from 'socket.io';
 import ProductManager from './dao/ProductManager.js';
 import mongoose from 'mongoose';
+import { messageModel} from '../src/dao/models/messages.model.js'
 
 const app = express();
 
@@ -69,13 +70,18 @@ const messages = [];
 io.on('connection', socket => {
     console.log('Nuevo cliente conectado ', socket.id);
 
-    socket.on('message', data => {
+    socket.on('message', async data => {
+        try {
+            await messageModel.create(data); 
+        } catch (error) {
+            console.error('Error al guardar el mensaje en la base de datos:', error.message);
+        }
         messages.push(data);
         io.emit('messagesLogs', messages);
     });
 
-    socket.on('userConnect', data => {
-        socket.emit('messagesLogs', messages);
+    socket.on('userConnect', async data => {
+        socket.emit('messagesLogs', await messageModel.find());
         socket.broadcast.emit('newUser', data);
-    })
+    });
 });
