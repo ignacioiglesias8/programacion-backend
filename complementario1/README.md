@@ -59,13 +59,30 @@ El proyecto está organizado de la siguiente manera:
     |    |
     |    |---css/: Directorio contenedor de archivos css.
     |    |   |
-    |    |   |---index.js: Stylesheet principal
+    |    |   |---chat.js: Stylesheet para la vista chat.
+    |    |   |
+    |    |   |---home.js: Stylesheet para la vista home.
+    |    |   |
+    |    |   |---realtimeproducts.js: Stylesheet para la vista realtime.
     |    |
     |    |---js/: Directorio contenedor de archivos js.
     |        |
     |        |---index.js: Script principal.
     |    
     |---src/: Directorio contenedor del código fuente de la aplicación.
+    |    |
+    |    |---dao/: Directorio contenedor de managers.
+    |    |   |
+    |    |   |---models/:
+    |    |   |   |---carts.model.js: Esquema para gestionar db carts.   
+    |    |   |   | 
+    |    |   |   |---messages.model.js: Esquema para gestionar db messages.
+    |    |   |   |
+    |    |   |   |---products.model.js: Esquema para gestionar db products.
+    |    |   |       
+    |    |   |---CartManager.js: Configuración de fs del endpoint cart.
+    |    |   |
+    |    |   |---ProductManager.js: Configuración de fs del endpoint product.
     |    |
     |    |---routers/: Directorio contenedor de los rutas.
     |    |   |
@@ -83,15 +100,13 @@ El proyecto está organizado de la siguiente manera:
     |    |   |---layouts/:
     |    |   |   |---main.handlebars: Plantilla utilizada como marco principal.   
     |    |   |       
-    |    |   |---index.handlebars: Plantilla utilizada en página inicial estática.
+    |    |   |---chat.handlebars: Plantilla utilizada en la página chat.
+    |    |   |
+    |    |   |---home.handlebars: Plantilla utilizada en página inicial estática.
     |    |   |
     |    |   |---realTimeProducts.handlebars: Plantilla utilizada en página inicial en tiempo real.
     |    |
     |    |---app.js: Archivo que define la estructura y el comportamiento general de la interfaz de usuario.
-    |    |
-    |    |---CartManager.js: Archivo que configura las funciones del endpoint carts.
-    |    |
-    |    |---ProductManager.js: Archivo que configura las funciones del endpoint products.
     |    |
     |    |---products.json: Archivo contenedor del arreglo de productos.
     |    |

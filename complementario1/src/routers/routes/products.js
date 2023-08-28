@@ -152,7 +152,7 @@ router.put('/:pid', async (req, res) => {
 router.delete('/:pid', async(req, res)=>{
     const id = req.params.pid;
 
-    const result =await productModel.deleteOne({_id:id});
+    const result = await productModel.deleteOne({_id:id});
     res.status(200).send({
         status: "success",
         payload: result,

@@ -1,3 +1,5 @@
+//para volver a utilizar fs debe cambiarse _id por id
+
 console.log('Hola desde un archivo público')
 
 const socket = io();
@@ -11,7 +13,7 @@ socket.on('loadproducts', async (products) => {
         const productCard = `
             <div class="product-card">
                 <h2>${product.title}</h2>
-                <p>Id:${product.id}</p>
+                <p>Id:${product._id}</p>
                 <p>${product.description}</p>
                 <p>Precio: ${product.price}</p>
                 <p>Stock: ${product.stock}</p>
@@ -44,7 +46,7 @@ socket.on('showProduct', (product) => {
     const productCard = `
         <div class="product-card">
             <h2>${product.title}</h2>
-            <p>Id:${product.id}</p>
+            <p>Id: ${product._id}</p>
             <p>${product.description}</p>
             <p>Precio: ${product.price}</p>
             <p>Stock: ${product.stock}</p>

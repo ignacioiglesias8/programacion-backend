@@ -6,7 +6,8 @@ import __dirname from './utils.js';
 import {Server} from 'socket.io';
 import ProductManager from './dao/ProductManager.js';
 import mongoose from 'mongoose';
-import { messageModel} from '../src/dao/models/messages.model.js'
+import { messageModel} from '../src/dao/models/messages.model.js';
+import { productModel} from '../src/dao/models/products.model.js';
 
 const app = express();
 
@@ -33,8 +34,8 @@ const httpServer = app.listen(PORT, (err, res) => {
 const productManager = new ProductManager(__dirname + '/products.json');
 
 const io = new Server(httpServer);
-
-//websocket para realTimeProducts
+/*
+//websocket para realTimeProducts con fs
 io.on('connection', async socket=>{
     console.log('Nuevo cliente conectado')
 
@@ -61,6 +62,41 @@ io.on('connection', async socket=>{
         await productManager.deleteProduct(productId);
 
         const updatedProducts = await productManager.getProducts();
+        io.emit('loadproducts', updatedProducts);
+    });
+});*/
+
+//websocket para realTimeProducts con db
+io.on('connection', async socket=>{
+    console.log('Nuevo cliente conectado')
+
+    const products = await productModel.find();
+    io.emit('loadproducts', products);
+
+    socket.on('sendProduct', async data=>{
+        const product = await productModel.create({
+            title: data.title,
+            description: data.description,
+            price: data.price,
+            thumbnails: data.thumbnails,
+            code: data.code,
+            stock: data.stock,
+            category: data.category,
+            status: data.status
+        });
+
+        io.emit('showProduct', product);
+    })
+
+    socket.on('deleteProduct', async data => {
+        const id = data.id;
+        try{
+            await productModel.deleteOne({_id:id});
+        }catch (error){
+            console.error('Error al eliminar el producto en la base de datos:', error.message);
+        }
+
+        const updatedProducts = await productModel.find();
         io.emit('loadproducts', updatedProducts);
     });
 });
