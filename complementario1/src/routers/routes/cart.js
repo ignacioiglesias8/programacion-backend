@@ -23,7 +23,7 @@ router.get('/:cid', async (req, res) => {
         return res.status(404).json({ error: 'Carrito no encontrado' });
     }
     
-    res.json(cartProducts);
+    res.send({cartProducts});
 });
 
 router.post('/:cid/product/:pid', async (req, res) => {
