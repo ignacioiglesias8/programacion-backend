@@ -4,10 +4,9 @@ import viewsRouter from './routers/views.router.js';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import {Server} from 'socket.io';
-import ProductManager from './dao/ProductManager.js';
+import ProductManager from './dao/fs/ProductManagerFS.js';
 import mongoose from 'mongoose';
-import { messageModel} from '../src/dao/models/messages.model.js';
-import { productModel} from '../src/dao/models/products.model.js';
+import { messageModel} from './dao/db/models/messages.model.js';
 
 const app = express();
 
