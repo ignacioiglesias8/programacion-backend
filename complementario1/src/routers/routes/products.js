@@ -1,11 +1,11 @@
 import { Router} from 'express';
-import ProductManager from "../../dao/fs/ProductManagerFS.js";
-//import __dirname from "../../utils.js"
+//import ProductManager from "../../dao/fs/ProductManagerFS.js";
+import ProductManager from "../../dao/db/ProductManagerDB.js";
 
 const router = Router();
 
-//const productManager = new ProductManager(__dirname +'/products.json');
-const productManager = new ProductManager('./products.json');
+//const productManager = new ProductManager('./products.json');
+const productManager = new ProductManager();
 
 router.get('/', async (req, res) => {
     const products = await productManager.getProducts();
@@ -20,7 +20,8 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:pid', async (req, res) => {
-    const productId = parseInt(req.params.pid);
+//    const productId = parseInt(req.params.pid);
+    const productId = req.params.pid;
     const product = await productManager.getProductById(productId);
 
     if (!product) {
@@ -42,7 +43,8 @@ router.post('/', async (req,res)=> {
 })
 
 router.put('/:pid', async (req, res) => {
-    const productId = parseInt(req.params.pid);
+//    const productId = parseInt(req.params.pid);
+    const productId = req.params.pid;
     const modifications = req.body;
 
     const product = await productManager.getProductById(productId);
@@ -52,12 +54,14 @@ router.put('/:pid', async (req, res) => {
     }
 
     await productManager.updateProduct(productId, modifications);
+    const updatedProduct = await productManager.getProductById(productId);
     
-    res.send({ product });
+    res.send({ updatedProduct });
 });
 
 router.delete('/:pid', async (req, res) => {
-    const productId = parseInt(req.params.pid);
+//    const productId = parseInt(req.params.pid);
+    const productId = req.params.pid;
     const product = await productManager.deleteProduct(productId);
 
     res.send({product, message: `El producto con Id ${productId} fue eliminado`});
