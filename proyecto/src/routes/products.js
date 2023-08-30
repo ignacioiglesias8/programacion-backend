@@ -18,8 +18,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:pid', async (req, res) => {
-    const productId = parseInt(req.params.pid);
-    const product = await productManager.getProductById(productId);
+    const product = await productManager.getProductById(req.params.pid);
 
     if (!product) {
         return res.status(404).send({ error: 'Producto no encontrado' });
@@ -40,7 +39,7 @@ router.post('/', async (req,res)=> {
 })
 
 router.put('/:pid', async (req, res) => {
-    const productId = parseInt(req.params.pid);
+    const productId = req.params.pid;
     const modifications = req.body;
 
     const product = await productManager.getProductById(productId);
@@ -55,10 +54,9 @@ router.put('/:pid', async (req, res) => {
 });
 
 router.delete('/:pid', async (req, res) => {
-    const productId = parseInt(req.params.pid);
-    const product = await productManager.deleteProduct(productId);
+    const product = await productManager.deleteProduct(req.params.pid);
 
-    res.send({product, message: `El producto con Id ${productId} fue eliminado`});
+    res.send({product, message: `El producto con Id ${product} fue eliminado`});
 })
 
 export default router;

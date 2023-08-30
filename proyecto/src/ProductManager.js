@@ -70,8 +70,10 @@ class ProductManager{
         }}
       }
 
-    async getProductById(id) {
-        try {
+    async getProductById(_id) {
+      const id = parseInt(_id);
+
+      try {
           const data = await fs.promises.readFile(this.path, 'utf8');
           const products = JSON.parse(data);
           this.products = products;
@@ -90,9 +92,10 @@ class ProductManager{
         }
     }
 
-    async updateProduct(id, product) {
+    async updateProduct(_id, product) {
       const products = await this.getProducts();
       let productUpdated = {};
+      const id = parseInt(_id);
 
       for (let key in products) {
           if (products[key].id == id) {
@@ -127,7 +130,9 @@ class ProductManager{
       }
     }
 
-    async deleteProduct(id) {
+    async deleteProduct(_id) {
+      const id = parseInt(_id)
+      
       try {
         const data = await fs.promises.readFile(this.path, 'utf8');
         const products = JSON.parse(data);
