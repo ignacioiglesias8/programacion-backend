@@ -1,53 +1,25 @@
-import fs from "fs";
+import { cartModel } from '../db/models/carts.model.js';
 
 class CartManager {
-    constructor(filePath) {
-        this.carts = [];
-        this.lastId = 0;
-        this.path = filePath;
-    }
 
     async createCart() {
-        try {
-            const data = await fs.promises.readFile(this.path, 'utf8');
-            this.carts = JSON.parse(data);
-        } catch (err) {
-            this.carts = [];
-        }
-
-        const lastCartId = this.carts.length > 0 ? this.carts[this.carts.length - 1].id : 0;
-        const id = lastCartId + 1;
-
-        if (typeof products === 'string') {
-            products = [products];
-        }
-
         const cart = {
-            id,
             products: [],
         };
-
-        this.carts.push(cart);
         
-        const cartsData = JSON.stringify(this.carts)
         try {
-            await fs.promises.writeFile(this.path, cartsData);
+            const createCart = await cartModel.create(cart);
+            return createCart;
             } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
             }
     }
 
     async getCartById(_id) {
-        const id = parseInt(_id)
-
         try {
-            const data = await fs.promises.readFile(this.path, 'utf8');
-            const carts = JSON.parse(data);
-            this.carts = carts;
-        
-            const cart = this.carts.find((cart) => cart.id === id);
+            const cart = await cartModel.find({_id});
+
             if (cart) {
-                console.log(cart);
                 return cart;
             } else {
                 console.error('Producto no encontrado');
