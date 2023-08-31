@@ -62,8 +62,6 @@ El proyecto está organizado de la siguiente manera:
     |    |   |---chat.js: Stylesheet para la vista chat.
     |    |   |
     |    |   |---home.js: Stylesheet para la vista home.
-    |    |   |
-    |    |   |---realtimeproducts.js: Stylesheet para la vista realtime.
     |    |
     |    |---js/: Directorio contenedor de archivos js.
     |        |
@@ -73,16 +71,25 @@ El proyecto está organizado de la siguiente manera:
     |    |
     |    |---dao/: Directorio contenedor de managers.
     |    |   |
-    |    |   |---models/:
-    |    |   |   |---carts.model.js: Esquema para gestionar db carts.   
-    |    |   |   | 
-    |    |   |   |---messages.model.js: Esquema para gestionar db messages.
+    |    |   |---db: 
     |    |   |   |
-    |    |   |   |---products.model.js: Esquema para gestionar db products.
-    |    |   |       
-    |    |   |---CartManager.js: Configuración de fs del endpoint cart.
+    |    |   |   |---models/:
+    |    |   |   |   |
+    |    |   |   |   |---carts.model.js: Esquema para gestionar db carts.  
+    |    |   |   |   |
+    |    |   |   |   |---messages.model.js: Esquema para gestionar db messages.
+    |    |   |   |   |
+    |    |   |   |   |---products.model.js: Esquema para gestionar db products.
+    |    |   |   |
+    |    |   |   |---CartManagerDB.js: Configuración de db del endpoint cart.
+    |    |   |   | 
+    |    |   |   |---ProductManagerDB.js: Configuración de db del endpoint product.
     |    |   |
-    |    |   |---ProductManager.js: Configuración de fs del endpoint product.
+    |    |   |---fs: 
+    |    |       |
+    |    |       |---CartManagerFS.js: Configuración de fs del endpoint cart.
+    |    |       |
+    |    |       |---ProductManagerFS.js: Configuración de fs del endpoint product.
     |    |
     |    |---routers/: Directorio contenedor de los rutas.
     |    |   |
@@ -103,8 +110,6 @@ El proyecto está organizado de la siguiente manera:
     |    |   |---chat.handlebars: Plantilla utilizada en la página chat.
     |    |   |
     |    |   |---home.handlebars: Plantilla utilizada en página inicial estática.
-    |    |   |
-    |    |   |---realTimeProducts.handlebars: Plantilla utilizada en página inicial en tiempo real.
     |    |
     |    |---app.js: Archivo que define la estructura y el comportamiento general de la interfaz de usuario.
     |    |

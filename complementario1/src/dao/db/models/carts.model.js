@@ -4,8 +4,15 @@ const userCollection = 'carts';
 
 const userSchema = new mongoose.Schema({
     products: {
-        type:Array,
-        required:true,
+        type:[
+            {
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "product"
+                }
+            }
+        ],
+        default: [],
     },
 })
 

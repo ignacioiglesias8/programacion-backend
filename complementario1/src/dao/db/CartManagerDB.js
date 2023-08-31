@@ -1,4 +1,5 @@
 import { cartModel } from '../db/models/carts.model.js';
+import { productModel } from '../db/models/products.model.js';
 
 class CartManager {
 
@@ -32,25 +33,21 @@ class CartManager {
     }
 
     async addProductToCart(cartId, productId, quantity) {
-        const cart = this.carts.find((cart) => cart.id === cartId);
+        try {
+        let cart = await cartModel.find({_id:cartId});
         if (!cart) {
             console.error("Carrito no encontrado");
-        return;
+            return;
         }
+        
+        let product = await productModel.find({_id:productId})
+        cart.products.push({product});
 
-        const existingProduct = cart.products.find(
-        (product) => product.product === productId);
-        if (existingProduct) {
-            existingProduct.quantity += quantity;
-        } else {
-            cart.products.push({ product: productId, quantity });
-        }
-
-        try {
-            await fs.promises.writeFile(this.path, JSON.stringify(this.carts));
-            } catch (err) {
+        await cartModel.updateOne({_id:cartId}, cart);
+    
+        } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
-            }
+        }
     }
 }
 
