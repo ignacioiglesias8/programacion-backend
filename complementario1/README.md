@@ -81,9 +81,11 @@ El proyecto está organizado de la siguiente manera:
     |    |   |   |   |
     |    |   |   |   |---products.model.js: Esquema para gestionar db products.
     |    |   |   |
-    |    |   |   |---CartManagerDB.js: Configuración de db del endpoint cart.
+    |    |   |   |---CartManagerDB.js: Configuración db del endpoint cart.
     |    |   |   | 
-    |    |   |   |---ProductManagerDB.js: Configuración de db del endpoint product.
+    |    |   |   |---ChatManagerDB.js: Configuración db del endpoint chat.
+    |    |   |   | 
+    |    |   |   |---ProductManagerDB.js: Configuración db del endpoint product.
     |    |   |
     |    |   |---fs: 
     |    |       |
@@ -95,6 +97,8 @@ El proyecto está organizado de la siguiente manera:
     |    |   |
     |    |   |---routes/:
     |    |   |   |---cart.js: Endpoint carts.   
+    |    |   |   | 
+    |    |   |   |---chat.js: Endpoint chat.js. 
     |    |   |   | 
     |    |   |   |---products.js: Endpoint products.  
     |    |   |       
