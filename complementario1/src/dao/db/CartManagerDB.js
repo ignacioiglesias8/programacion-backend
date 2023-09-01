@@ -34,17 +34,19 @@ class CartManager {
 
     async addProductToCart(cartId, productId, quantity) {
         try {
-        let cart = await cartModel.find({_id:cartId});
+        const cart = await cartModel.find({_id:cartId});
         if (!cart) {
             console.error("Carrito no encontrado");
             return;
         }
-        
-        let product = await productModel.find({_id:productId})
-        cart.products.push({product});
 
-        await cartModel.updateOne({_id:cartId}, cart);
-    
+        const product = await productModel.find({_id:productId});
+        const productToAdd = product[0]._id.toString();
+
+        cart[0].products.push({product:productToAdd});
+
+        await cartModel.updateOne({ _id: cartId },{ $push: { products: { product: productToAdd } } });
+        
         } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
         }
