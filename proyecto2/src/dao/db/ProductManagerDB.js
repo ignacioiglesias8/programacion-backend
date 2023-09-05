@@ -29,15 +29,17 @@ class ProductManager{
         }
     }
 
-  async getProducts(limit, order, category) {
+  async getProducts(limit, order, category, status) {
     if (isNaN(limit) || limit <= 0) {
       limit = 10;
     }
-    
+
+    const booleanStatus=Boolean(status)
+
     try {
       const products = await productModel.aggregate([
         {
-          $match: {category: category},
+          $match: {category: category, status:booleanStatus},
         },
         {
           $limit: limit, 

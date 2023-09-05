@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit);
     const order= req.query.sort;
     const category = req.query.category;
-    const status = Boolean(req.query.status);
+    const status = req.query.status;
     const products = await productManager.getProducts(limit, order, category, status);
 
     res.send(products)
