@@ -9,12 +9,35 @@ const productManager = new ProductManager();
 
 router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit);
-    const order= req.query.sort;
+    const page = parseInt(req.query.page);
+    const sort= req.query.sort;
     const category = req.query.category;
     const status = req.query.status;
-    const products = await productManager.getProducts(limit, order, category, status);
 
-    res.send(products)
+    const products = await productManager.getProducts(limit, sort, category, status, page);
+
+    const queryParams = new URLSearchParams();
+    if (limit) queryParams.set('limit', limit);
+    if (sort) queryParams.set('sort', sort);
+    if (category) queryParams.set('category', category);
+    if (status) queryParams.set('status', status);
+
+    const queryString = queryParams.toString();
+
+    const response = {
+        status: "success",
+        payload: products.docs,
+        totalPages: products.totalPages,
+        prevPage: products.prevPage,
+        nextPage: products.nextPage,
+        page: products.page,
+        hasPrevPage: products.hasPrevPage,
+        hasNextPage: products.hasNextPage,
+        prevLink: products.hasPrevPage ? `/products?page=${products.prevPage}&${queryString}` : '',
+        nextLink: products.hasNextPage ? `/products?page=${products.nextPage}&${queryString}` : '',
+    };
+
+    res.send(response)
 })
 
 router.get('/:pid', async (req, res) => {
