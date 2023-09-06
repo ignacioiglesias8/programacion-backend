@@ -43,15 +43,18 @@ class CartManager {
         const product = await productModel.find({_id:productId});
         const productToAdd = product[0]._id.toString();
 
-/*        const existingProductIndex = cart[0].products.findIndex(
-            (item) => item.product === productToAdd);
-        if (existingProductIndex) {
-            cart[0].products[existingProductIndex].quantity += quantity;
-        } else {
-            cart[0].products.push({ product: productToAdd, quantity });
-        }*/
+        const existingProduct = cart[0].products.find(item => item.product.toString() === productToAdd);
 
-        await cartModel.updateOne({ _id: cartId },{ $push: { products: { product: productToAdd } } });
+        if (existingProduct) {
+            await cartModel.updateOne(
+                { _id: cartId, 'products.product': productToAdd },
+                { $set: { 'products.$.quantity': existingProduct.quantity + 1 } }
+            );
+        } else {
+            await cartModel.updateOne(
+                { _id: cartId },
+                { $push: { products: { product: productToAdd, quantity: quantity}} });
+            }
         
         } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
