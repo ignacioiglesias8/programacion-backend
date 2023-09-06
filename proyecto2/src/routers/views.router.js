@@ -3,9 +3,9 @@ import ProductManager from "../dao/db/ProductManagerDB.js";
 
 const router = Router();
 
-const productManager = new ProductManager('./products.json');
+const productManager = new ProductManager();
 
-router.get('/', async (req, res) => {
+router.get('/products', async (req, res) => {
     const limit = parseInt(req.query.limit);
     const page = parseInt(req.query.page);
     const sort= req.query.sort;
@@ -22,14 +22,24 @@ router.get('/', async (req, res) => {
 
     const queryString = queryParams.toString();
 
-    products.prevLink = products.hasPrevPage ? `/?page=${products.prevPage}&${queryString}` : '';
-    products.nextLink = products.hasNextPage ? `/?page=${products.nextPage}&${queryString}` : '';
+    const response = {
+        status: "success",
+        payload: products.docs,
+        totalPages: products.totalPages,
+        prevPage: products.prevPage,
+        nextPage: products.nextPage,
+        page: products.page,
+        hasPrevPage: products.hasPrevPage,
+        hasNextPage: products.hasNextPage,
+        prevLink: products.hasPrevPage ? `/products?page=${products.prevPage}&${queryString}` : '',
+        nextLink: products.hasNextPage ? `/products?page=${products.nextPage}&${queryString}` : '',
+    };
 
     res.render(
-        'home',
+        'products',
         {
-            style: "home.css",
-            products: products 
+            style: "products.css",
+            products: response 
         }
     );
 });
