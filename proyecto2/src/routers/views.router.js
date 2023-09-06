@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import ProductManager from "../dao/db/ProductManagerDB.js";
 //import ProductManager from "../dao/fs/ProductManagerFS.js";
+import CartManager from '../dao/db/CartManagerDB.js';
 
 const router = Router();
 
 //const productManager = new ProductManager('./products.json');
 const productManager = new ProductManager();
+const cartManager = new CartManager();
 
 router.get('/products', async (req, res) => {
     const limit = parseInt(req.query.limit);
@@ -52,6 +54,21 @@ router.get('/chat', async (req, res) => {
         'chat',
         {
             style: "chat.css",
+        }
+    )
+})
+
+router.get('/cart/:cid', async (req, res) => {
+    const cart= await cartManager.getCartById(req.params.cid)
+
+    const cartId = cart[0]._id.toString();
+
+    res.render(
+        'cart',
+        {
+            style: "cart.css",
+            cartId: cartId,
+            cart:cart
         }
     )
 })

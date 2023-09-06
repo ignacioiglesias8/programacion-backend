@@ -1,0 +1,14 @@
+<div>
+    <h1>Carrito Id: {{cartId}}</h1>
+    <div class="product-list">
+        {{#each products.payload}}
+            <div class="product-card">
+                <h2>{{title}}</h2>
+                <p>{{description}}</p>
+                <p>Precio: {{price}}</p>
+                <p>Stock: {{stock}}</p>
+                <p>Id: {{id}}</p>
+            </div>
+        {{/each}}
+    </div>
+</div>
