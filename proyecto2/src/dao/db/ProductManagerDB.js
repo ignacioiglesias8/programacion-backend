@@ -29,23 +29,37 @@ class ProductManager{
         }
     }
 
-  async getProducts(limit, order, category, status) {
-    if (isNaN(limit) || limit <= 0) {
+  async getProducts(limit, order, category, status, page) {
+    if (!limit) {
       limit = 10;
     }
+    if (!page) {
+        page = 1;
+    }
 
-    const booleanStatus=Boolean(status)
+    const filters = {};
+    if (category) {
+      filters.category = category;
+    }
+    if (status !== undefined) {
+      filters.status = status;
+    }
+
+    const sortOptions = {};
+    if (order === 'asc') {
+      sortOptions.price = 1;
+    } else if (order === 'desc') {
+      sortOptions.price = -1;
+    }
 
     try {
-      const products = await productModel.aggregate([
-        {
-          $match: {category: category, status:booleanStatus},
-        },
-        {
-          $limit: limit, 
-        },
-        order === 'asc'? {$sort: { price: 1 }}: order === 'desc'? {$sort: { price: -1 }}: null,
-      ]);
+      const products = await productModel.paginate(filters, {
+        page,
+        limit,
+        lean: true,
+        sort: sortOptions,
+      });
+      console.log(products)
       return products;
     } catch (err) {
       console.error('Error al leer el archivo de productos:', err);
