@@ -60,6 +60,51 @@ class CartManager {
             console.error("Error al guardar los carritos en el archivo:", err);
         }
     }
+
+    async deleteProductFromCart(cartId, productId){
+        try {
+            const cart = await cartModel.findById(cartId);
+            if (!cart) {
+                return { error: 'Carrito no encontrado' };
+            }
+            
+            const productToRemove = cart.products.find(item => item.product.toString() === productId);
+            if (!productToRemove) {
+                return { error: 'Producto no encontrado en el carrito' };
+            }
+    
+            await cartModel.updateOne(
+                { _id: cartId },
+                { $pull: { products: { product: productId } } }
+            );
+    
+            return { message: 'Producto eliminado del carrito correctamente' };
+        } catch (error) {
+            console.error('Error al eliminar el producto del carrito:', error);
+        }
+    }
+
+    async deleteAllProductsFromCart(cartId) {
+        try {
+            const cart = await cartModel.findById(cartId);
+            if (!cart) {
+                return { error: 'Carrito no encontrado' };
+            }
+    
+            if (cart.products.length === 0) {
+                return { error: 'El carrito ya esta vacío' };
+            }
+
+            await cartModel.updateOne(
+                { _id: cartId },
+                { $set: { products: [] } }
+            );
+    
+            return { message: 'Todos los productos han sido eliminados del carrito correctamente' };
+        } catch (error) {
+            console.error('Error al eliminar todos los productos del carrito:', error);
+        }
+    }
 }
 
     export default CartManager;
