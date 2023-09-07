@@ -1,5 +1,4 @@
 import { cartModel } from '../db/models/carts.model.js';
-import { productModel } from '../db/models/products.model.js';
 
 class CartManager {
 
@@ -16,9 +15,10 @@ class CartManager {
             }
     }
 
-    async getCartById(_id) {
+    async getCartById(id) {
+        console.log(id)
         try {
-            const cart = await cartModel.find({_id});
+            const cart = await cartModel.find({_id: id}).populate('products.product');
 
             if (cart) {
                 return cart;
@@ -32,30 +32,27 @@ class CartManager {
         }
     }
 
-    async addProductToCart(cartId, productId, quantity) {
+    async addProductToCart(cartId, product, quantity) {
         try {
-        const cart = await cartModel.find({_id:cartId});
-        if (!cart) {
-            console.error("Carrito no encontrado");
-            return;
-        }
-
-        const product = await productModel.find({_id:productId});
-        const productToAdd = product[0]._id.toString();
-
-        const existingProduct = cart[0].products.find(item => item.product.toString() === productToAdd);
-
-        if (existingProduct) {
-            await cartModel.updateOne(
-                { _id: cartId, 'products.product': productToAdd },
-                { $set: { 'products.$.quantity': existingProduct.quantity + 1 } }
-            );
-        } else {
-            await cartModel.updateOne(
-                { _id: cartId },
-                { $push: { products: { product: productToAdd, quantity: quantity}} });
+            const cart = await cartModel.findById(cartId);
+            if (!cart) {
+                console.error("Carrito no encontrado");
+                return;
             }
-        
+            console.log(product);
+            const existingProduct = cart.products.find(item => item.product.toString() === product[0]._id.toString());
+    
+            if (existingProduct) {
+                await cartModel.updateOne(
+                    { _id: cartId, 'products.product': product[0]._id },
+                    { $set: { 'products.$.quantity': existingProduct.quantity + 1 } }
+                );
+            } else {
+                await cartModel.updateOne(
+                    { _id: cartId },
+                    { $push: { products: { product: product[0], quantity: quantity } } }
+                );
+            }
         } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
         }
