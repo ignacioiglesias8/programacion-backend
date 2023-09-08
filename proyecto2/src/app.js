@@ -4,7 +4,6 @@ import viewsRouter from './routers/views.router.js';
 import handlebars from 'express-handlebars';
 import __dirname from './utils.js';
 import {Server} from 'socket.io';
-import ProductManager from './dao/fs/ProductManagerFS.js';
 import mongoose from 'mongoose';
 import { messageModel} from './dao/db/models/messages.model.js';
 
@@ -29,8 +28,6 @@ const PORT= 8080;
 const httpServer = app.listen(PORT, (err, res) => {
     console.log(`servidor en el PORT: ${PORT}`)
 });
-
-const productManager = new ProductManager(__dirname + '/products.json');
 
 const io = new Server(httpServer);
 
