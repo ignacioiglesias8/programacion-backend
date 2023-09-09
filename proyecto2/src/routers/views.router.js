@@ -46,6 +46,22 @@ router.get('/products', async (req, res) => {
     );
 });
 
+router.post('/addToCart', async (req, res) => {
+    const productId = req.body.productId;
+    const product = await productManager.getProductById(productId);
+
+    let cart = {};
+
+    if (Object.keys(cart).length === 0) {
+        cart = await cartManager.createCart();
+        await cartManager.addProductToCart(cart._id.toString(), product, 1)
+    }else{
+        await cartManager.addProductToCart(cart._id.toString(), product, 1);
+    }    
+
+    res.status(204).send();
+});
+
 router.get('/chat', async (req, res) => {
 
     res.render(
@@ -61,12 +77,20 @@ router.get('/cart/:cid', async (req, res) => {
 
     const cartId = cart[0]._id.toString();
 
+    const products = cart[0].products.map((item) => ({
+        title: item.product.title,
+        description: item.product.description,
+        price: item.product.price,
+        id: item.product._id,
+        quantity: item.quantity,
+    }));
+
     res.render(
         'cart',
         {
             style: "cart.css",
             cartId: cartId,
-            cart:cart
+            products: products,
         }
     )
 })

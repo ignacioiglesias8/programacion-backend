@@ -16,7 +16,6 @@ class CartManager {
     }
 
     async getCartById(id) {
-        console.log(id)
         try {
             const cart = await cartModel.find({_id: id}).populate('products.product');
 
