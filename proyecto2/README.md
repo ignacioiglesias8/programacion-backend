@@ -111,9 +111,11 @@ El proyecto está organizado de la siguiente manera:
     |    |   |---layouts/:
     |    |   |   |---main.handlebars: Plantilla utilizada como marco principal.   
     |    |   |       
+    |    |   |---cart.handlebars: Plantilla utilizada en la página cart.
+    |    |   |
     |    |   |---chat.handlebars: Plantilla utilizada en la página chat.
     |    |   |
-    |    |   |---home.handlebars: Plantilla utilizada en página inicial estática.
+    |    |   |---products.handlebars: Plantilla utilizada en página products.
     |    |
     |    |---app.js: Archivo que define la estructura y el comportamiento general de la interfaz de usuario.
     |    |
