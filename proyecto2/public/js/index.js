@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   let addToCartButtons = document.querySelectorAll(".addToCart");
   
   addToCartButtons.forEach(function (button) {
-      button.addEventListener("click", function () {
+      button.addEventListener("click", function (event) {
+          event.preventDefault();
           let productId = button.getAttribute("data-product-id");
 
           fetch("/addToCart", {

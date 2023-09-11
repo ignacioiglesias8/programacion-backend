@@ -46,11 +46,11 @@ router.get('/products', async (req, res) => {
     );
 });
 
+let cart = {};
+
 router.post('/addToCart', async (req, res) => {
     const productId = req.body.productId;
     const product = await productManager.getProductById(productId);
-
-    let cart = {};
 
     if (Object.keys(cart).length === 0) {
         cart = await cartManager.createCart();
