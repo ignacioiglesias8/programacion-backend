@@ -6,6 +6,8 @@ import __dirname from './utils.js';
 import {Server} from 'socket.io';
 import mongoose from 'mongoose';
 import { messageModel} from './dao/db/models/messages.model.js';
+import session from 'express-session';
+import mongoStore from 'connect-mongo';
 
 const app = express();
 
@@ -14,9 +16,20 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/../public'));
-
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(session(
+    {
+        store: mongoStore.create({
+            mongoUrl: 'mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority',
+            mongoOptions: {useUnifiedTopology: true},
+            ttl: 10000
+        }),
+        secret: 'secretPhrase',
+        resave: false,
+        saveUninitialized: false
+    }
+));
 
 const uri= "mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority"
 mongoose.connect(uri)
