@@ -10,5 +10,6 @@ router.use('/products', routerProducts);
 router.use('/carts', routerCart);
 router.use('/chats', routerChat);
 router.use('/sessions', routerUser)
+router.use('/users', routerUser)
 
 export default router;

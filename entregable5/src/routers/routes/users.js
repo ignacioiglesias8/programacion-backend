@@ -32,4 +32,13 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/logout", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Error al cerrar la sesión: " + err.message);
+        }
+        res.redirect("/login");
+    });
+});
+
 export default router;
