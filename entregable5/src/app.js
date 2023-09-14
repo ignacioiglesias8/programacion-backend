@@ -2,7 +2,7 @@ import express from 'express';
 import routesRouter from './routers/routes.router.js';
 import viewsRouter from './routers/views.router.js';
 import handlebars from 'express-handlebars';
-import __dirname from './utils.js';
+import __dirname from './utils/constantUtil.js';
 import {Server} from 'socket.io';
 import mongoose from 'mongoose';
 import { messageModel} from './dao/db/models/messages.model.js';
@@ -12,16 +12,20 @@ import mongoStore from 'connect-mongo';
 const app = express();
 
 app.engine('handlebars', handlebars.engine());
-app.set('views', __dirname + '/views');
+app.set('views', `${__dirname}/../views`);
 app.set('view engine', 'handlebars');
 
 app.use(express.static(__dirname + '/../public'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+
+const uri= "mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority"
+mongoose.connect(uri)
+
 app.use(session(
     {
         store: mongoStore.create({
-            mongoUrl: 'mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority',
+            mongoUrl: uri,
             mongoOptions: {useUnifiedTopology: true},
             ttl: 10000
         }),
@@ -30,9 +34,6 @@ app.use(session(
         saveUninitialized: false
     }
 ));
-
-const uri= "mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority"
-mongoose.connect(uri)
 
 app.use('/api', routesRouter);
 app.use('/', viewsRouter);
