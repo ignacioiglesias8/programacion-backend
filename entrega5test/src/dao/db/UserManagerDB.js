@@ -1,5 +1,5 @@
 import { userModel } from '../db/models/users.model.js';
-import {createHash, isValidPassword} from '../../functions/bcrypt.js';
+import {createHash, isValidPassword} from '../../utils/functionUtil.js';
 
 class UserManager {
     async createUser(user) {
