@@ -17,12 +17,15 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     try {
-        const { email, password} = req.body;
+        const { email, password } = req.body;
         const { first_name, last_name, age } = await US.login(email, password);
 
-        req.session.user = {first_name, last_name, email, age};
+        req.session.user = { first_name, last_name, email, age };
         req.session.loginFailed = false;
-        res.redirect("/");
+
+        const welcomeMessage = await US.generateWelcomeMessage(first_name, last_name, email, age)
+
+        res.redirect(`/products?welcomeMessage=${encodeURIComponent(welcomeMessage)}`);
     } catch (error) {
         req.session.loginFailed = true;
         res.redirect("/login");

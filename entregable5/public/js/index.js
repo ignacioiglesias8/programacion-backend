@@ -27,6 +27,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const welcomeMessage = urlParams.get("welcomeMessage");
+
+  if (welcomeMessage) {
+      Swal.fire({
+          html: decodeURIComponent(welcomeMessage),
+          icon: "info",
+          confirmButtonText: "Aceptar",
+      });
+  }
+});
+
 //configuración chat
 
 console.log("Hola desde un archivo público");
