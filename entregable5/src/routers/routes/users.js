@@ -18,11 +18,28 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
     try {
         const { email, password} = req.body;
-        const { first_name, last_name, age, role } = await US.login(email, password);
+        const adminCredentials = {
+            email: 'adminCoder@coder.com',
+            password: 'adminCod3r123',
+        };
 
-        req.session.user = {first_name, last_name, email, age, role};
-        req.session.loginFailed = false;
-        res.redirect("/products");
+        if (email === adminCredentials.email && password === adminCredentials.password) {
+            req.session.user = {
+                first_name: 'Admin', 
+                last_name: 'Coder',
+                email: adminCredentials.email,
+                age: 0,             
+                role: 'admin',      
+            };
+            req.session.loginFailed = false;
+            res.redirect("/products");  
+        }else{
+            const { first_name, last_name, age, role } = await US.login(email, password);
+
+            req.session.user = { first_name, last_name, email, age, role };
+            req.session.loginFailed = false;
+            res.redirect("/products");
+        }
     } catch (error) {
         req.session.loginFailed = true;
         req.session.registerSuccess = false;
