@@ -59,9 +59,11 @@ El proyecto está organizado de la siguiente manera:
     |    |
     |    |---css/: Directorio contenedor de archivos css.
     |    |   |
-    |    |   |---chat.js: Stylesheet para la vista chat.
+    |    |   |---chat.css: Stylesheet para la vista chat.
     |    |   |
-    |    |   |---home.js: Stylesheet para la vista home.
+    |    |   |---index.css: Stylesheet para la vista index.
+    |    |   |
+    |    |   |---products.css: Stylesheet para la vista products.
     |    |
     |    |---js/: Directorio contenedor de archivos js.
     |        |
@@ -80,18 +82,26 @@ El proyecto está organizado de la siguiente manera:
     |    |   |   |   |---messages.model.js: Esquema para gestionar db messages.
     |    |   |   |   |
     |    |   |   |   |---products.model.js: Esquema para gestionar db products.
+    |    |   |   |   |
+    |    |   |   |   |---users.model.js: Esquema para gestionar db users.
     |    |   |   |
     |    |   |   |---CartManagerDB.js: Configuración db del endpoint cart.
     |    |   |   | 
     |    |   |   |---ChatManagerDB.js: Configuración db del endpoint chat.
     |    |   |   | 
     |    |   |   |---ProductManagerDB.js: Configuración db del endpoint product.
+    |    |   |   |
+    |    |   |   |---UserManagerDB.js: Configuración db del endpoint user.
     |    |   |
     |    |   |---fs: 
     |    |       |
     |    |       |---CartManagerFS.js: Configuración de fs del endpoint cart.
     |    |       |
     |    |       |---ProductManagerFS.js: Configuración de fs del endpoint product.
+    |    |
+    |    |---functions/: Directorio contendor de funciones para backend
+    |    |   |
+    |    |   |---bcrypt.js: Configuración de funciones para crypto.
     |    |
     |    |---routers/: Directorio contenedor de los rutas.
     |    |   |
@@ -100,7 +110,9 @@ El proyecto está organizado de la siguiente manera:
     |    |   |   | 
     |    |   |   |---chat.js: Endpoint chat.js. 
     |    |   |   | 
-    |    |   |   |---products.js: Endpoint products.  
+    |    |   |   |---products.js: Endpoint products.
+    |    |   |   |    
+    |    |   |   |---users.js: Endpoint users.
     |    |   |       
     |    |   |---routes.router.js: Router de endpoints.
     |    |   |
@@ -115,7 +127,13 @@ El proyecto está organizado de la siguiente manera:
     |    |   |
     |    |   |---chat.handlebars: Plantilla utilizada en la página chat.
     |    |   |
+    |    |   |---index.handlebars: Plantilla utilizada en la página index.
+    |    |   |        
+    |    |   |---login.handlebars: Plantilla utilizada en la página login.
+    |    |   |
     |    |   |---products.handlebars: Plantilla utilizada en página products.
+    |    |   |
+    |    |   |---register.handlebars: Plantilla utilizada en la página register.
     |    |
     |    |---app.js: Archivo que define la estructura y el comportamiento general de la interfaz de usuario.
     |    |
