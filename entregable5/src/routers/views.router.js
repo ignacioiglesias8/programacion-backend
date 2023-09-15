@@ -7,7 +7,7 @@ const router = Router();
 const productManager = new ProductManager();
 const cartManager = new CartManager();
 
-router.get('/products', async (req, res) => {
+router.get('/products', auth, async (req, res) => {
     const limit = parseInt(req.query.limit);
     const page = parseInt(req.query.page);
     const sort= req.query.sort;
@@ -41,7 +41,8 @@ router.get('/products', async (req, res) => {
         'products',
         {
             style: "products.css",
-            products: response 
+            products: response,
+            user: req.session.user 
         }
     );
 });
