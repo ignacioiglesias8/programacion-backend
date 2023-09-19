@@ -1,50 +1,47 @@
 import {Router } from 'express';
-import UserManager from '../../dao/db/UserManagerDB.js';
+import passport from 'passport';
 
 const router = Router();
-const US = new UserManager();
 
-router.post("/register", async (req, res) => {
-    try {
-        await US.createUser(req.body);
-        req.session.registerSuccess = true;
-        res.redirect("/login");
-    } catch (error) {
-        req.session.registerFailed = true;
-        res.redirect("/register");
+router.post(
+    "/register",
+    passport.authenticate('register',{failureRedirect: '/api/sessions/failRegister'}),
+    (req, res) => {
+        res.redirect("/login")
     }
+);
+
+router.get("/failRegister", (req, res) => {
+    console.log('Failded Stratergy');
+    res.redirect("/register")
 });
 
-router.post("/login", async (req, res) => {
-    try {
-        const { email, password} = req.body;
-        const adminCredentials = {
-            email: 'adminCoder@coder.com',
-            password: 'adminCod3r123',
-        };
-
-        if (email === adminCredentials.email && password === adminCredentials.password) {
-            req.session.user = {
-                first_name: 'Admin', 
-                last_name: 'Coder',
-                email: adminCredentials.email,
-                age: 0,             
-                role: 'admin',      
-            };
-            req.session.loginFailed = false;
-            res.redirect("/products");  
-        }else{
-            const { first_name, last_name, age, role } = await US.login(email, password);
-
-            req.session.user = { first_name, last_name, email, age, role };
-            req.session.loginFailed = false;
-            res.redirect("/products");
+router.post(
+    "/login",
+    passport.authenticate('login',{failureRedirect: '/api/sessions/failLogin'}),
+    async (req, res) => {
+        if (!req.user) {
+            return res.status(400).send({status: "error", error: "Invalid credentials"});
         }
-    } catch (error) {
-        req.session.loginFailed = true;
-        req.session.registerSuccess = false;
-        res.redirect("/login");
+
+        req.session.user = {
+            first_name: req.user.first_name,
+            last_name: req.user.last_name,
+            email: req.user.email,
+            age: req.user.age,
+            role: req.user.role,
+        }
+
+        res.redirect("/products");
     }
+);
+
+router.get("/failLogin", (req, res) => {
+    console.log('Failded Stratergy');
+    res.send({
+        status: 'error',
+        message: 'Failed Login'
+    });
 });
 
 router.get("/logout", (req, res) => {

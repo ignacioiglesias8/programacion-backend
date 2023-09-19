@@ -8,6 +8,8 @@ import mongoose from 'mongoose';
 import { messageModel} from './dao/db/models/messages.model.js';
 import session from 'express-session';
 import mongoStore from 'connect-mongo';
+import passport from 'passport';
+import initializatePassport from './config/passport.config.js';
 
 const app = express();
 
@@ -34,6 +36,10 @@ app.use(session(
         saveUninitialized: false
     }
 ));
+
+initializatePassport();
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api', routesRouter);
 app.use('/', viewsRouter);
