@@ -71,6 +71,10 @@ El proyecto está organizado de la siguiente manera:
     |    
     |---src/: Directorio contenedor del código fuente de la aplicación.
     |    |
+    |    |---config/: Directorio contenedor de archivos de configuración.
+    |    |   |
+    |    |   |--- passport.config.js: Archivo de configuración de passport. 
+    |    |
     |    |---dao/: Directorio contenedor de managers.
     |    |   |
     |    |   |---db: 
@@ -90,8 +94,6 @@ El proyecto está organizado de la siguiente manera:
     |    |   |   |---ChatManagerDB.js: Configuración db del endpoint chat.
     |    |   |   | 
     |    |   |   |---ProductManagerDB.js: Configuración db del endpoint product.
-    |    |   |   |
-    |    |   |   |---UserManagerDB.js: Configuración db del endpoint user.
     |    |   |
     |    |   |---fs: 
     |    |       |
@@ -106,13 +108,14 @@ El proyecto está organizado de la siguiente manera:
     |    |---routers/: Directorio contenedor de los rutas.
     |    |   |
     |    |   |---routes/:
+    |    |   |   |
     |    |   |   |---cart.js: Endpoint carts.   
     |    |   |   | 
     |    |   |   |---chat.js: Endpoint chat.js. 
     |    |   |   | 
     |    |   |   |---products.js: Endpoint products.
     |    |   |   |    
-    |    |   |   |---users.js: Endpoint users.
+    |    |   |   |---sessions.js: Endpoint users.
     |    |   |       
     |    |   |---routes.router.js: Router de endpoints.
     |    |   |
@@ -121,6 +124,7 @@ El proyecto está organizado de la siguiente manera:
     |    |---views/: Directorio contenedor de plantillas.
     |    |   |
     |    |   |---layouts/:
+    |    |   |   |
     |    |   |   |---main.handlebars: Plantilla utilizada como marco principal.   
     |    |   |       
     |    |   |---cart.handlebars: Plantilla utilizada en la página cart.

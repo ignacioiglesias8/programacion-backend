@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import routerProducts from './routes/products.js';
-import routerCart from './routes/cart.js';
-import routerChat from './routes/chat.js';
-import routerUser from './routes/users.js';
+import productsRouter from './routes/products.js';
+import cartsRouter from './routes/cart.js';
+import chatsRouter from './routes/chat.js';
+import sessionsRouter from './routes/sessions.js';
 
 const router = Router();
 
-router.use('/products', routerProducts);
-router.use('/carts', routerCart);
-router.use('/chats', routerChat);
-router.use('/sessions', routerUser)
-router.use('/users', routerUser)
+router.use('/products', productsRouter);
+router.use('/carts', cartsRouter);
+router.use('/chats', chatsRouter);
+router.use('/sessions', sessionsRouter)
+router.use('/users', sessionsRouter)
 
 export default router;
