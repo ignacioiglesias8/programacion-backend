@@ -1,14 +1,16 @@
+import 'dotenv/config'; 
 import express from 'express';
-import routesRouter from './routers/routes.router.js';
-import viewsRouter from './routers/views.router.js';
-import handlebars from 'express-handlebars';
-import __dirname from './utils.js';
+import session from 'express-session';
 import {Server} from 'socket.io';
 import mongoose from 'mongoose';
-import { messageModel} from './dao/db/models/messages.model.js';
-import session from 'express-session';
 import mongoStore from 'connect-mongo';
+import handlebars from 'express-handlebars';
 import passport from 'passport';
+
+import routesRouter from './routers/routes.router.js';
+import viewsRouter from './routers/views.router.js';
+import __dirname from './utils.js';
+import { messageModel} from './dao/db/models/messages.model.js';
 import initializatePassport from './config/passport.config.js';
 
 const app = express();

@@ -2,6 +2,7 @@ import passport from 'passport';
 import local from 'passport-local';
 import { userModel } from '../dao/db/models/users.model.js';
 import {createHash, isValidPassword} from '../functions/bcrypt.js';
+import GitHubStrategy from 'passport-github2';
 
 const localStratergy = local.Strategy;
 const initializatePassport = () => {
@@ -62,6 +63,37 @@ const initializatePassport = () => {
         }
     ));
     
+    passport.use(
+        'github',
+        new GitHubStrategy({
+            clientID: process.env.GITHUB_CLIENT_ID,
+            clientSecret: process.env.GITHUB_CLIENT_SECRET,
+            callbackURL: 'http://localhost:8080/api/sessions/githubcallback'
+    },
+
+    async (accessToken, refreshToken, profile, done) => {
+        try {
+            console.log("este es el profile", profile); 
+            let user = await userModel.findOne({email: profile._json.email})
+            if(!user) {
+                let newUser = {
+                    first_name: profile._json.name,
+                    last_name: '',
+                    email: profile._json.email,
+                    age: '',
+                    password: '',
+                    role: 'user',
+                }
+                let result = await userModel.create(newUser);
+                done(null, result);
+            } else {
+                done(null, user);
+            }
+        } catch(error) {
+            return done(error);
+        }
+    }));
+
     passport.serializeUser((user, done) => {
         done(null, user);
     });
