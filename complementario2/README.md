@@ -94,6 +94,8 @@ El proyecto está organizado de la siguiente manera:
     |    |   |   |---ChatManagerDB.js: Configuración db del endpoint chat.
     |    |   |   | 
     |    |   |   |---ProductManagerDB.js: Configuración db del endpoint product.
+    |    |   |   |
+    |    |   |   |---UserManagerDB.js: Configuración db del endpoint user.
     |    |   |
     |    |   |---fs: 
     |    |       |
@@ -115,7 +117,9 @@ El proyecto está organizado de la siguiente manera:
     |    |   |   | 
     |    |   |   |---products.js: Endpoint products.
     |    |   |   |    
-    |    |   |   |---sessions.js: Endpoint users.
+    |    |   |   |---sessions.js: Endpoint sessions.
+    |    |   |   | 
+    |    |   |   |---users.js: Endpoint users.
     |    |   |       
     |    |   |---routes.router.js: Router de endpoints.
     |    |   |
