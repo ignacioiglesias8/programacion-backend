@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import ProductManager from "../dao/db/ProductManagerDB.js";
 import CartManager from '../dao/db/CartManagerDB.js';
+import UserManager from '../dao/db/UserManagerDB.js';
 
 const router = Router();
 
 const productManager = new ProductManager();
 const cartManager = new CartManager();
+const userManager = new UserManager();
 
 router.get('/products', auth, async (req, res) => {
     const limit = parseInt(req.query.limit);
@@ -52,13 +54,10 @@ let cart = {};
 router.post('/addToCart', async (req, res) => {
     const productId = req.body.productId;
     const product = await productManager.getProductById(productId);
+    const user = await userManager.getUserByEmail(req.session.user.email);
+    const cart = user[0].cart[0].cartInfo._id.toString();
 
-    if (Object.keys(cart).length === 0) {
-        cart = await cartManager.createCart();
-        await cartManager.addProductToCart(cart._id.toString(), product, 1)
-    }else{
-        await cartManager.addProductToCart(cart._id.toString(), product, 1);
-    }    
+    await cartManager.addProductToCart(cart, product, 1);   
 
     res.status(204).send();
 });

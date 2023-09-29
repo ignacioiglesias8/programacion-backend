@@ -1,7 +1,9 @@
 import {Router } from 'express';
 import passport from 'passport';
+import UserManager from '../../dao/db/UserManagerDB.js';
 
 const router = Router();
+const userManager = new UserManager();
 
 router.post(
     "/register",
@@ -51,6 +53,15 @@ router.get("/logout", (req, res) => {
         }
         res.redirect("/login");
     });
+});
+
+router.get('/:uid', async (req, res) => {
+    const user = await userManager.getUserById(req.params.uid);
+    if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' });
+    }
+    
+    res.send({user});
 });
 
 router.get("/github", passport.authenticate('github', {scope: ['user:email']}), (req, res) => {

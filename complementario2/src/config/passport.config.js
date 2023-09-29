@@ -3,6 +3,9 @@ import local from 'passport-local';
 import { userModel } from '../dao/db/models/users.model.js';
 import {createHash, isValidPassword} from '../functions/bcrypt.js';
 import GitHubStrategy from 'passport-github2';
+import CartManager from '../dao/db/CartManagerDB.js';
+
+const cartManager = new CartManager();
 
 const localStratergy = local.Strategy;
 const initializatePassport = () => {
@@ -21,7 +24,19 @@ const initializatePassport = () => {
                     return done(null, false);
                 }
 
-                const newUser = {first_name, last_name, email, age, password: createHash(password)};
+                const newUser = {
+                    first_name, 
+                    last_name, 
+                    email, 
+                    age, 
+                    password: createHash(password),
+                    cart: [
+                        {
+                            cartInfo: await cartManager.createCart(),
+                        }
+                    ]
+                    
+                };
                 let result = await userModel.create(newUser);
 
                 return done(null, result);
