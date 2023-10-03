@@ -1,7 +1,9 @@
 import {Router } from 'express';
 import passport from 'passport';
+import UserManager from '../../dao/db/UserManagerDB.js';
 
 const router = Router();
+const userManager = new UserManager();
 
 router.post(
     "/register",
@@ -63,6 +65,16 @@ router.get("/github", passport.authenticate('github', {scope: ['user:email']}), 
 router.get("/githubcallback", passport.authenticate('github', {failureRedirect: '/login'}), (req, res) => {
     req.session.user = req.user;
     res.redirect('/products');
+});
+
+router.get('/current', async (req, res) => {
+    if (!req.session.user) {
+        return res.status(401).json({ error: 'No autenticado !!' });
+    }
+
+    const user = req.session.user;
+
+    res.send({ user });
 });
 
 export default router;

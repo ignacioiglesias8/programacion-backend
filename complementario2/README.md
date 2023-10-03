@@ -118,8 +118,6 @@ El proyecto está organizado de la siguiente manera:
     |    |   |   |---products.js: Endpoint products.
     |    |   |   |    
     |    |   |   |---sessions.js: Endpoint sessions.
-    |    |   |   | 
-    |    |   |   |---users.js: Endpoint users.
     |    |   |       
     |    |   |---routes.router.js: Router de endpoints.
     |    |   |
