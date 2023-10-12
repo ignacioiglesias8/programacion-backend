@@ -1,11 +1,12 @@
 import passport from 'passport';
 import local from 'passport-local';
-import { userModel } from '../dao/db/models/users.model.js';
 import {createHash, isValidPassword} from '../functions/bcrypt.js';
 import GitHubStrategy from 'passport-github2';
 import CartManager from '../dao/db/CartManagerDB.js';
+import UserManager from '../dao/db/UserManagerDB.js';
 
 const cartManager = new CartManager();
+const userManager = new UserManager();
 
 const localStratergy = local.Strategy;
 const initializatePassport = () => {
@@ -18,7 +19,7 @@ const initializatePassport = () => {
             const { first_name, last_name, email, age } = req.body;
 
             try {
-                let user = await userModel.findOne({ email: username});
+                let user = await userManager.findOneUser({ email: username});
                 if(user) {
                     console.log('User already exists');
                     return done(null, false);
@@ -35,9 +36,8 @@ const initializatePassport = () => {
                             cartInfo: await cartManager.createCart(),
                         }
                     ]
-                    
                 };
-                let result = await userModel.create(newUser);
+                let result = await userManager.createUser(newUser);
 
                 return done(null, result);
             } catch (error) {
@@ -62,7 +62,7 @@ const initializatePassport = () => {
                 if (username === adminUser.email && password === adminUser.password) {
                     return done(null, adminUser);
                 } else {
-                    const user = await userModel.findOne({ email: username });
+                    const user = await userManager.findOneUser({ email: username });
                     if (!user) {
                         console.log('User does not exist');
                         return done(null, false);
@@ -89,7 +89,7 @@ const initializatePassport = () => {
     async (accessToken, refreshToken, profile, done) => {
         try {
             console.log("este es el profile", profile); 
-            let user = await userModel.findOne({email: profile._json.email})
+            let user = await userManager.findOneUser({email: profile._json.email})
             if(!user) {
                 let newUser = {
                     first_name: profile._json.name,
@@ -98,8 +98,13 @@ const initializatePassport = () => {
                     age: '',
                     password: '',
                     role: 'user',
+                    cart: [
+                        {
+                            cartInfo: await cartManager.createCart(),
+                        }
+                    ]
                 }
-                let result = await userModel.create(newUser);
+                let result = await userManager.createUser(newUser);
                 done(null, result);
             } else {
                 done(null, user);
