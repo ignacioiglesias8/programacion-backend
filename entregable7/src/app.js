@@ -23,7 +23,7 @@ app.use(express.static(__dirname + '/../public'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-const uri= "mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority"
+const uri= process.env.MONGO_URL
 mongoose.connect(uri)
 
 app.use(session(
@@ -46,7 +46,7 @@ app.use(passport.session());
 app.use('/api', routesRouter);
 app.use('/', viewsRouter);
 
-const PORT= 8080;
+const PORT= process.env.PORT;
 const httpServer = app.listen(PORT, (err, res) => {
     console.log(`servidor en el PORT: ${PORT}`)
 });

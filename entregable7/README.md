@@ -79,13 +79,13 @@ El proyecto está organizado de la siguiente manera:
     |    |   |
     |    |   |---managers/:
     |    |   |   |
-    |    |   |   |---CartManagerDB.js: Configuración db del endpoint cart.
+    |    |   |   |---CartManager.js: Configuración db del endpoint cart.
     |    |   |   | 
-    |    |   |   |---ChatManagerDB.js: Configuración db del endpoint chat.
+    |    |   |   |---ChatManager.js: Configuración db del endpoint chat.
     |    |   |   | 
-    |    |   |   |---ProductManagerDB.js: Configuración db del endpoint product.
+    |    |   |   |---ProductManager.js: Configuración db del endpoint product.
     |    |   |   |
-    |    |   |   |---UserManagerDB.js: Configuración db del endpoint user.
+    |    |   |   |---UserManager.js: Configuración db del endpoint user.
     |    |   |
     |    |   |---models/:
     |    |   |   |

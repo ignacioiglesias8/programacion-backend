@@ -2,8 +2,8 @@ import passport from 'passport';
 import local from 'passport-local';
 import {createHash, isValidPassword} from '../functions/bcrypt.js';
 import GitHubStrategy from 'passport-github2';
-import CartManager from '../dao/managers/CartManagerDB.js';
-import UserManager from '../dao/managers/UserManagerDB.js';
+import CartManager from '../dao/managers/CartManager.js';
+import UserManager from '../dao/managers/UserManager.js';
 
 const cartManager = new CartManager();
 const userManager = new UserManager();
@@ -51,10 +51,10 @@ const initializatePassport = () => {
         async (username, password, done) => {
             try {
                 const adminUser = {
-                    first_name: 'Admin',
-                    last_name: 'Coder',
-                    email: 'adminCoder@coder.com',
-                    password: 'adminCod3r123',
+                    first_name: "Admin",
+                    last_name: "Coder",
+                    email: process.env.ADMIN_EMAIL,
+                    password: process.env.ADMIN_PASSWORD,
                     age: 0,
                     role: 'admin'
                 }
@@ -83,7 +83,7 @@ const initializatePassport = () => {
         new GitHubStrategy({
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
-            callbackURL: 'http://localhost:8080/api/sessions/githubcallback'
+            callbackURL: process.env.GITHUB_CALLBACK_URL,
     },
 
     async (accessToken, refreshToken, profile, done) => {
