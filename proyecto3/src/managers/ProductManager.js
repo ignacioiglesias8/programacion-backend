@@ -1,4 +1,3 @@
-import { productModel } from '../dao/models/products.model.js';
 import Products from '../dao/mongo/products.mongo.js';
 
 const productsService = new Products();
@@ -55,13 +54,15 @@ class ProductManager{
       sortOptions.price = -1;
     }
 
+    const options = {
+      page,
+      limit,
+      lean: true,
+      sort: sortOptions,
+    };
+
     try {
-      const products = await productModel.paginate(filters, {
-        page,
-        limit,
-        lean: true,
-        sort: sortOptions,
-      });
+      const products = await productsService.paginate(filters, options);
       console.log(products)
       return products;
     } catch (err) {
@@ -119,7 +120,7 @@ class ProductManager{
         productToUpdate.status = typeof product.status === 'string' ? product.status === 'true' : Boolean(product.status);
       }
   
-      const result = await productsService.update({ _id }, productToUpdate);
+      const result = await productsService.updateById({ _id }, productToUpdate);
       return result;
     } catch (err) {
       console.error('Error al actualizar el producto:', err);
