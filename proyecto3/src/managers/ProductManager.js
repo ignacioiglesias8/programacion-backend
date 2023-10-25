@@ -1,6 +1,4 @@
-import Products from '../dao/mongo/products.mongo.js';
-
-const productsService = new Products();
+import { productModel } from '../models/products.model.js';
 
 class ProductManager{
 
@@ -24,7 +22,7 @@ class ProductManager{
         };
 
         try {
-          const result = await productsService.add(product);
+          const result = await productModel.create(product);
           return result;
         } catch (err) {
             console.error('Error al guardar los productos en el archivo:', err);
@@ -54,15 +52,13 @@ class ProductManager{
       sortOptions.price = -1;
     }
 
-    const options = {
-      page,
-      limit,
-      lean: true,
-      sort: sortOptions,
-    };
-
     try {
-      const products = await productsService.paginate(filters, options);
+      const products = await productModel.paginate(filters, {
+        page,
+        limit,
+        lean: true,
+        sort: sortOptions,
+      });
       console.log(products)
       return products;
     } catch (err) {
@@ -73,7 +69,7 @@ class ProductManager{
 
     async getProductById(_id) {
       try {
-        const product = await productsService.getById({_id});  
+        const product = await productModel.find({_id});  
         if (product) {
           return product;
         } else {
@@ -87,40 +83,27 @@ class ProductManager{
   }
 
   async updateProduct(_id, product) {
-    try {
-      const productToUpdate = await productsService.getById(_id);
+    try{
+      const products = await productModel.find({_id});
+      let productUpdated = {};
   
-      if (!productToUpdate) {
-        console.error('Producto no encontrado');
-        return null;
-      }
+      for (let key in products) {
+          if (products[key].id == _id) {
+            products[key].title = product.title ? product.title : products[key].title;
+            products[key].description = product.description ? product.description : products[key].description;
+            products[key].price = product.price ? product.price : products[key].price;
+            products[key].code = product.code ? product.code : products[key].code;
+            products[key].stock = product.stock ? product.stock : products[key].stock;
+            products[key].category = product.category ? product.category : products[key].category;
+            products[key].thumbnails = product.thumbnails ? product.thumbnails : products[key].thumbnails;
+            if (product.status !== undefined) {
+              products[key].status = typeof product.status === 'string' ? product.status === 'true' : Boolean(product.status);
+            }
   
-      if (product.title) {
-        productToUpdate.title = product.title;
+            productUpdated = products[key];
+          }
       }
-      if (product.description) {
-        productToUpdate.description = product.description;
-      }
-      if (product.price) {
-        productToUpdate.price = product.price;
-      }
-      if (product.code) {
-        productToUpdate.code = product.code;
-      }
-      if (product.stock) {
-        productToUpdate.stock = product.stock;
-      }
-      if (product.category) {
-        productToUpdate.category = product.category;
-      }
-      if (product.thumbnails) {
-        productToUpdate.thumbnails = product.thumbnails;
-      }
-      if (product.status !== undefined) {
-        productToUpdate.status = typeof product.status === 'string' ? product.status === 'true' : Boolean(product.status);
-      }
-  
-      const result = await productsService.updateById({ _id }, productToUpdate);
+      const result = await productModel.updateOne({_id}, productUpdated);
       return result;
     } catch (err) {
       console.error('Error al actualizar el producto:', err);
@@ -130,7 +113,7 @@ class ProductManager{
 
   async deleteProduct(_id) {
     try {
-      const result = await productsService.deleteById(_id);
+      const result = await productModel.deleteOne({_id});
       return result
     }catch (err) {
       console.error('Error al leer el archivo de productos:', err);

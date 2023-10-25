@@ -1,11 +1,9 @@
-import Messages from '../dao/mongo/messages.mongo.js';
-
-const messagesService = new Messages();
+import { messageModel } from '../models/messages.model.js';
 
 class ChatManager {
 
     async getChats() {
-        const chats = await messagesService.get();
+        const chats = await messageModel.find();
         
         if (chats.length < 1) {
             return [];

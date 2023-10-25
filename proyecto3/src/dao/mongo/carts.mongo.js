@@ -5,12 +5,46 @@ export default class Cart {
         let result = await cartModel.create(cart);
         return result;
     }
-    getById = async (_id) => {
+
+    populateCart = async (_id) => {
+        let result = await cartModel.findById(_id).populate('products.product');
+        return result;
+    }
+
+    getCartById = async (_id) => {
         let result = await cartModel.findById(_id);
         return result;
     }
-    updateCart = async (_id, product) => {
-        let result = await productModel.updateOne({_id}, product);
+
+    modifyCart = async (cartId, newCart) => {
+        const result = await cartModel.updateOne(
+            { _id: cartId },
+            { $set: { products: newCart.products } }
+        );
+        return result;
+    }
+
+    modifyQuantity = async (cartId, productId, newQuantity) => {
+        const result = await cartModel.updateOne(
+            { _id: cartId, 'products.product': productId },
+            { $set: { 'products.$.quantity': newQuantity } }
+        );
+        return result;
+    }
+
+    removeOneProduct = async (cartId, productId) => {
+        const result = await cartModel.updateOne(
+            { _id: cartId },
+            { $pull: { products: { product: productId } } }
+        );
+        return result;
+    }
+
+    removeAllProducts = async (cartId) => {
+        const result = await cartModel.updateOne(
+            { _id: cartId },
+            { $set: { products: [] } }
+        );
         return result;
     }
 }
