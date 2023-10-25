@@ -1,6 +1,6 @@
 import {Router } from 'express';
 import passport from 'passport';
-import UserManager from '../../dao/managers/UserManager.js';
+import UserManager from '../../managers/UserManager.js';
 
 const router = Router();
 const userManager = new UserManager();

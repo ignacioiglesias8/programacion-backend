@@ -2,8 +2,8 @@ import passport from 'passport';
 import local from 'passport-local';
 import {createHash, isValidPassword} from '../functions/bcrypt.js';
 import GitHubStrategy from 'passport-github2';
-import CartManager from '../dao/managers/CartManager.js';
-import UserManager from '../dao/managers/UserManager.js';
+import CartManager from '../managers/CartManager.js';
+import UserManager from '../managers/UserManager.js';
 
 const cartManager = new CartManager();
 const userManager = new UserManager();
