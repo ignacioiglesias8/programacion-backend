@@ -1,9 +1,11 @@
-import { userModel } from '../dao/models/users.model.js';
+import Users from '../dao/mongo/users.mongo.js';
+
+const usersService = new Users();
 
 class UserManager {
     async getUserByEmail(email) {
         try {
-            const user = await userModel.find({email: email});
+            const user = await usersService.findByEmail(email);
 
             if (user) {
                 return user;
@@ -19,7 +21,7 @@ class UserManager {
 
     async createUser(userData) {
         try {
-            const newUser = await userModel.create(userData);
+            const newUser = await usersService.createNew(userData);
             return newUser;
         } catch (err) {
             console.error('Error al crear un nuevo usuario:', err);
@@ -29,7 +31,7 @@ class UserManager {
 
     async findOneUser(query) {
         try {
-            const user = await userModel.findOne(query);
+            const user = await usersService.findUser(query);
             return user;
         } catch (err) {
             console.error('Error al buscar usuario:', err);
