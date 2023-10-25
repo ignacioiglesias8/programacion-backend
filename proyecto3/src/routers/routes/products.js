@@ -1,9 +1,11 @@
 import { Router} from 'express';
+import mongoose from 'mongoose';
 import ProductManager from "../../managers/ProductManager.js";
 
 const router = Router();
 
 const productManager = new ProductManager();
+const ObjectId = mongoose.Types.ObjectId;
 
 router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit);
@@ -60,7 +62,7 @@ router.post('/', async (req,res)=> {
 })
 
 router.put('/:pid', async (req, res) => {
-    const productId = req.params.pid;
+    const productId = new ObjectId(req.params.pid);
     const modifications = req.body;
 
     const product = await productManager.getProductById(productId);
@@ -76,7 +78,7 @@ router.put('/:pid', async (req, res) => {
 });
 
 router.delete('/:pid', async (req, res) => {
-    const productId = req.params.pid;
+    const productId = new ObjectId(req.params.pid);
     const product = await productManager.deleteProduct(productId);
 
     res.send({product, message: `El producto con Id ${productId} fue eliminado`});
