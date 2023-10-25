@@ -1,0 +1,46 @@
+<h1>Bienvenido {{user.first_name}} {{user.last_name}}</h1>
+<hr>
+
+<h2>Datos Básicos</h2>
+<div class="userData">
+    <p><b>Nombre:</b> {{user.first_name}}</p>
+    <p><b>Apellido:</b> {{user.last_name}}</p>
+    <p><b>Email:</b> {{user.email}}</p>
+    <p><b>Edad:</b> {{user.age}}</p>
+    <p><b>Rol:</b> {{user.role}}</p>
+</div>
+
+<div>
+    <h1>Listado de todos los Productos</h1>
+    <div class="product-list">
+            <div>
+                {{#if products.hasPrevPage}}
+                    <a href={{products.prevLink}}><< Anterior</a>
+                {{/if}}
+            &nbsp;
+                {{products.page}}
+            &nbsp;
+                {{#if products.hasNextPage}}
+                    <a href={{products.nextLink}}>Siguiente >></a>
+                {{/if}} 
+            </div>
+        {{#each products.payload}}
+            <div class="product-card">
+                <h2>{{title}}</h2>
+                <p>{{description}}</p>
+                <p>Precio: {{price}}</p>
+                <p>Stock: {{stock}}</p>
+                <p>Id: {{id}}</p>
+
+            <button class="addToCart" data-product-id="{{id}}">Enviar al carrito</button>
+            </div>
+        {{/each}}
+    </div>
+
+    <form action="/api/sessions/logout" method="GET">
+        <button type="submit">Cerrar sesión</button>
+    </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="js/index.js"></script>

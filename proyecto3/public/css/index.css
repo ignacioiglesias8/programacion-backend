@@ -1,0 +1,40 @@
+* {
+    background-color: black;
+    color: white;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    background: white;
+    color: black;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 5px;
+    margin-top: 5px;
+    background-color: #64d73e;
+}
+
+hr {
+    width: 95%;
+}
+
+.userData {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    border: 1px solid white;
+    padding: 5px;
+}
