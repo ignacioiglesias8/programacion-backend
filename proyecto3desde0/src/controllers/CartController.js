@@ -1,4 +1,6 @@
-import { cartModel } from '../dao/models/carts.model.js';
+import Carts from '../dao/mongo/carts.mongo.js';
+
+const cartsService = new Carts();
 
 class CartController {
 
@@ -8,7 +10,7 @@ class CartController {
         };
         
         try {
-            const createCart = await cartModel.create(cart);
+            const createCart = await cartsService.addCartToUser(cart);
             return createCart;
             } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
@@ -17,7 +19,7 @@ class CartController {
 
     async getCartById(id) {
         try {
-            const cart = await cartModel.find({_id: id}).populate('products.product');
+            const cart = await cartsService.populateCart({_id: id});
 
             if (cart) {
                 return cart;
@@ -33,7 +35,7 @@ class CartController {
 
     async addProductToCart(cartId, product, quantity) {
         try {
-            const cart = await cartModel.findById(cartId);
+            const cart = await cartsService.findCartById(cartId);
             if (!cart) {
                 console.error("Carrito no encontrado");
                 return;
@@ -42,15 +44,9 @@ class CartController {
             const existingProduct = cart.products.find(item => item.product.toString() === product[0]._id.toString());
     
             if (existingProduct) {
-                await cartModel.updateOne(
-                    { _id: cartId, 'products.product': product[0]._id },
-                    { $set: { 'products.$.quantity': existingProduct.quantity + 1 } }
-                );
+                await cartsService.addExistingProduct(cartId, product, existingProduct);
             } else {
-                await cartModel.updateOne(
-                    { _id: cartId },
-                    { $push: { products: { product: product[0], quantity: quantity } } }
-                );
+                await cartsService.addNewProduct(cartId, product, quantity);
             }
         } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
@@ -59,15 +55,12 @@ class CartController {
 
     async updateCart(cartId, newCart) {
         try {
-            const cart = await cartModel.findById(cartId);
+            const cart = await cartsService.findCartById(cartId);
             if (!cart) {
                 return { error: 'Carrito no encontrado' };
             }
     
-            await cartModel.updateOne(
-                { _id: cartId },
-                { $set: { products: newCart.products } }
-            );
+            await cartsService.modifyCart(cartId, newCart);
     
             return { message: 'Carrito actualizado correctamente' };
         } catch (error) {
@@ -77,7 +70,7 @@ class CartController {
 
     async updateQuantity(cartId, productId, newQuantity) {
         try {
-            const cart = await cartModel.findById(cartId);
+            const cart = await cartsService.findCartById(cartId);
             if (!cart) {
                 return { error: 'Carrito no encontrado' };
             }
@@ -87,10 +80,7 @@ class CartController {
                 return { error: 'Producto no encontrado en el carrito' };
             }
     
-            await cartModel.updateOne(
-                { _id: cartId, 'products.product': productId },
-                { $set: { 'products.$.quantity': newQuantity } }
-            );
+            await cartsService.modifyQuantity(cartId, productId, newQuantity);
     
             return { message: 'Cantidad de ejemplares actualizada correctamente' };
         } catch (error) {
@@ -100,7 +90,7 @@ class CartController {
 
     async deleteProductFromCart(cartId, productId){
         try {
-            const cart = await cartModel.findById(cartId);
+            const cart = await cartsService.findCartById(cartId);
             if (!cart) {
                 return { error: 'Carrito no encontrado' };
             }
@@ -110,10 +100,7 @@ class CartController {
                 return { error: 'Producto no encontrado en el carrito' };
             }
     
-            await cartModel.updateOne(
-                { _id: cartId },
-                { $pull: { products: { product: productId } } }
-            );
+            await cartsService.removeOneProduct(cartId, productId);
     
             return { message: 'Producto eliminado del carrito correctamente' };
         } catch (error) {
@@ -123,7 +110,7 @@ class CartController {
 
     async deleteAllProductsFromCart(cartId) {
         try {
-            const cart = await cartModel.findById(cartId);
+            const cart = await cartsService.findCartById(cartId);
             if (!cart) {
                 return { error: 'Carrito no encontrado' };
             }
@@ -132,10 +119,7 @@ class CartController {
                 return { error: 'El carrito ya esta vacío' };
             }
 
-            await cartModel.updateOne(
-                { _id: cartId },
-                { $set: { products: [] } }
-            );
+            await cartsService.removeAllProducts(cartId);
     
             return { message: 'Todos los productos han sido eliminados del carrito correctamente' };
         } catch (error) {
