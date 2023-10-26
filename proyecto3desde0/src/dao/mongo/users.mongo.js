@@ -2,7 +2,7 @@ import { userModel } from '../models/users.model.js';
 
 export default class Users {
     findByEmail = async (email) => {
-        const result = await userModel.find({ email: email }).populate({
+        const result = await userModel.find(email).populate({
             path: 'cart.cartInfo',
             populate: {
                 path: 'products.product'
@@ -11,12 +11,12 @@ export default class Users {
         return result
     }
 
-    createNew = async (userData) => {
+    createNewUser = async (userData) => {
         const result = await userModel.create(userData);
         return result;
     }
 
-    findUser = async (query) => {
+    findUserByQuery = async (query) => {
         const result = await userModel.findOne(query);
         return result;
     }

@@ -1,14 +1,11 @@
-import { userModel } from '../dao/models/users.model.js';
+import Users from '../dao/mongo/users.mongo.js';
+
+const usersService = new Users();
 
 class UserController {
     async getUserByEmail(email) {
         try {
-            const user = await userModel.findOne({email: email}).populate({
-                path: 'cart.cartInfo',
-                populate: {
-                    path: 'products.product'
-                }
-            });
+            const user = await usersService.findByEmail({email: email});
 
             if (user) {
                 return user;
@@ -24,7 +21,7 @@ class UserController {
 
     async createUser(userData) {
         try {
-            const newUser = await userModel.create(userData);
+            const newUser = await usersService.createNewUser(userData);
             return newUser;
         } catch (err) {
             console.error('Error al crear un nuevo usuario:', err);
@@ -34,7 +31,7 @@ class UserController {
 
     async findOneUser(query) {
         try {
-            const user = await userModel.findOne(query);
+            const user = await usersService.findUserByQuery(query);
             return user;
         } catch (err) {
             console.error('Error al buscar usuario:', err);
