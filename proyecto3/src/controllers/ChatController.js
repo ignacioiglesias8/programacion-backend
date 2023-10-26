@@ -1,11 +1,9 @@
-import Chats from '../dao/mongo/messages.mongo.js';
-
-const chatsService = new Chats();
+import {chatsService} from '../repository/index.js'
 
 class ChatController {
 
     async getChats() {
-        const chats = await chatsService.getChats();
+        const chats = await chatsService.getAllChats();
         
         if (chats.length < 1) {
             return [];

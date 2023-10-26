@@ -1,12 +1,12 @@
 import { messageModel } from '../models/messages.model.js';
 
 export default class Message {
-    getChats = async () => {
+    getAllMessages = async () => {
         let result = await messageModel.find();
         return result;
     }
 
-    saveChat = async (data) => {
+    createChat = async (data) => {
         let result = await messageModel.create(data);
         return result;
     }

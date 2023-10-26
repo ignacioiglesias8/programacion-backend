@@ -1,6 +1,7 @@
 import {Router } from 'express';
 import passport from 'passport';
 import UserController from '../../controllers/UserController.js';
+import UserDTO from '../../dao/dto/usersDTO.js';
 
 const router = Router();
 const userController = new UserController();
@@ -72,7 +73,7 @@ router.get('/current', async (req, res) => {
         return res.status(401).json({ error: 'No autenticado !!' });
     }
 
-    const user = req.session.user;
+    const user = new UserDTO(req.session.user)
 
     res.send({ user });
 });
