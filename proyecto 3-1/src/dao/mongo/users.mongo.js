@@ -2,7 +2,8 @@ import { userModel } from '../models/users.model.js';
 
 export default class Users {
     findByEmail = async (email) => {
-        const result = await userModel.find({ email: email }).populate('cart.cartInfo');
+        const result = await userModel.find({ email: email });
+        //aca tiene que ir el populate que me falta??
         return result
     }
 

@@ -1,6 +1,6 @@
 import { productModel } from '../dao/models/products.model.js';
 
-class ProductManager{
+class ProductController{
 
   async addProduct(title, description, price, thumbnails, code, stock, category) {
     const status=true;
@@ -121,4 +121,4 @@ class ProductManager{
   }
 }
 
-export default ProductManager;
+export default ProductController;

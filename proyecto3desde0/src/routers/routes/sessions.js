@@ -1,9 +1,9 @@
 import {Router } from 'express';
 import passport from 'passport';
-import UserManager from '../../managers/UserManager.js';
+import UserController from '../../controllers/UserController.js';
 
 const router = Router();
-const userManager = new UserManager();
+const userController = new UserController();
 
 router.post(
     "/register",
@@ -78,12 +78,13 @@ router.get('/current', async (req, res) => {
 });
 
 router.get('/:email', async (req, res) => {
-    const user = await userManager.getUserByEmail(req.params.email);
+    const user = await userController.getUserByEmail(req.params.email);
+
     if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' });
+        return res.status(404).send({ error: 'Usuario no encontrado' });
     }
-    
+
     res.send({user});
-});
+})
 
 export default router;

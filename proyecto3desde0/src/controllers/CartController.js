@@ -1,9 +1,6 @@
 import { cartModel } from '../dao/models/carts.model.js';
-import Carts from '../dao/mongo/carts.mongo.js';
 
-const cartsService = new Carts();
-
-class CartManager {
+class CartController {
 
     async createCart() {
         const cart = {
@@ -11,7 +8,7 @@ class CartManager {
         };
         
         try {
-            const createCart = await cartsService.addCart(cart);
+            const createCart = await cartModel.create(cart);
             return createCart;
             } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
@@ -147,4 +144,4 @@ class CartManager {
     }
 }
 
-    export default CartManager;
+    export default CartController;
