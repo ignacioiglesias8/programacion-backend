@@ -3,7 +3,12 @@ import { userModel } from '../dao/models/users.model.js';
 class UserController {
     async getUserByEmail(email) {
         try {
-            const user = await userModel.find({email: email}).populate('cart.cartInfo');
+            const user = await userModel.findOne({email: email}).populate({
+                path: 'cart.cartInfo',
+                populate: {
+                    path: 'products.product'
+                }
+            });
 
             if (user) {
                 return user;
