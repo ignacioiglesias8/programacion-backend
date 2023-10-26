@@ -1,4 +1,6 @@
-import { productModel } from '../dao/models/products.model.js';
+import Products from '../dao/mongo/products.mongo.js';
+
+const productsService = new Products();
 
 class ProductController{
 
@@ -22,7 +24,7 @@ class ProductController{
         };
 
         try {
-          const result = await productModel.create(product);
+          const result = await productsService.createDoc(product);
           return result;
         } catch (err) {
             console.error('Error al guardar los productos en el archivo:', err);
@@ -53,7 +55,7 @@ class ProductController{
     }
 
     try {
-      const products = await productModel.paginate(filters, {
+      const products = await productsService.paginateProducts(filters, {
         page,
         limit,
         lean: true,
@@ -69,7 +71,7 @@ class ProductController{
 
     async getProductById(_id) {
       try {
-        const product = await productModel.find({_id});  
+        const product = await productsService.getById({_id});  
         if (product) {
           return product;
         } else {
@@ -84,7 +86,7 @@ class ProductController{
 
   async updateProduct(_id, product) {
     try{
-      const products = await productModel.find({_id});
+      const products = await productsService.getById({_id});
       let productUpdated = {};
   
       for (let key in products) {
@@ -103,7 +105,7 @@ class ProductController{
             productUpdated = products[key];
           }
       }
-      const result = await productModel.updateOne({_id}, productUpdated);
+      const result = await productsService.updateById({_id}, productUpdated);
       return result;
     } catch (err) {
       console.error('Error al actualizar el producto:', err);
@@ -113,7 +115,7 @@ class ProductController{
 
   async deleteProduct(_id) {
     try {
-      const result = await productModel.deleteOne({_id});
+      const result = await productsService.deleteById({_id});
       return result
     }catch (err) {
       console.error('Error al leer el archivo de productos:', err);
