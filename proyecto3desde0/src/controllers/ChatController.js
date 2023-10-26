@@ -1,9 +1,11 @@
-import { messageModel } from '../dao/models/messages.model.js';
+import Chats from '../dao/mongo/messages.mongo.js';
+
+const chatsService = new Chats();
 
 class ChatController {
 
     async getChats() {
-        const chats = await messageModel.find();
+        const chats = await chatsService.getChats();
         
         if (chats.length < 1) {
             return [];
@@ -15,6 +17,12 @@ class ChatController {
             return [];
             }}
         }
+
+    async saveChat(data){
+        const chats = await chatsService.saveChat(data);
+
+        return chats;
+    }
 }
 
     export default ChatController;
