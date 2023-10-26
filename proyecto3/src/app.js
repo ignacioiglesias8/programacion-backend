@@ -10,7 +10,7 @@ import passport from 'passport';
 import routesRouter from './routers/routes.router.js';
 import viewsRouter from './routers/views.router.js';
 import __dirname from './utils.js';
-import { messageModel} from './dao/models/messages.model.js';
+import ChatController from './controllers/ChatController.js';
 import initializatePassport from './config/passport.config.js';
 
 const app = express();
@@ -55,12 +55,13 @@ const io = new Server(httpServer);
 
 //websocket para chat
 const messages = [];
+const chatController = new ChatController();
 io.on('connection', socket => {
     console.log('Nuevo cliente conectado ', socket.id);
 
     socket.on('message', async data => {
         try {
-            await messageModel.create(data); 
+            await chatController.saveChat(data); 
         } catch (error) {
             console.error('Error al guardar el mensaje en la base de datos:', error.message);
         }
@@ -69,7 +70,7 @@ io.on('connection', socket => {
     });
 
     socket.on('userConnect', async data => {
-        socket.emit('messagesLogs', await messageModel.find());
+        socket.emit('messagesLogs', await chatController.getChats());
         socket.broadcast.emit('newUser', data);
     });
 });

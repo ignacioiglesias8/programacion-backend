@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import ChatManager from '../../managers/ChatManager.js';
+import ChatController from '../../controllers/ChatController.js';
 
 const router = Router();
 
-const chatManager = new ChatManager();
+const chatController = new ChatController();
 
 router.get('/', async (req, res) => {
-    const chats = await chatManager.getChats();
+    const chats = await chatController.getChats();
 
     res.send(chats)
 })

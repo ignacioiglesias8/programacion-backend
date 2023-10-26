@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import ProductManager from "../managers/ProductManager.js";
-import CartManager from '../managers/CartManager.js';
-import UserManager from '../managers/UserManager.js';
+import ProductController from '../controllers/ProductController.js';
+import CartController from '../controllers/CartController.js';
+import UserController from '../controllers/UserController.js';
 
 const router = Router();
 
-const productManager = new ProductManager();
-const cartManager = new CartManager();
-const userManager = new UserManager();
+const productController = new ProductController();
+const cartController = new CartController();
+const userController = new UserController();
 
 router.get('/products', auth, async (req, res) => {
     const limit = parseInt(req.query.limit);
@@ -16,7 +16,7 @@ router.get('/products', auth, async (req, res) => {
     const category = req.query.category;
     const status = req.query.status;
 
-    const products = await productManager.getProducts(limit, sort, category, status, page);
+    const products = await productController.getProducts(limit, sort, category, status, page);
 
     const queryParams = new URLSearchParams();
     if (limit) queryParams.set('limit', limit);
@@ -53,11 +53,11 @@ let cart = {};
 
 router.post('/addToCart', async (req, res) => {
     const productId = req.body.productId;
-    const product = await productManager.getProductById(productId);
-    const user = await userManager.getUserByEmail(req.session.user.email);
+    const product = await productController.getProductById(productId);
+    const user = await userController.getUserByEmail(req.session.user.email);
     const cart = user[0].cart[0].cartInfo._id.toString();
 
-    await cartManager.addProductToCart(cart, product, 1);   
+    await cartController.addProductToCart(cart, product, 1);   
 
     res.status(204).send();
 });
@@ -73,7 +73,7 @@ router.get('/chat', async (req, res) => {
 })
 
 router.get('/cart/:cid', async (req, res) => {
-    const cart= await cartManager.getCartById(req.params.cid)
+    const cart= await cartController.getCartById(req.params.cid)
 
     const cartId = cart[0]._id.toString();
 

@@ -77,25 +77,31 @@ El proyecto está organizado de la siguiente manera:
     |    |
     |    |---dao/: Directorio contenedor de managers.
     |    |   |
-    |    |   |---managers/:
+    |    |   |---db: 
     |    |   |   |
-    |    |   |   |---CartManager.js: Configuración db del endpoint cart.
-    |    |   |   | 
-    |    |   |   |---ChatManager.js: Configuración db del endpoint chat.
-    |    |   |   | 
-    |    |   |   |---ProductManager.js: Configuración db del endpoint product.
+    |    |   |   |---models/:
+    |    |   |   |   |
+    |    |   |   |   |---carts.model.js: Esquema para gestionar db carts.  
+    |    |   |   |   |
+    |    |   |   |   |---messages.model.js: Esquema para gestionar db messages.
+    |    |   |   |   |
+    |    |   |   |   |---products.model.js: Esquema para gestionar db products.
+    |    |   |   |   |
+    |    |   |   |   |---users.model.js: Esquema para gestionar db users.
     |    |   |   |
-    |    |   |   |---UserManager.js: Configuración db del endpoint user.
+    |    |   |   |---CartManagerDB.js: Configuración db del endpoint cart.
+    |    |   |   | 
+    |    |   |   |---ChatManagerDB.js: Configuración db del endpoint chat.
+    |    |   |   | 
+    |    |   |   |---ProductManagerDB.js: Configuración db del endpoint product.
+    |    |   |   |
+    |    |   |   |---UserManagerDB.js: Configuración db del endpoint user.
     |    |   |
-    |    |   |---models/:
-    |    |   |   |
-    |    |   |   |---carts.model.js: Esquema para gestionar db carts.  
-    |    |   |   |
-    |    |   |   |---messages.model.js: Esquema para gestionar db messages.
-    |    |   |   |
-    |    |   |   |---products.model.js: Esquema para gestionar db products.
-    |    |   |   |
-    |    |   |   |---users.model.js: Esquema para gestionar db users.
+    |    |   |---fs: 
+    |    |       |
+    |    |       |---CartManagerFS.js: Configuración de fs del endpoint cart.
+    |    |       |
+    |    |       |---ProductManagerFS.js: Configuración de fs del endpoint product.
     |    |
     |    |---functions/: Directorio contendor de funciones para backend
     |    |   |

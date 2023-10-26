@@ -1,18 +1,34 @@
 import { cartModel } from '../models/carts.model.js';
 
 export default class Cart {
-    addCart = async (cart) => {
+    addCartToUser = async (cart) => {
         let result = await cartModel.create(cart);
         return result;
     }
 
     populateCart = async (_id) => {
-        let result = await cartModel.findById(_id).populate('products.product');
+        let result = await cartModel.find(_id).populate('products.product');
         return result;
     }
 
-    getCartById = async (_id) => {
+    findCartById = async (_id) => {
         let result = await cartModel.findById(_id);
+        return result;
+    }
+
+    addExistingProduct = async (cartId, product, existingProduct) => {
+        const result = await cartModel.updateOne(
+            { _id: cartId, 'products.product': product[0]._id },
+            { $set: { 'products.$.quantity': existingProduct.quantity + 1 } }
+        );
+        return result;
+    }
+
+    addNewProduct = async (cartId, product, quantity) => {
+        const result = await cartModel.updateOne(
+            { _id: cartId },
+            { $push: { products: { product: product[0], quantity: quantity } } }
+        );
         return result;
     }
 

@@ -2,11 +2,11 @@ import passport from 'passport';
 import local from 'passport-local';
 import {createHash, isValidPassword} from '../functions/bcrypt.js';
 import GitHubStrategy from 'passport-github2';
-import CartManager from '../managers/CartManager.js';
-import UserManager from '../managers/UserManager.js';
+import CartController from '../controllers/CartController.js';
+import UserController from '../controllers/UserController.js';
 
-const cartManager = new CartManager();
-const userManager = new UserManager();
+const cartController = new CartController();
+const userController = new UserController();
 
 const localStratergy = local.Strategy;
 const initializatePassport = () => {
@@ -19,7 +19,7 @@ const initializatePassport = () => {
             const { first_name, last_name, email, age } = req.body;
 
             try {
-                let user = await userManager.findOneUser({ email: username});
+                let user = await userController.findOneUser({ email: username});
                 if(user) {
                     console.log('User already exists');
                     return done(null, false);
@@ -33,11 +33,11 @@ const initializatePassport = () => {
                     password: createHash(password),
                     cart: [
                         {
-                            cartInfo: await cartManager.createCart(),
+                            cartInfo: await cartController.createCart(),
                         }
                     ]
                 };
-                let result = await userManager.createUser(newUser);
+                let result = await userController.createUser(newUser);
 
                 return done(null, result);
             } catch (error) {
@@ -51,8 +51,8 @@ const initializatePassport = () => {
         async (username, password, done) => {
             try {
                 const adminUser = {
-                    first_name: "Admin",
-                    last_name: "Coder",
+                    first_name: 'Admin',
+                    last_name: 'Coder',
                     email: process.env.ADMIN_EMAIL,
                     password: process.env.ADMIN_PASSWORD,
                     age: 0,
@@ -62,7 +62,7 @@ const initializatePassport = () => {
                 if (username === adminUser.email && password === adminUser.password) {
                     return done(null, adminUser);
                 } else {
-                    const user = await userManager.findOneUser({ email: username });
+                    const user = await userController.findOneUser({ email: username });
                     if (!user) {
                         console.log('User does not exist');
                         return done(null, false);
@@ -83,13 +83,13 @@ const initializatePassport = () => {
         new GitHubStrategy({
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
-            callbackURL: process.env.GITHUB_CALLBACK_URL,
+            callbackURL: process.env.GITHUB_CALLBACK_URL
     },
 
     async (accessToken, refreshToken, profile, done) => {
         try {
             console.log("este es el profile", profile); 
-            let user = await userManager.findOneUser({email: profile._json.email})
+            let user = await userController.findOneUser({email: profile._json.email})
             if(!user) {
                 let newUser = {
                     first_name: profile._json.name,
@@ -100,11 +100,11 @@ const initializatePassport = () => {
                     role: 'user',
                     cart: [
                         {
-                            cartInfo: await cartManager.createCart(),
+                            cartInfo: await cartController.createCart(),
                         }
                     ]
                 }
-                let result = await userManager.createUser(newUser);
+                let result = await userController.createUser(newUser);
                 done(null, result);
             } else {
                 done(null, user);

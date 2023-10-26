@@ -1,10 +1,9 @@
 import { Router} from 'express';
-import { ObjectId } from 'mongodb';
-import ProductManager from "../../managers/ProductManager.js";
+import ProductController from '../../controllers/ProductController.js';
 
 const router = Router();
 
-const productManager = new ProductManager();
+const productController = new ProductController();
 
 router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit);
@@ -13,7 +12,7 @@ router.get('/', async (req, res) => {
     const category = req.query.category;
     const status = req.query.status;
 
-    const products = await productManager.getProducts(limit, sort, category, status, page);
+    const products = await productController.getProducts(limit, sort, category, status, page);
 
     const queryParams = new URLSearchParams();
     if (limit) queryParams.set('limit', limit);
@@ -40,7 +39,7 @@ router.get('/', async (req, res) => {
 })
 
 router.get('/:pid', async (req, res) => {
-    const product = await productManager.getProductById(req.params.pid);
+    const product = await productController.getProductById(req.params.pid);
 
     if (!product) {
         return res.status(404).send({ error: 'Producto no encontrado' });
@@ -55,7 +54,7 @@ router.post('/', async (req,res)=> {
     const parsePrice = parseFloat(price);
     const parseStock = parseFloat(stock);
 
-    const product = await productManager.addProduct(title, description, parsePrice, thumbnails, code, parseStock, category, status);
+    const product = await productController.addProduct(title, description, parsePrice, thumbnails, code, parseStock, category, status);
 
     res.send({product})
 })
@@ -64,21 +63,21 @@ router.put('/:pid', async (req, res) => {
     const productId = req.params.pid;
     const modifications = req.body;
 
-    const product = await productManager.getProductById(productId);
+    const product = await productController.getProductById(productId);
 
     if (!product) {
         return res.status(404).send({ error: 'Producto no encontrado' });
     }
 
-    await productManager.updateProduct(productId, modifications);
-    const updatedProduct = await productManager.getProductById(productId);
+    await productController.updateProduct(productId, modifications);
+    const updatedProduct = await productController.getProductById(productId);
     
     res.send({ updatedProduct });
 });
 
 router.delete('/:pid', async (req, res) => {
-    const productId = new ObjectId(req.params.pid);
-    const product = await productManager.deleteProduct(productId);
+    const productId = req.params.pid;
+    const product = await productController.deleteProduct(productId);
 
     res.send({product, message: `El producto con Id ${productId} fue eliminado`});
 })

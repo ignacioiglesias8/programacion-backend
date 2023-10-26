@@ -1,18 +1,18 @@
 import { productModel } from '../models/products.model.js';
 
 export default class Product {
-    add = async (product) => {
+    createDoc = async (product) => {
         let result = await productModel.create(product);
         return result;
     }
 
-    paginate = async (filters, options) => {
+    paginateProducts = async (filters, options) => {
         let result = await productModel.paginate(filters, options);
         return result;
     }
 
     getById = async (_id) => {
-        let result = await productModel.findById(_id);
+        let result = await productModel.find(_id);
         return result;
     }
 
