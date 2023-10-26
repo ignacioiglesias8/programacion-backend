@@ -11,7 +11,7 @@ export default class Users {
         return result
     }
 
-    createNewUser = async (userData) => {
+    createUserDB = async (userData) => {
         const result = await userModel.create(userData);
         return result;
     }

@@ -1,11 +1,9 @@
-import Users from '../dao/mongo/users.mongo.js';
-
-const usersService = new Users();
+import {usersService} from '../repository/index.js'
 
 class UserController {
     async getUserByEmail(email) {
         try {
-            const user = await usersService.findByEmail({email: email});
+            const user = await usersService.getUser({email: email});
 
             if (user) {
                 return user;
@@ -31,7 +29,7 @@ class UserController {
 
     async findOneUser(query) {
         try {
-            const user = await usersService.findUserByQuery(query);
+            const user = await usersService.searchUser(query);
             return user;
         } catch (err) {
             console.error('Error al buscar usuario:', err);
