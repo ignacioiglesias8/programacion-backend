@@ -72,7 +72,8 @@ router.get('/current', async (req, res) => {
         return res.status(401).json({ error: 'No autenticado !!' });
     }
 
-    const user = await userController.showCurrentUser(req.session.user)
+    const currentUser = await userController.getUserByEmail(req.session.user.email);
+    const user = await userController.showCurrentUser(currentUser[0])
 
     res.send({ user });
 });
