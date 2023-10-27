@@ -1,6 +1,4 @@
-import Products from '../dao/mongo/products.mongo.js';
-
-const productsService = new Products();
+import {productsService} from '../repository/index.js'
 
 class ProductController{
 
@@ -24,7 +22,7 @@ class ProductController{
         };
 
         try {
-          const result = await productsService.createDoc(product);
+          const result = await productsService.createProduct(product);
           return result;
         } catch (err) {
             console.error('Error al guardar los productos en el archivo:', err);
