@@ -1,4 +1,5 @@
 import { Router} from 'express';
+import { authorization } from '../../functions/auth.js'
 import ProductController from '../../controllers/ProductController.js';
 
 const router = Router();
@@ -48,7 +49,7 @@ router.get('/:pid', async (req, res) => {
     res.send({product});
 })
 
-router.post('/', async (req,res)=> {
+router.post('/', authorization('admin'), async (req,res)=> {
     const { title, description, price, thumbnails, code, stock, category, status } = req.body;
 
     const parsePrice = parseFloat(price);
@@ -59,7 +60,7 @@ router.post('/', async (req,res)=> {
     res.send({product})
 })
 
-router.put('/:pid', async (req, res) => {
+router.put('/:pid', authorization('admin'), async (req, res) => {
     const productId = req.params.pid;
     const modifications = req.body;
 
@@ -75,7 +76,7 @@ router.put('/:pid', async (req, res) => {
     res.send({ updatedProduct });
 });
 
-router.delete('/:pid', async (req, res) => {
+router.delete('/:pid', authorization('admin'), async (req, res) => {
     const productId = req.params.pid;
     const product = await productController.deleteProduct(productId);
 

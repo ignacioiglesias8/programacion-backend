@@ -2,6 +2,7 @@ import { Router } from 'express';
 import ProductController from '../controllers/ProductController.js';
 import CartController from '../controllers/CartController.js';
 import UserController from '../controllers/UserController.js';
+import { authorization } from '../functions/auth.js'
 
 const router = Router();
 
@@ -51,7 +52,7 @@ router.get('/products', auth, async (req, res) => {
 
 let cart = {};
 
-router.post('/addToCart', async (req, res) => {
+router.post('/addToCart', authorization('user'), async (req, res) => {
     const productId = req.body.productId;
     const product = await productController.getProductById(productId);
     const user = await userController.getUserByEmail(req.session.user.email);
@@ -62,7 +63,7 @@ router.post('/addToCart', async (req, res) => {
     res.status(204).send();
 });
 
-router.get('/chat', async (req, res) => {
+router.get('/chat', authorization('user'), async (req, res) => {
 
     res.render(
         'chat',
