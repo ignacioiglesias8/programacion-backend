@@ -36,6 +36,16 @@ class UserController {
             return null;
         }
     }
+
+    async showCurrentUser(data) {
+        try {
+            const user = await usersService.showUser(data);
+            return user;
+        }catch (err) {
+            console.error('Error al buscar usuario:', err);
+            return null;
+        }
+    }
 }
 
     export default UserController;

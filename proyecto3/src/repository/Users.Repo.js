@@ -1,3 +1,5 @@
+import UserDTO from "../dao/dto/usersDTO.js"
+
 export default class UserRepository {
     constructor (dao){
         this.dao = dao;
@@ -15,6 +17,11 @@ export default class UserRepository {
 
     searchUser = async (query) => {
         let result = await this.dao.findUserByQuery(query);
+        return result
+    }
+
+    showUser = async (data) => {
+        let result = new UserDTO(data);
         return result
     }
 }
