@@ -1,6 +1,4 @@
-import Carts from '../dao/mongo/carts.mongo.js';
-
-const cartsService = new Carts();
+import {cartsService} from '../repository/index.js'
 
 class CartController {
 
@@ -19,7 +17,7 @@ class CartController {
 
     async getCartById(id) {
         try {
-            const cart = await cartsService.populateCart({_id: id});
+            const cart = await cartsService.popCartById({_id: id});
 
             if (cart) {
                 return cart;
@@ -100,7 +98,7 @@ class CartController {
                 return { error: 'Producto no encontrado en el carrito' };
             }
     
-            await cartsService.removeOneProduct(cartId, productId);
+            await cartsService.deleteOneProduct(cartId, productId);
     
             return { message: 'Producto eliminado del carrito correctamente' };
         } catch (error) {
@@ -119,7 +117,7 @@ class CartController {
                 return { error: 'El carrito ya esta vacío' };
             }
 
-            await cartsService.removeAllProducts(cartId);
+            await cartsService.deleteAllProducts(cartId);
     
             return { message: 'Todos los productos han sido eliminados del carrito correctamente' };
         } catch (error) {

@@ -1,7 +1,7 @@
 import { cartModel } from '../models/carts.model.js';
 
 export default class Cart {
-    addCartToUser = async (cart) => {
+    createCart = async (cart) => {
         let result = await cartModel.create(cart);
         return result;
     }
@@ -11,12 +11,12 @@ export default class Cart {
         return result;
     }
 
-    findCartById = async (_id) => {
+    findCart = async (_id) => {
         let result = await cartModel.findById(_id);
         return result;
     }
 
-    addExistingProduct = async (cartId, product, existingProduct) => {
+    updateExistingProduct = async (cartId, product, existingProduct) => {
         const result = await cartModel.updateOne(
             { _id: cartId, 'products.product': product[0]._id },
             { $set: { 'products.$.quantity': existingProduct.quantity + 1 } }
@@ -24,7 +24,7 @@ export default class Cart {
         return result;
     }
 
-    addNewProduct = async (cartId, product, quantity) => {
+    updateNewProduct = async (cartId, product, quantity) => {
         const result = await cartModel.updateOne(
             { _id: cartId },
             { $push: { products: { product: product[0], quantity: quantity } } }
@@ -32,7 +32,7 @@ export default class Cart {
         return result;
     }
 
-    modifyCart = async (cartId, newCart) => {
+    updateCart = async (cartId, newCart) => {
         const result = await cartModel.updateOne(
             { _id: cartId },
             { $set: { products: newCart.products } }
@@ -40,7 +40,7 @@ export default class Cart {
         return result;
     }
 
-    modifyQuantity = async (cartId, productId, newQuantity) => {
+    updateQuantity = async (cartId, productId, newQuantity) => {
         const result = await cartModel.updateOne(
             { _id: cartId, 'products.product': productId },
             { $set: { 'products.$.quantity': newQuantity } }
