@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import CartController from '../../controllers/CartController.js';
 import ProductController from '../../controllers/ProductController.js';
+import TicketController from '../../controllers/TicketsController.js';
 
 const router = Router();
 
 const cartController = new CartController();
 const productController = new ProductController();
+const ticketController = new TicketController();
 
 router.post('/', async (req, res) => {
     const cart = await cartController.createCart();
@@ -90,6 +92,12 @@ router.delete('/:cid', async (req, res) => {
     }
 
     res.send(result);
+});
+
+router.get('/:cid/purchase', async (req, res) => {
+    const ticket = await ticketController.generateTicket(req.params.cid, req.session.user.email);
+
+    res.send({ ticket });
 });
 
 export default router;

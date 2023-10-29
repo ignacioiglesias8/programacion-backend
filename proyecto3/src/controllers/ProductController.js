@@ -84,30 +84,10 @@ class ProductController{
 
   async updateProduct(_id, product) {
     try{
-      const products = await productsService.getById({_id});
-      let productUpdated = {};
-  
-      for (let key in products) {
-          if (products[key].id == _id) {
-            products[key].title = product.title ? product.title : products[key].title;
-            products[key].description = product.description ? product.description : products[key].description;
-            products[key].price = product.price ? product.price : products[key].price;
-            products[key].code = product.code ? product.code : products[key].code;
-            products[key].stock = product.stock ? product.stock : products[key].stock;
-            products[key].category = product.category ? product.category : products[key].category;
-            products[key].thumbnails = product.thumbnails ? product.thumbnails : products[key].thumbnails;
-            if (product.status !== undefined) {
-              products[key].status = typeof product.status === 'string' ? product.status === 'true' : Boolean(product.status);
-            }
-  
-            productUpdated = products[key];
-          }
-      }
-      const result = await productsService.updateById({_id}, productUpdated);
-      return result;
-    } catch (err) {
-      console.error('Error al actualizar el producto:', err);
-      throw err; 
+      let result = await productsService.updateById(_id, product);
+      return result
+    }catch(err){
+      console.error('Error al leer el archivo de productos:', err);
     }
   }
 
