@@ -25,6 +25,8 @@ class TicketController {
         }
 
         const ticketDataArray = [];
+        const productsAvailable = [];
+        const productsNotAvailable = [];
 
         for (const cartItem of cart.products) {
             const productId = cartItem.product;
@@ -34,19 +36,25 @@ class TicketController {
     
             if (productStock < productQuantity) {
                 console.error(`Cantidad insuficiente de producto ${product[0].name}`);
-                break;
+                productsNotAvailable.push(productId);
+                continue;
             } 
 
             const quantityUpdated = productStock - productQuantity;
             const modifications = { stock: quantityUpdated };
             await productsService.updateById(productId, modifications);
 
+            productsAvailable.push({
+                productId,
+                quantity: productQuantity,
+            });
+
             ticketDataArray.push({
                 amount: product[0].price * productQuantity,
             });
         }
 
-        if (ticketDataArray.length > 0){
+        if (productsAvailable.length > 0){
             const ticketData = {
                 code: await ticketsService.generateUniqueTicketCode(),
                 amount: ticketDataArray.reduce((total, productData) => total + productData.amount, 0),
@@ -54,6 +62,9 @@ class TicketController {
             };
     
             await ticketsService.saveTicket(ticketData);
+            for (const product of productsAvailable) {
+                await cartsService.deleteOneProduct(cart, product.productId);
+            }
         }else{
             console.error(`No hay productos para facturar`);
         }
