@@ -2,13 +2,16 @@ import { Router } from 'express';
 import ProductController from '../controllers/ProductController.js';
 import CartController from '../controllers/CartController.js';
 import UserController from '../controllers/UserController.js';
+import TicketController from '../controllers/TicketsController.js';
 import { authorization } from '../functions/auth.js'
+import { usersService } from '../repository/index.js';
 
 const router = Router();
 
 const productController = new ProductController();
 const cartController = new CartController();
 const userController = new UserController();
+const ticketsController = new TicketController();
 
 router.get('/products', auth, async (req, res) => {
     const limit = parseInt(req.query.limit);
@@ -61,6 +64,26 @@ router.post('/addToCart', authorization('user'), async (req, res) => {
     await cartController.addProductToCart(cart, product, 1);   
 
     res.status(204).send();
+});
+
+router.post('/purchase', async (req, res) => {
+    const user = await usersService.getUser({email: req.session.user.email})
+    const cartId = user[0].cart[0].cartInfo;
+    const ticket = await ticketsController.generateTicket(cartId, req.session.user.email);
+
+    res.json({ ticket })
+});
+
+router.get('/ticket', async (req, res) => {
+
+
+    res.render(
+        'ticket',
+        {
+
+            style: "chat.css",
+        }
+    );
 });
 
 router.get('/chat', authorization('user'), async (req, res) => {
