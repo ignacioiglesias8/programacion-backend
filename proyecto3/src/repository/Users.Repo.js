@@ -24,4 +24,9 @@ export default class UserRepository {
         let result = new UserDTO(data);
         return result
     }
+
+    addTicketToUser = async (userId, ticket) => {
+        let result = await this.dao.addTicket(userId, ticket);
+        return result
+    }
 }

@@ -20,4 +20,12 @@ export default class Users {
         const result = await userModel.findOne(query);
         return result;
     }
+
+    addTicket = async (userId, ticketId) => {
+        let result = await userModel.updateOne(
+            { _id: userId },
+            { $set: { ticket: { ticketInfo: ticketId } } },
+        );
+        return result;
+    }
 }

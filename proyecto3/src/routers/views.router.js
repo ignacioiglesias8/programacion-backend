@@ -75,12 +75,21 @@ router.post('/purchase', async (req, res) => {
 });
 
 router.get('/ticket', async (req, res) => {
+    const user = await usersService.getUser({email: req.session.user.email})
+    const ticketId = user[0].ticket[0].ticketInfo;
+    const ticket = await ticketsController.getTicketById(ticketId)
 
+    const response = {
+        code : ticket[0].code,
+        purchase_datetime: ticket[0].purchase_datetime,
+        amount: ticket[0].amount,
+        user: ticket[0].purchaser,
+    };
 
     res.render(
         'ticket',
         {
-
+            ticket: response,
             style: "chat.css",
         }
     );

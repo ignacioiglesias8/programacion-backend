@@ -1,4 +1,4 @@
-import {ticketsService, productsService, cartsService} from '../repository/index.js';
+import {ticketsService, productsService, cartsService, usersService} from '../repository/index.js';
 
 class TicketController {
 
@@ -61,7 +61,10 @@ class TicketController {
                 purchaser: email,
             };
     
-            await ticketsService.saveTicket(ticketData);
+            const ticket = await ticketsService.saveTicket(ticketData);
+            const user = await usersService.getUser({email: email});
+            console.log(user);
+            await usersService.addTicketToUser(user[0]._id, ticket._id);
             for (const product of productsAvailable) {
                 await cartsService.deleteOneProduct(cart, product.productId);
             }

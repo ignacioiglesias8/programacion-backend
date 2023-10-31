@@ -39,7 +39,18 @@ const userSchema = mongoose.Schema({
         type: String,
         enum: ['user', 'admin'],
         default: 'user'
-    }
+    },
+    ticket: {
+        type:[
+            {
+                ticketInfo: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "tickets"
+                }
+            }
+        ],
+        default: [],
+    },
 })
 
 export const userModel = mongoose.model(userCollection, userSchema);
