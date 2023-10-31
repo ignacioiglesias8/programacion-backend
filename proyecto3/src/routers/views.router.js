@@ -94,6 +94,15 @@ router.get('/ticket', async (req, res) => {
     );
 });
 
+router.put('/tickets/finish', async (req, res) => {
+    const user = await userController.getUserByEmail(req.session.user.email);
+    const userId = user[0]._id;
+    console.log(userId);
+    await ticketsController.deleteTicketFromUser(userId)
+
+    res.send();
+})
+
 router.get('/chat', authorization('user'), async (req, res) => {
 
     res.render(

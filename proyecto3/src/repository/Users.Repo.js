@@ -30,4 +30,9 @@ export default class UserRepository {
         let result = await this.dao.addTicket(user[0]._id, ticket);
         return result
     }
+
+    removeTicketFromUser = async (userId) => {
+        let result = await this.dao.removeTicket(userId);
+        return result
+    }
 }

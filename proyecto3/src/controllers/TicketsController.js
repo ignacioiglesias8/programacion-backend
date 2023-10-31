@@ -30,7 +30,6 @@ class TicketController {
             ticketDataArray
             } = await productsService.processProducts(cart);
 
-
         if (productsNotAvailable.length > 0) {
             console.error(`No hay stock para estos productos: ${productsNotAvailable} `)
         }
@@ -45,6 +44,10 @@ class TicketController {
         }else{
             console.error(`No hay productos para facturar`);
         }
+    }
+
+    async deleteTicketFromUser (userId){
+        await usersService.removeTicketFromUser(userId);
     }
 }
 

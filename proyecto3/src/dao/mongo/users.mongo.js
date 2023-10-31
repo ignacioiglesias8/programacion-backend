@@ -28,4 +28,12 @@ export default class Users {
         );
         return result;
     }
+
+    removeTicket = async (userId) => {
+        let result = await userModel.updateOne(
+            { _id: userId },
+            { $set: { ticket: [] } },
+        );
+        return result;
+    }
 }
