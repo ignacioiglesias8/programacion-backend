@@ -24,47 +24,21 @@ class TicketController {
             throw new Error('Carrito no encontrado');
         }
 
-        const ticketDataArray = [];
-        const productsAvailable = [];
-        const productsNotAvailable = [];
+        const { 
+            productsAvailable,
+            productsNotAvailable,
+            ticketDataArray
+            } = await productsService.processProducts(cart);
 
-        for (const cartItem of cart.products) {
-            const productId = cartItem.product;
-            const productQuantity = cartItem.quantity;
-            const product = await productsService.getById(productId);
-            const productStock = product[0].stock;
-    
-            if (productStock < productQuantity) {
-                console.error(`Cantidad insuficiente de producto ${product[0].name}`);
-                productsNotAvailable.push(productId);
-                continue;
-            } 
 
-            const quantityUpdated = productStock - productQuantity;
-            const modifications = { stock: quantityUpdated };
-            await productsService.updateById(productId, modifications);
-
-            productsAvailable.push({
-                productId,
-                quantity: productQuantity,
-            });
-
-            ticketDataArray.push({
-                amount: product[0].price * productQuantity,
-            });
+        if (productsNotAvailable.length > 0) {
+            console.error(`No hay stock para estos productos: ${productsNotAvailable} `)
         }
 
         if (productsAvailable.length > 0){
-            const ticketData = {
-                code: await ticketsService.generateUniqueTicketCode(),
-                amount: ticketDataArray.reduce((total, productData) => total + productData.amount, 0),
-                purchaser: email,
-            };
-    
-            const ticket = await ticketsService.saveTicket(ticketData);
-            const user = await usersService.getUser({email: email});
-            console.log(user);
-            await usersService.addTicketToUser(user[0]._id, ticket._id);
+            const ticket = await ticketsService.saveTicket(ticketDataArray, email);
+            await usersService.addTicketToUser({email: email}, ticket._id);
+            
             for (const product of productsAvailable) {
                 await cartsService.deleteOneProduct(cart, product.productId);
             }

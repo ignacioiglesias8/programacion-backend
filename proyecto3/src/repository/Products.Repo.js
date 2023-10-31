@@ -51,4 +51,38 @@ export default class ProductRepository {
         let result = await this.dao.deleteDocById(_id);
         return result
     }
+
+    processProducts = async (cart) => {
+        const ticketDataArray = [];
+        const productsAvailable = [];
+        const productsNotAvailable = [];
+
+        for (const cartItem of cart.products) {
+            const productId = cartItem.product;
+            const productQuantity = cartItem.quantity;
+            const product = await this.dao.getDocById(productId);
+            const productStock = product[0].stock;
+    
+            if (productStock < productQuantity) {
+                console.error(`Cantidad insuficiente de producto ${product[0].title}`);
+                productsNotAvailable.push(product[0].title);
+                continue;
+            } 
+
+            const quantityUpdated = productStock - productQuantity;
+            const modifications = { stock: quantityUpdated };
+            await this.dao.updateDocById(productId, modifications);
+
+            productsAvailable.push({
+                productId,
+                quantity: productQuantity,
+            });
+
+            ticketDataArray.push({
+                amount: product[0].price * productQuantity,
+            });
+        }
+
+        return { productsAvailable, productsNotAvailable , ticketDataArray};
+    }
 }

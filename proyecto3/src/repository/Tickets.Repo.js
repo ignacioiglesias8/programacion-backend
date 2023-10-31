@@ -7,21 +7,14 @@ export default class TicketRepository {
         let result = await this.dao.getTicket(_id);
         return result
     }
-
-    saveTicket = async (data) => {
-        let result = await this.dao.createTicket(data);
-        return result
-    }
     
-    generateUniqueTicketCode = async () => {
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let uniqueCode = '';
-    
-        for (let i = 0; i < 10; i++) {
-            const randomIndex = Math.floor(Math.random() * characters.length);
-            uniqueCode += characters.charAt(randomIndex);
-        }
-    
-        return uniqueCode;
+    saveTicket = async (ticketDataArray, email) => {
+        let data = {
+            code: await this.dao.generateUniqueTicketCode(),
+            amount: ticketDataArray.reduce((total, productData) => total + productData.amount, 0),
+            purchaser: email,
+        };
+        let ticketData = await this.dao.createTicket(data)
+        return ticketData;
     }
 }

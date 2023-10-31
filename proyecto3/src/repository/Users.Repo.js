@@ -25,8 +25,9 @@ export default class UserRepository {
         return result
     }
 
-    addTicketToUser = async (userId, ticket) => {
-        let result = await this.dao.addTicket(userId, ticket);
+    addTicketToUser = async (email, ticket) => {
+        let user = await this.dao.findByEmail(email)
+        let result = await this.dao.addTicket(user[0]._id, ticket);
         return result
     }
 }

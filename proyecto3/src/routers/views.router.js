@@ -4,7 +4,6 @@ import CartController from '../controllers/CartController.js';
 import UserController from '../controllers/UserController.js';
 import TicketController from '../controllers/TicketsController.js';
 import { authorization } from '../functions/auth.js'
-import { usersService } from '../repository/index.js';
 
 const router = Router();
 
@@ -67,7 +66,7 @@ router.post('/addToCart', authorization('user'), async (req, res) => {
 });
 
 router.post('/purchase', async (req, res) => {
-    const user = await usersService.getUser({email: req.session.user.email})
+    const user = await userController.getUserByEmail(req.session.user.email);
     const cartId = user[0].cart[0].cartInfo;
     const ticket = await ticketsController.generateTicket(cartId, req.session.user.email);
 
@@ -75,7 +74,7 @@ router.post('/purchase', async (req, res) => {
 });
 
 router.get('/ticket', async (req, res) => {
-    const user = await usersService.getUser({email: req.session.user.email})
+    const user = await userController.getUserByEmail(req.session.user.email);
     const ticketId = user[0].ticket[0].ticketInfo;
     const ticket = await ticketsController.getTicketById(ticketId)
 
