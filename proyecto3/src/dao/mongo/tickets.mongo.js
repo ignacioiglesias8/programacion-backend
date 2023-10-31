@@ -11,6 +11,11 @@ export default class Message {
         return result;
     }
 
+    deleteTIcket = async (data) => {
+        let result = await ticketModel.delete(data);
+        return result;
+    }
+
     generateUniqueTicketCode = async () => {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         let uniqueCode = '';
