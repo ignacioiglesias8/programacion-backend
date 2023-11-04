@@ -19,7 +19,31 @@ export default class ProductRepository {
         return result
     }
 
-    paginateProducts = async (filters, options) => {
+    paginateProducts = async (limit, order, category, status, page) => {
+        if (!limit) {
+            limit = 10;
+            }
+        if (!page) {
+            page = 1;
+            }
+
+        const filters = {};
+        if (category) {
+            filters.category = category;
+            }
+        if (status !== undefined) {
+            filters.status = status;
+            }
+
+        const sortOptions = {};
+        if (order === 'asc') {
+            sortOptions.price = 1;
+            } else if (order === 'desc') {
+                sortOptions.price = -1;
+            }
+
+        const options = {page, limit, lean: true, sort: sortOptions}
+
         let result = await this.dao.paginateDocs(filters, options);
         return result
     }

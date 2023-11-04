@@ -19,7 +19,7 @@ router.get('/products', auth, async (req, res) => {
     const category = req.query.category;
     const status = req.query.status;
 
-    const products = await productController.getProducts(limit, sort, category, status, page);
+    const products = await productController.showProducts(limit, sort, category, status, page);
 
     const queryParams = new URLSearchParams();
     if (limit) queryParams.set('limit', limit);

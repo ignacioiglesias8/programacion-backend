@@ -4,6 +4,7 @@ import ProductController from '../../controllers/ProductController.js';
 import CustomError from '../../errorHandler/CustomError.js';
 import ErrorCodes from '../../errorHandler/enums.js';
 import { generateProductErrorInfo } from '../../errorHandler/info.js';
+import { createSearchParams } from '../../functions/searchParams.js';
 
 const router = Router();
 
@@ -16,28 +17,11 @@ router.get('/', async (req, res) => {
     const category = req.query.category;
     const status = req.query.status;
 
-    const products = await productController.getProducts(limit, sort, category, status, page);
+    const products = await productController.showProducts(limit, sort, category, status, page);
 
-    const queryParams = new URLSearchParams();
-    if (limit) queryParams.set('limit', limit);
-    if (sort) queryParams.set('sort', sort);
-    if (category) queryParams.set('category', category);
-    if (status) queryParams.set('status', status);
+    const response = createSearchParams(limit, sort, category, status, products)
 
-    const queryString = queryParams.toString();
-
-    const response = {
-        status: "success",
-        payload: products.docs,
-        totalPages: products.totalPages,
-        prevPage: products.prevPage,
-        nextPage: products.nextPage,
-        page: products.page,
-        hasPrevPage: products.hasPrevPage,
-        hasNextPage: products.hasNextPage,
-        prevLink: products.hasPrevPage ? `/products?page=${products.prevPage}&${queryString}` : '',
-        nextLink: products.hasNextPage ? `/products?page=${products.nextPage}&${queryString}` : '',
-    };
+    console.log(response)
 
     res.send(response)
 })

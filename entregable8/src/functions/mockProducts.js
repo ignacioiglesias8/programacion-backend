@@ -22,9 +22,3 @@ export const generateMockProducts = () => {
         status: faker.datatype.boolean(),
     }
 }
-
-/*export const fetchMockProducts = async (PORT) =>{
-    const response = await fetch(`http://localhost:${PORT}/mockingproducts`);
-    const data = await response.json();
-    console.log(data);
-}*/
