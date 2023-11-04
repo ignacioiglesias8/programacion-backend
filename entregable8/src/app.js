@@ -12,7 +12,7 @@ import viewsRouter from './routers/views.router.js';
 import mockingProducts from './routers/testingRoutes/productsMocks.js'
 import ChatController from './controllers/ChatController.js';
 import initializatePassport from './config/passport.config.js';
-import errorHandler from './errorHandler/errorIndex.js'
+import errorHandler from './errorHandler/index.js'
 import __dirname from './utils.js';
 
 const app = express();

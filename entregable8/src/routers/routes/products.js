@@ -49,7 +49,7 @@ router.get('/:pid', async (req, res) => {
     res.send({product});
 })
 
-router.post('/', authorization('admin'), async (req,res)=> {
+router.post('/', /*authorization('admin'),*/ async (req,res)=> {
     const { title, description, price, thumbnails, code, stock, category, status } = req.body;
 
     const parsePrice = parseFloat(price);
@@ -57,7 +57,10 @@ router.post('/', authorization('admin'), async (req,res)=> {
 
     const product = await productController.addProduct(title, description, parsePrice, thumbnails, code, parseStock, category, status);
 
-    res.send({product})
+    res.send({
+        status: 'success',
+        payload: product
+    });
 })
 
 router.put('/:pid', authorization('admin'), async (req, res) => {

@@ -1,4 +1,7 @@
 import {productsService} from '../repository/index.js'
+import CustomError from '../errorHandler/CustomError.js';
+import ErrorCodes from '../errorHandler/enums.js';
+import { generateProductErrorInfo } from '../errorHandler/info.js';
 
 class ProductController{
 
@@ -6,27 +9,24 @@ class ProductController{
     const status=true;
   
     if (!title || !description || !price || !code || !stock || !category) {
-            console.error('Todos los campos son obligatorios');
-            return;
+        CustomError.createError({
+          name: 'Product creation error',
+          cause: generateProductErrorInfo({title, description, price, code, stock, category}),
+          message: 'Error trying to create product',
+          code: ErrorCodes.INVALID_TYPES_ERROR,
+          });
         }
 
-        const product = {
-            title,
-            description,
-            price,
-            thumbnails,
-            code,
-            stock,
-            category,
-            status,
-        };
+        const product = await productsService.createProduct(title, 
+            description, 
+            price, 
+            thumbnails, 
+            code, 
+            stock, 
+            category, 
+            status)
 
-        try {
-          const result = await productsService.createProduct(product);
-          return result;
-        } catch (err) {
-            console.error('Error al guardar los productos en el archivo:', err);
-        }
+        return product
     }
 
   async getProducts(limit, order, category, status, page) {
