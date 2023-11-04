@@ -9,11 +9,15 @@ import passport from 'passport';
 
 import routesRouter from './routers/routes.router.js';
 import viewsRouter from './routers/views.router.js';
-import __dirname from './utils.js';
+import mockingProducts from './routers/testingRoutes/productsMocks.js'
 import ChatController from './controllers/ChatController.js';
 import initializatePassport from './config/passport.config.js';
+import errorHandler from './errorHandler/errorIndex.js'
+import __dirname from './utils.js';
 
 const app = express();
+const uri= process.env.MONGO_URL
+const PORT= process.env.PORT;
 
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
@@ -23,9 +27,7 @@ app.use(express.static(__dirname + '/../public'));
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
-const uri= process.env.MONGO_URL
 mongoose.connect(uri)
-
 app.use(session(
     {
         store: mongoStore.create({
@@ -45,8 +47,10 @@ app.use(passport.session());
 
 app.use('/api', routesRouter);
 app.use('/', viewsRouter);
+app.use('/test', mockingProducts)
 
-const PORT= process.env.PORT;
+app.use(errorHandler);
+
 const httpServer = app.listen(PORT, (err, res) => {
     console.log(`servidor en el PORT: ${PORT}`)
 });
