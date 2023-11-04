@@ -1,33 +1,18 @@
 import {productsService} from '../repository/index.js'
-import CustomError from '../errorHandler/CustomError.js';
-import ErrorCodes from '../errorHandler/enums.js';
-import { generateProductErrorInfo } from '../errorHandler/info.js';
 
 class ProductController{
 
   async addProduct(title, description, price, thumbnails, code, stock, category) {
     const status=true;
-  
-    if (!title || !description || !price || !code || !stock || !category) {
-        CustomError.createError({
-          name: 'Product creation error',
-          cause: generateProductErrorInfo({title, description, price, code, stock, category}),
-          message: 'Error trying to create product',
-          code: ErrorCodes.INVALID_TYPES_ERROR,
-          });
-        }
 
-        const product = await productsService.createProduct(title, 
-            description, 
-            price, 
-            thumbnails, 
-            code, 
-            stock, 
-            category, 
-            status)
+    const parsePrice = parseFloat(price);
+    const parseStock = parseFloat(stock);
 
-        return product
-    }
+    const product = await productsService.createProduct(title, description, parsePrice, thumbnails, 
+        code, parseStock, category, status)
+
+    return product
+  }
 
   async getProducts(limit, order, category, status, page) {
     if (!limit) {

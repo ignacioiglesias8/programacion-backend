@@ -1,6 +1,9 @@
 import { Router} from 'express';
 import { authorization } from '../../functions/auth.js'
 import ProductController from '../../controllers/ProductController.js';
+import CustomError from '../../errorHandler/CustomError.js';
+import ErrorCodes from '../../errorHandler/enums.js';
+import { generateProductErrorInfo } from '../../errorHandler/info.js';
 
 const router = Router();
 
@@ -52,10 +55,16 @@ router.get('/:pid', async (req, res) => {
 router.post('/', /*authorization('admin'),*/ async (req,res)=> {
     const { title, description, price, thumbnails, code, stock, category, status } = req.body;
 
-    const parsePrice = parseFloat(price);
-    const parseStock = parseFloat(stock);
+    if (!title || !description || !price || !code || !stock || !category) {
+        CustomError.createError({
+            name: 'Product creation error',
+            cause: generateProductErrorInfo({title, description, price, code, stock, category}),
+            message: 'Error trying to create product',
+            code: ErrorCodes.INVALID_TYPES_ERROR,
+            });
+        }
 
-    const product = await productController.addProduct(title, description, parsePrice, thumbnails, code, parseStock, category, status);
+    const product = await productController.addProduct(title, description, price, thumbnails, code, stock, category, status);
 
     res.send({
         status: 'success',
