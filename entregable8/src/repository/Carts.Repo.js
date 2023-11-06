@@ -3,8 +3,8 @@ export default class CartRepository {
         this.dao = dao;
     }
 
-    addCartToUser = async (data) => {
-        let result = await this.dao.createCart(data);
+    addCart = async (data) => {
+        let result = await this.dao.createCartDB(data);
         return result
     }
 
@@ -28,6 +28,21 @@ export default class CartRepository {
         return result
     }
 
+    handleAddProductToCart = async (product, cart, cartId, quantity) => {
+        console.log(product);
+        const existingProduct = cart.products.find(item => 
+            item.product.toString() === product[0]._id.toString());
+
+        if (existingProduct) {
+            const result = await this.dao.updateExistingProduct(cartId, product, 
+                existingProduct);
+            return result
+        } else {
+            const result = await this.dao.updateNewProduct(cartId, product, quantity);
+            return result
+        }
+    }
+
     modifyCart = async (cartId, newCart) => {
         let result = await this.dao.updateCart(cartId, newCart);
         return result
@@ -38,6 +53,7 @@ export default class CartRepository {
         return result
     }
 
+    //ojo con este
     deleteOneProduct = async (cartId, productId) => {
         let result = await this.dao.removeOneProduct(cartId, productId);
         return result

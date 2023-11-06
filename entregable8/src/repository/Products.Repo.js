@@ -20,12 +20,6 @@ export default class ProductRepository {
     }
 
     paginateProducts = async (limit, order, category, status, page) => {
-        if (!limit) {
-            limit = 10;
-            }
-        if (!page) {
-            page = 1;
-            }
 
         const filters = {};
         if (category) {

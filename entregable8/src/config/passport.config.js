@@ -33,7 +33,7 @@ const initializatePassport = () => {
                     password: createHash(password),
                     cart: [
                         {
-                            cartInfo: await cartController.createCart(),
+                            cartInfo: await cartController.addCartToUser(),
                         }
                     ]
                 };
@@ -100,7 +100,7 @@ const initializatePassport = () => {
                     role: 'user',
                     cart: [
                         {
-                            cartInfo: await cartController.createCart(),
+                            cartInfo: await cartController.addCartToUser(),
                         }
                     ]
                 }

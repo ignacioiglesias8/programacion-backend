@@ -10,7 +10,7 @@ const productController = new ProductController();
 const ticketController = new TicketController();
 
 router.post('/', async (req, res) => {
-    const cart = await cartController.createCart();
+    const cart = await cartController.addCartToUser();
 
     res.send({ cart });
 });

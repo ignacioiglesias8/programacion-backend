@@ -2,13 +2,13 @@ import {cartsService} from '../repository/index.js'
 
 class CartController {
 
-    async createCart() {
+    async addCartToUser() {
         const cart = {
             products: [],
         };
         
         try {
-            const createCart = await cartsService.addCartToUser(cart);
+            const createCart = await cartsService.addCart(cart);
             return createCart;
             } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
@@ -38,14 +38,8 @@ class CartController {
                 console.error("Carrito no encontrado");
                 return;
             }
-            console.log(product);
-            const existingProduct = cart.products.find(item => item.product.toString() === product[0]._id.toString());
-    
-            if (existingProduct) {
-                await cartsService.addExistingProduct(cartId, product, existingProduct);
-            } else {
-                await cartsService.addNewProduct(cartId, product, quantity);
-            }
+
+            await cartsService.handleAddProductToCart(product, cart, cartId, quantity);
         } catch (err) {
             console.error("Error al guardar los carritos en el archivo:", err);
         }

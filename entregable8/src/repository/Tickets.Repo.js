@@ -1,3 +1,5 @@
+import {generateUniqueTicketCode} from '../functions/ticketCode.js'
+
 export default class TicketRepository {
     constructor (dao){
         this.dao = dao;
@@ -9,8 +11,10 @@ export default class TicketRepository {
     }
     
     saveTicket = async (ticketDataArray, email) => {
+        const code = generateUniqueTicketCode();
+        
         let data = {
-            code: await this.dao.generateUniqueTicketCode(),
+            code: code,
             amount: ticketDataArray.reduce((total, productData) => total + productData.amount, 0),
             purchaser: email,
         };

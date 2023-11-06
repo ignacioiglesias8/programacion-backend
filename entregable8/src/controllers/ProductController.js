@@ -15,6 +15,12 @@ class ProductController{
   }
 
   async showProducts(limit, order, category, status, page) {
+    if (!limit) {
+        limit = 10;
+      }
+    if (!page) {
+        page = 1;
+      }
 
     const pagination = await productsService.paginateProducts(limit, order, category, status, 
       page);
