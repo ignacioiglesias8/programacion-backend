@@ -1,9 +1,9 @@
 import { Router} from 'express';
 import { authorization } from '../../functions/auth.js'
 import ProductController from '../../controllers/ProductController.js';
-import CustomError from '../../errorHandler/CustomError.js';
-import ErrorCodes from '../../errorHandler/enums.js';
-import { generateProductErrorInfo } from '../../errorHandler/info.js';
+import CustomError from '../../error/CustomError.js';
+import ErrorCodes from '../../error/enums.js';
+import { generateProductErrorInfo, invalidNumberErrorInfo } from '../../error/info.js';
 import { createSearchParams } from '../../functions/searchParams.js';
 
 const router = Router();
@@ -43,10 +43,19 @@ router.post('/', /*authorization('admin'),*/ async (req,res)=> {
         CustomError.createError({
             name: 'Product creation error',
             cause: generateProductErrorInfo({title, description, price, code, stock, category}),
-            message: 'Error trying to create product',
+            message: 'Error trying to create Product',
             code: ErrorCodes.INVALID_TYPES_ERROR,
-            });
-        }
+        });
+    }
+
+    if (isNaN(price)) {
+        CustomError.createError({
+            name: 'Invalid parameters error',
+            cause: invalidNumberErrorInfo({price}),
+            message: 'Error trying to take number parameter',
+            code: ErrorCodes.INVALID_PARAMS,
+        });
+    }
 
     const product = await productController.addProduct(title, description, price, thumbnails, code, stock, category, status);
 
