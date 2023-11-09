@@ -3,7 +3,7 @@ import { generateMockProducts } from '../../functions/mockProducts.js';
 
 const router = Router();
 
-router.get('/mockingproducts', async(req, res) => {
+router.get('/', async(req, res) => {
     const products = [];
 
     for (let i = 0; i < 100 ; i++) {

@@ -9,12 +9,12 @@ import passport from 'passport';
 
 import routesRouter from './routers/routes.router.js';
 import viewsRouter from './routers/views.router.js';
-import mockingProducts from './routers/testingRoutes/productsMocks.js'
+import testsRouter from './routers/tests.router.js'
 import ChatController from './controllers/ChatController.js';
 import initializatePassport from './config/passport.config.js';
-import errorHandler from './error/index.js'
+import errorHandler from './middlewares/errorHandler.js'
 import __dirname from './utils.js';
-import { addLogger } from './functions/logger.js';
+import { addLogger } from './middlewares/logger.js';
 
 const app = express();
 const uri= process.env.MONGO_URL
@@ -50,7 +50,7 @@ app.use(addLogger);
 
 app.use('/api', routesRouter);
 app.use('/', viewsRouter);
-app.use('/test', mockingProducts)
+app.use('/tests', testsRouter)
 
 app.use(errorHandler);
 
