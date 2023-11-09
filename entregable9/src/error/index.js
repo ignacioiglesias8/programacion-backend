@@ -1,0 +1,16 @@
+import errCodes from "./enums.js";
+
+export default (err, req, res, next) => {
+    console.log(err);
+
+    switch (err.code) {
+        case errCodes.NOT_FOUND:
+            res.status(400).send({status: 'err', err: err});
+            break;
+        case errCodes.INVALID_TYPES_ERROR:
+            res.status(400).send({status: 'err', err: err});
+            break;
+        default:
+            res.status(500).send({status: 'err', err: 'Unhandled err'});
+    }
+}
