@@ -3,7 +3,7 @@ import { authorization } from '../../functions/auth.js'
 import ProductController from '../../controllers/ProductController.js';
 import CustomError from '../../error/CustomError.js';
 import ErrorCodes from '../../error/enums.js';
-import { generateProductErrorInfo, invalidNumberErrorInfo } from '../../error/info.js';
+import { generateProductErrorInfo } from '../../error/info.js';
 import { createSearchParams } from '../../functions/searchParams.js';
 
 const router = Router();
@@ -36,34 +36,29 @@ router.get('/:pid', async (req, res) => {
     res.send({product});
 })
 
-router.post('/', /*authorization('admin'),*/ async (req,res)=> {
-    const { title, description, price, thumbnails, code, stock, category, status } = req.body;
+router.post('/', async (req,res,next)=> {
+    try{
+        const { title, description, price, thumbnails, code, stock, category, status } = req.body;
 
-    if (!title || !description || !price || !code || !stock || !category) {
-        CustomError.createError({
-            name: 'Product creation error',
-            cause: generateProductErrorInfo({title, description, price, code, stock, category}),
-            message: 'Error trying to create Product',
-            code: ErrorCodes.INVALID_TYPES_ERROR,
+        if (!title || !description || !price || !code || !stock || !category) {
+            CustomError.createError({
+                name: 'Product creation error',
+                cause: generateProductErrorInfo({title, description, price, code, stock, category}),
+                message: 'Error trying to create Product',
+                code: ErrorCodes.INVALID_TYPES_ERROR,
+            });
+        }
+
+        const product = await productController.addProduct(title, description, price, thumbnails, code, stock, category, status);
+
+        res.send({
+            status: 'success',
+            payload: product
         });
-    }
-
-    if (isNaN(price)) {
-        CustomError.createError({
-            name: 'Invalid parameters error',
-            cause: invalidNumberErrorInfo({price}),
-            message: 'Error trying to take number parameter',
-            code: ErrorCodes.INVALID_PARAMS,
-        });
-    }
-
-    const product = await productController.addProduct(title, description, price, thumbnails, code, stock, category, status);
-
-    res.send({
-        status: 'success',
-        payload: product
-    });
-})
+    }catch (error){
+        next(error);
+        }
+    })
 
 router.put('/:pid', authorization('admin'), async (req, res) => {
     const productId = req.params.pid;
@@ -81,7 +76,7 @@ router.put('/:pid', authorization('admin'), async (req, res) => {
     res.send({ updatedProduct });
 });
 
-router.delete('/:pid', authorization('admin'), async (req, res) => {
+router.delete('/:pid', async (req, res) => {
     const productId = req.params.pid;
     const product = await productController.deleteProduct(productId);
 
