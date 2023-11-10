@@ -97,7 +97,6 @@ Swal.fire({
 chatBox.addEventListener("keypress", (e) => {
   if (e.key == "Enter") {
     if (chatBox.value.trim().length > 0) {
-      console.log(chatBox.value);
       socket.emit("message", {
         user: user,
         message: chatBox.value,
@@ -124,5 +123,3 @@ socket.on("newUser", (data) => {
     position: "top-right",
   });
 });
-
-console.log("hola");
