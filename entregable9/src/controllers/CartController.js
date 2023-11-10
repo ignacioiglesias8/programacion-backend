@@ -34,10 +34,6 @@ class CartController {
     async addProductToCart(cartId, product, quantity) {
         try {
             const cart = await cartsService.findCartById(cartId);
-            if (!cart) {
-                console.error("Carrito no encontrado");
-                return;
-            }
 
             await cartsService.handleAddProductToCart(product, cart, cartId, quantity);
         } catch (err) {
