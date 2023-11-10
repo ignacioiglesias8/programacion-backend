@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
 
     const response = createSearchParams(limit, sort, category, status, products)
 
-    console.log(response)
+    req.logger.info(response)
 
     res.send(response)
 })

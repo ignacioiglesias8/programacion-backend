@@ -42,5 +42,3 @@ export const addLogger = (req, res, next) =>{
     req.logger.http(`${req.method} en ${req.url} - ${new Date().toLocaleTimeString()}`)
     next();
 }
-
-//process.env.LOGGER === 'prod' ? loggerProd : loggerDev;

@@ -14,7 +14,7 @@ router.post(
 );
 
 router.get("/failRegister", (req, res) => {
-    console.log('Failded Stratergy');
+    req.logger.error('Failded Strategy: Missing or duplicate param');
     res.redirect("/register")
 });
 
@@ -39,7 +39,7 @@ router.post(
 );
 
 router.get("/failLogin", (req, res) => {
-    console.log('Failded Stratergy');
+    req.logger.error('Failded Strategy: Failed to login');
     res.send({
         status: 'error',
         message: 'Failed Login'

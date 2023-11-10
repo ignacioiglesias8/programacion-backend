@@ -21,7 +21,7 @@ const initializatePassport = () => {
             try {
                 let user = await userController.findOneUser({ email: username});
                 if(user) {
-                    console.log('User already exists');
+                    req.logger.warning('User already exists');
                     return done(null, false);
                 }
 

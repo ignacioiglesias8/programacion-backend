@@ -3,7 +3,6 @@ import { Router} from 'express';
 const router = Router();
 
 router.get('/', async (req, res) => {
-    console.log("hola")
 
     req.logger.debug('Este es un mensaje de depuración (debug)');
     req.logger.http('Este es un mensaje de HTTP');
