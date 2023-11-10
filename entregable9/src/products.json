@@ -132,7 +132,7 @@
     "status": true
   },
   {
-    "_id": 13,
+    "id": 13,
     "title": "Costa Argentina",
     "description": "5 días, 4 noches",
     "price": 100,
@@ -143,7 +143,7 @@
     "status": true
   },
   {
-    "_id": 14,
+    "id": 14,
     "title": "Península Valdez",
     "description": "5 días, 4 noches",
     "price": 250,
@@ -154,6 +154,7 @@
     "status": true
   },
   {
+    "id": 15,
     "title": "Valle Calamuchita",
     "description": "5 días, 4 noches",
     "price": 90,
