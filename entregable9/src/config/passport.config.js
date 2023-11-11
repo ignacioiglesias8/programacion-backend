@@ -64,7 +64,7 @@ const initializatePassport = () => {
                 } else {
                     const user = await userController.findOneUser({ email: username });
                     if (!user) {
-                        console.log('User does not exist');
+                        console.error('User does not exist');
                         return done(null, false);
                     }
                     if (!isValidPassword(user, password)) {
@@ -84,35 +84,34 @@ const initializatePassport = () => {
             clientID: process.env.GITHUB_CLIENT_ID,
             clientSecret: process.env.GITHUB_CLIENT_SECRET,
             callbackURL: process.env.GITHUB_CALLBACK_URL
-    },
-
-    async (accessToken, refreshToken, profile, done) => {
-        try {
-            console.log("este es el profile", profile); 
-            let user = await userController.findOneUser({email: profile._json.email})
-            if(!user) {
-                let newUser = {
-                    first_name: profile._json.name,
-                    last_name: '',
-                    email: profile._json.email,
-                    age: '',
-                    password: '',
-                    role: 'user',
-                    cart: [
-                        {
-                            cartInfo: await cartController.addCartToUser(),
-                        }
-                    ]
+            },
+        async (req, accessToken, refreshToken, profile, done) => {
+            try {
+                let user = await userController.findOneUser({email: profile._json.email})
+                if(!user) {
+                    let newUser = {
+                        first_name: profile._json.name,
+                        last_name: '',
+                        email: profile._json.email,
+                        age: '',
+                        password: '',
+                        role: 'user',
+                        cart: [
+                            {
+                                cartInfo: await cartController.addCartToUser(),
+                            }
+                        ]
+                    }
+                    let result = await userController.createUser(newUser);
+                    done(null, result);
+                } else {
+                    done(null, user);
                 }
-                let result = await userController.createUser(newUser);
-                done(null, result);
-            } else {
-                done(null, user);
+            } catch(error) {
+                return done(error);
             }
-        } catch(error) {
-            return done(error);
-        }
-    }));
+        })
+    );
 
     passport.serializeUser((user, done) => {
         done(null, user);

@@ -29,7 +29,6 @@ export default class CartRepository {
     }
 
     handleAddProductToCart = async (product, cart, cartId, quantity) => {
-        console.log(product);
         const existingProduct = cart.products.find(item => 
             item.product.toString() === product[0]._id.toString());
 

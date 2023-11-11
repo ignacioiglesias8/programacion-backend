@@ -38,6 +38,8 @@ router.post('/:cid/product/:pid', async (req, res) => {
             return res.status(404).send({ error: 'Producto no encontrado' });
         }
 
+    req.logger.info(product);
+
     await cartController.addProductToCart(cartId, product, 1);
 
     res.send(cart);
