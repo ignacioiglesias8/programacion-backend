@@ -179,6 +179,47 @@ router.get("/recovery", logged, async (req, res) => {
     );
 });
 
+/*router.get('/recovery/:token', async (req, res) => {
+
+    const token = req.params.token;
+    const timestampDiff = Date.now() - req.session.resetToken.timestamp;
+
+    if (timestampDiff > 3600000){
+        res.redirect('/recovery');
+    }
+
+    res.render(
+        'reset', 
+        { 
+            token,
+            title: "Introducir nueva contraseña",
+            style: "index.css", 
+        }
+    );
+});*/
+
+router.get('/recovery/:token', async (req, res) => {
+
+    const timestampDiff = Date.now() - req.session.resetToken.timestamp;
+
+    if (timestampDiff > 3600000){
+        res.redirect('/recovery');
+    }
+
+    res.redirect('/reset');
+});
+
+router.get('/reset', async (req, res) => {
+
+    res.render(
+        'reset', 
+        { 
+            title: "Introducir nueva contraseña",
+            style: "index.css", 
+        }
+    );
+})
+
 function auth(req, res, next) {
     if (!req.session.user) {
         return res.redirect("/login");

@@ -59,7 +59,7 @@ router.post('/recovery', async (req, res) => {
         const token = Math.random().toString(36).substring(7);
         req.session.resetToken = { user, token, timestamp: Date.now() };
 
-        const link = `http://localhost:8080/api/sessions/recovery/${token}`
+        const link = `http://localhost:8080/recovery/${token}`
 
         await transport.sendMail({
             from: 'Ecommerce <ignacioiglesias8@gmail.com>',

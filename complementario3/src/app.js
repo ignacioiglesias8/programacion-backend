@@ -52,7 +52,7 @@ app.use('/api', routesRouter);
 app.use('/', viewsRouter);
 app.use('/tests', testsRouter)
 
-app.use(errorHandler);
+//app.use(errorHandler);
 
 const httpServer = app.listen(PORT, (err, res) => {
     console.log(`servidor en el PORT: ${PORT}`)
