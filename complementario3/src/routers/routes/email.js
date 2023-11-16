@@ -49,16 +49,17 @@ router.post('/recovery', async (req, res) => {
 
         if (!userResult) throw new Error('User not found');
 
-/*        const user = {
+        const user = {
             first_name: userResult.first_name,
             last_name: userResult.last_name,
             email: userResult.email,
             age: userResult.age,
-        }*/
+        }
 
         const token = Math.random().toString(36).substring(7);
+        req.session.resetToken = { user, token, timestamp: Date.now() };
 
-        const link = `https://localhost:8080/api/sessions/recovery/${token}`
+        const link = `http://localhost:8080/api/sessions/recovery/${token}`
 
         await transport.sendMail({
             from: 'Ecommerce <ignacioiglesias8@gmail.com>',

@@ -88,7 +88,7 @@ router.get('/:email', async (req, res) => {
     res.send({user});
 })
 
-router.get('/recovery:token', async (req, res) => {
+router.get('/recovery/:token', async (req, res) => {
     res.send(req.params.token);
 })
 
