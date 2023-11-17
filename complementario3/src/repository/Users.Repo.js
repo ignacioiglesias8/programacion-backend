@@ -35,4 +35,9 @@ export default class UserRepository {
         let result = await this.dao.removeTicket(userId);
         return result
     }
+
+    updateNewPassword = async (userId, password) => {
+        let result = await this.dao.updatePassword(userId, password);
+        return result
+    }
 }

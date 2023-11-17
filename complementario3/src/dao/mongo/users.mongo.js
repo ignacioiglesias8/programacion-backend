@@ -36,4 +36,12 @@ export default class Users {
         );
         return result;
     }
+
+    updatePassword = async (userId, newPassword) =>{
+        let result = await userModel.updateOne(
+            { _id: userId },
+            { $set: { password:newPassword}},
+        );
+        return result;
+    } 
 }

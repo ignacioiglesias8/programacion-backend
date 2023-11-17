@@ -50,10 +50,8 @@ router.post('/recovery', async (req, res) => {
         if (!userResult) throw new Error('User not found');
 
         const user = {
-            first_name: userResult.first_name,
-            last_name: userResult.last_name,
-            email: userResult.email,
-            age: userResult.age,
+            id: userResult[0]._id,
+            email: userResult[0].email,
         }
 
         const token = Math.random().toString(36).substring(7);

@@ -1,9 +1,11 @@
 <h1>{{title}}</h1>
 
-<form method="post" action="/api/sessions/reset/{{token}}">
+<form method="post" action="/reset">
 
     <label for="newPass">Nueva contraseña</label>
     <input type="newPass" name="newPass" id="newPass">
 
-    <button type="submit">Generar</button>
+    <input type="hidden" name="resetToken" id="resetToken" value="{{resetToken}}">
+
+    <button type="submit">Restablecer</button>
 </form>

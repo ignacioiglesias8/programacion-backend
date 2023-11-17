@@ -3,7 +3,8 @@ import ProductController from '../controllers/ProductController.js';
 import CartController from '../controllers/CartController.js';
 import UserController from '../controllers/UserController.js';
 import TicketController from '../controllers/TicketsController.js';
-import { authorization } from '../functions/auth.js'
+import { authorization } from '../functions/auth.js';
+import { createHash, isValidPassword } from '../functions/bcrypt.js';
 
 const router = Router();
 
@@ -210,14 +211,45 @@ router.get('/recovery/:token', async (req, res) => {
 });
 
 router.get('/reset', async (req, res) => {
+    try {
+        const resetTokenRaw = req.session.resetToken;
+        const resetToken = JSON.stringify(resetTokenRaw);
 
-    res.render(
-        'reset', 
-        { 
-            title: "Introducir nueva contraseña",
-            style: "index.css", 
+        res.render(
+            'reset', 
+            { 
+                title: "Introducir nueva contraseña",
+                style: "index.css",
+                resetToken 
+            }
+        );
+    }catch{
+        return res.redirect('/recovery');
+    }
+})
+
+router.post('/reset', async (req, res) => {
+    const { resetToken, newPass } = req.body;
+    
+    try{
+        const resetTokenParse = JSON.parse(resetToken);
+        const userId = resetTokenParse.user.id;
+
+        const user = await userController.getUserByEmail(resetTokenParse.user.email)
+
+        if (isValidPassword({password: user[0].password}, newPass)) {
+            return res.redirect('/reset');
         }
-    );
+
+        const newPassword = createHash(newPass);
+
+        await userController.updateUserNewPassword(userId, newPassword);
+
+        return res.redirect('/login');
+    }catch (error) {
+        console.log(error);
+        return res.redirect('/recovery');
+    }
 })
 
 function auth(req, res, next) {

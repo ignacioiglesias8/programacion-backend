@@ -46,6 +46,16 @@ class UserController {
             return null;
         }
     }
+
+    async updateUserNewPassword(userId, newPassword) {
+        try{
+            const user = await usersService.updateNewPassword(userId, newPassword);
+            return user;
+        }catch (err) {
+            console.error('Error al cambiar el password', err);
+            return null;
+        }
+    }
 }
 
     export default UserController;
