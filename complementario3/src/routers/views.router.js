@@ -180,25 +180,6 @@ router.get("/recovery", logged, async (req, res) => {
     );
 });
 
-/*router.get('/recovery/:token', async (req, res) => {
-
-    const token = req.params.token;
-    const timestampDiff = Date.now() - req.session.resetToken.timestamp;
-
-    if (timestampDiff > 3600000){
-        res.redirect('/recovery');
-    }
-
-    res.render(
-        'reset', 
-        { 
-            token,
-            title: "Introducir nueva contraseña",
-            style: "index.css", 
-        }
-    );
-});*/
-
 router.get('/recovery/:token', async (req, res) => {
 
     const timestampDiff = Date.now() - req.session.resetToken.timestamp;
@@ -220,6 +201,8 @@ router.get('/reset', async (req, res) => {
             { 
                 title: "Introducir nueva contraseña",
                 style: "index.css",
+                error: req.cookies.errorMessage ?? false,
+                message: req.cookies.errorMessage ?? '',
                 resetToken 
             }
         );
@@ -238,7 +221,7 @@ router.post('/reset', async (req, res) => {
         const user = await userController.getUserByEmail(resetTokenParse.user.email)
 
         if (isValidPassword({password: user[0].password}, newPass)) {
-            return res.redirect('/reset');
+            return res.cookie('errorMessage', 'No se puede utilizar la misma contraseña', {maxAge: 6000}).redirect('reset');
         }
 
         const newPassword = createHash(newPass);

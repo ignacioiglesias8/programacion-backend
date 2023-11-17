@@ -6,6 +6,7 @@ import mongoose from 'mongoose';
 import mongoStore from 'connect-mongo';
 import handlebars from 'express-handlebars';
 import passport from 'passport';
+import cookieParser from 'cookie-parser';
 
 import routesRouter from './routers/routes.router.js';
 import viewsRouter from './routers/views.router.js';
@@ -23,6 +24,8 @@ const PORT= process.env.PORT;
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
 app.set('view engine', 'handlebars');
+
+app.use(cookieParser());
 
 app.use(express.static(__dirname + '/../public'));
 app.use(express.json());
