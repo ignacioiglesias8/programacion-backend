@@ -3,7 +3,8 @@ export default class ProductRepository {
         this.dao = dao;
     }
 
-    createProduct = async (title, description, price, thumbnails, code, stock, category, status) => {
+    createProduct = async (title, description, price, thumbnails, code, stock, category, status, 
+        owner) => {
         const product = {
             title,
             description,
@@ -13,6 +14,7 @@ export default class ProductRepository {
             stock,
             category,
             status,
+            owner,
         };
         
         let result = await this.dao.createDoc(product);

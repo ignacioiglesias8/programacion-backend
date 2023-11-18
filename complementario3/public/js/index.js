@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
               if (response.ok) {
                   alert("Producto agregado al carrito con éxito.");
               } else {
+                  alert("No puedes agregar tu propio producto al carrito.");
                   console.error("Error al agregar el producto al carrito.");
               }
           })

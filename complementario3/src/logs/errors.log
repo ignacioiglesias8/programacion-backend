@@ -11,3 +11,4 @@ error: undefined {"timestamp":"2023-11-16T14:24:10.288Z","view":{"defaultEngine"
 error: undefined {"timestamp":"2023-11-16T14:36:21.799Z","view":{"defaultEngine":"handlebars","ext":".handlebars","name":"/reset","root":"C:\\Users\\Nacho\\Desktop\\Programación\\Backend\\Entregas\\programacion-backend\\complementario3\\src/views"}}
 error: Failded Strategy: Failed to login {"timestamp":"2023-11-17T05:06:38.988Z"}
 error: Failded Strategy: Failed to login {"timestamp":"2023-11-17T05:06:55.878Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-18T02:59:13.824Z"}

@@ -55,11 +55,17 @@ router.get('/products', auth, async (req, res) => {
 
 let cart = {};
 
-router.post('/addToCart', authorization('user'), async (req, res) => {
+router.post('/addToCart', authorization(['user', 'premium']), async (req, res) => {
     const productId = req.body.productId;
     const product = await productController.getProductById(productId);
     const user = await userController.getUserByEmail(req.session.user.email);
     const cart = user[0].cart[0].cartInfo._id.toString();
+
+    console.log(req.user.role, product[0].owner, req.user.email)
+
+    if (req.user.role === 'premium' && product[0].owner === req.user.email) {
+        return res.status(403).send({ error: 'No puedes agregar tu propio producto al carrito' });
+    }
 
     await cartController.addProductToCart(cart, product, 1);   
 
@@ -234,6 +240,53 @@ router.post('/reset', async (req, res) => {
         return res.redirect('/recovery');
     }
 })
+
+router.get('/manager', authorization(['admin', 'premium']), async (req, res) => {
+
+    res.render(
+        'manager',
+        {
+            title: "Gestión",
+            style: "index.css",
+        }
+    );
+});
+
+router.get('/createproduct', authorization(['admin', 'premium']), async (req, res) => {
+
+    const userEmail = req.user.email
+
+    res.render(
+        'createproduct',
+        {
+            title: "Crear un producto",
+            style: "index.css",
+            email: userEmail
+        }
+    );
+});
+
+router.get('/deleteproduct', authorization(['admin', 'premium']), async (req, res) => {
+
+    res.render(
+        'deleteproduct',
+        {
+            title: "Eliminar un producto",
+            style: "index.css",
+        }
+    );
+});
+
+router.get('/updateproduct', authorization(['admin', 'premium']), async (req, res) => {
+
+    res.render(
+        'updateproduct',
+        {
+            title: "Modificar un producto",
+            style: "index.css",
+        }
+    );
+});
 
 function auth(req, res, next) {
     if (!req.session.user) {

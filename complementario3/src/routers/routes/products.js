@@ -1,5 +1,5 @@
 import { Router} from 'express';
-import { authorization } from '../../functions/auth.js'
+import { authorization } from '../../functions/auth.js';
 import ProductController from '../../controllers/ProductController.js';
 import CustomError from '../../error/CustomError.js';
 import ErrorCodes from '../../error/enums.js';
@@ -36,9 +36,9 @@ router.get('/:pid', async (req, res) => {
     res.send({product});
 })
 
-router.post('/', async (req,res,next)=> {
+router.post('/', authorization(['admin', 'premium']), async (req,res,next)=> {
     try{
-        const { title, description, price, thumbnails, code, stock, category, status } = req.body;
+        const { title, description, price, thumbnails, code, stock, category, owner } = req.body;
 
         if (!title || !description || !price || !code || !stock || !category) {
             CustomError.createError({
@@ -49,7 +49,7 @@ router.post('/', async (req,res,next)=> {
             });
         }
 
-        const product = await productController.addProduct(title, description, price, thumbnails, code, stock, category, status);
+        const product = await productController.addProduct(title, description, price, thumbnails, code, stock, category, owner);
 
         res.send({
             status: 'success',
@@ -57,10 +57,10 @@ router.post('/', async (req,res,next)=> {
         });
     }catch (error){
         next(error);
-        }
-    })
+    }
+})
 
-router.put('/:pid', authorization('admin'), async (req, res) => {
+router.put('/:pid', authorization(['admin', 'premium']), async (req, res) => {
     const productId = req.params.pid;
     const modifications = req.body;
 
@@ -69,6 +69,10 @@ router.put('/:pid', authorization('admin'), async (req, res) => {
     if (!product) {
         return res.status(404).send({ error: 'Producto no encontrado' });
     }
+    
+    if (req.user.role === 'premium' && req.user.email !== product[0].owner) {
+        return res.status(403).send({ error: 'No tiene permisos para modificar este producto' });
+    }
 
     await productController.updateProduct(productId, modifications);
     const updatedProduct = await productController.getProductById(productId);
@@ -76,11 +80,22 @@ router.put('/:pid', authorization('admin'), async (req, res) => {
     res.send({ updatedProduct });
 });
 
-router.delete('/:pid', async (req, res) => {
+router.delete('/:pid', authorization(['admin', 'premium']), async (req, res) => {
     const productId = req.params.pid;
-    const product = await productController.deleteProduct(productId);
 
-    res.send({product, message: `El producto con Id ${productId} fue eliminado`});
+    const product = await productController.getProductById(productId);
+
+    if (!product) {
+        return res.status(404).send({ error: 'Producto no encontrado' });
+    }
+
+    if (req.user.role === 'premium' && req.user.email !== product[0].owner) {
+        return res.status(403).send({ error: 'No tiene permisos para eliminar este producto' });
+    }
+
+    const result = await productController.deleteProduct(productId);
+
+    res.send({result, message: `El producto con Id ${productId} fue eliminado`});
 })
 
 export default router;

@@ -2,14 +2,14 @@ import {productsService} from '../repository/index.js'
 
 class ProductController{
 
-  async addProduct(title, description, price, thumbnails, code, stock, category) {
+  async addProduct(title, description, price, thumbnails, code, stock, category, owner) {
     const status=true;
 
     const parsePrice = parseFloat(price);
     const parseStock = parseFloat(stock);
 
     const product = await productsService.createProduct(title, description, parsePrice, thumbnails, 
-        code, parseStock, category, status)
+        code, parseStock, category, status, owner)
 
     return product
   }
