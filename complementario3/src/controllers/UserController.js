@@ -56,6 +56,16 @@ class UserController {
             return null;
         }
     }
+
+    async updateUserNewRole(userId, newRole) {
+        try{
+            const user = await usersService.updateNewRole(userId, newRole);
+            return user;
+        }catch (err) {
+            console.error('Error al cambiar el password', err);
+            return null;
+        }
+    }
 }
 
     export default UserController;

@@ -44,4 +44,12 @@ export default class Users {
         );
         return result;
     } 
+
+    updateRole = async (userId, newRole) =>{
+        let result = await userModel.updateOne(
+            { _id: userId },
+            { $set: { role:newRole}},
+        );
+        return result;
+    } 
 }

@@ -40,4 +40,9 @@ export default class UserRepository {
         let result = await this.dao.updatePassword(userId, password);
         return result
     }
+
+    updateNewRole = async (userId, newRole) => {
+        let result = await this.dao.updateRole(userId, newRole);
+        return result
+    }
 }
