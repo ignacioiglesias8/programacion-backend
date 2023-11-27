@@ -1,0 +1,15 @@
+error: Failded Stratergy {"timestamp":"2023-11-10T13:33:54.114Z"}
+error: Failded Stratergy {"timestamp":"2023-11-10T13:34:23.720Z"}
+error: Failded Stratergy: Missing or duplicate param {"timestamp":"2023-11-10T13:36:02.403Z"}
+error: Failded Stratergy: Failed to login {"timestamp":"2023-11-10T13:36:17.062Z"}
+error: Error trying to create Product {"cause":"Error al generar producto. Se obtuvieron los siguientes datos: \n\t- title: undefined \n\t- description: undefined \n\t- price: undefined \n\t- code: undefined \n\t- stock: undefined \n\t- category: undefined","code":2,"name":"Product creation error","timestamp":"2023-11-10T20:05:41.380Z"}
+error: Error trying to create Product {"cause":"Error al generar producto. Se obtuvieron los siguientes datos: \n\t- title: undefined \n\t- description: undefined \n\t- price: undefined \n\t- code: undefined \n\t- stock: undefined \n\t- category: undefined","code":2,"name":"Product creation error","timestamp":"2023-11-10T20:06:27.908Z"}
+error: Error trying to create Product {"cause":"Error al generar producto. Se obtuvieron los siguientes datos: \n\t- title: undefined \n\t- description: undefined \n\t- price: undefined \n\t- code: undefined \n\t- stock: undefined \n\t- category: undefined","code":2,"name":"Product creation error","timestamp":"2023-11-10T20:06:29.432Z"}
+error: undefined {"timestamp":"2023-11-11T01:20:15.451Z"}
+error: undefined {"timestamp":"2023-11-11T01:21:34.630Z"}
+error: undefined {"timestamp":"2023-11-16T14:24:10.288Z","view":{"defaultEngine":"handlebars","ext":".handlebars","name":"resetPassword","root":"C:\\Users\\Nacho\\Desktop\\Programación\\Backend\\Entregas\\programacion-backend\\complementario3\\src/views"}}
+error: undefined {"timestamp":"2023-11-16T14:36:21.799Z","view":{"defaultEngine":"handlebars","ext":".handlebars","name":"/reset","root":"C:\\Users\\Nacho\\Desktop\\Programación\\Backend\\Entregas\\programacion-backend\\complementario3\\src/views"}}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-17T05:06:38.988Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-17T05:06:55.878Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-18T02:59:13.824Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-20T22:15:59.347Z"}
