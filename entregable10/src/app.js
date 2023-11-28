@@ -7,13 +7,15 @@ import mongoStore from 'connect-mongo';
 import handlebars from 'express-handlebars';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express';
 
 import routesRouter from './routers/routes.router.js';
 import viewsRouter from './routers/views.router.js';
 import testsRouter from './routers/tests.router.js'
 import ChatController from './controllers/ChatController.js';
 import initializatePassport from './config/passport.config.js';
-import errorHandler from './middlewares/errorHandler.js'
+/*import errorHandler from './middlewares/errorHandler.js'*/
 import __dirname from './utils.js';
 import { addLogger } from './middlewares/logger.js';
 
@@ -44,6 +46,20 @@ app.use(session(
         saveUninitialized: false
     }
 ));
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.3',
+        info: {
+            title: "Documentación",
+            description: "API para gestionar packs turísticos",
+        }
+    },
+    apis:[`${__dirname}/../docs/**/*.yaml`],
+}
+
+const specs = swaggerJSDoc(swaggerOptions);
+app.use('/apidocs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
 initializatePassport();
 app.use(passport.initialize());
