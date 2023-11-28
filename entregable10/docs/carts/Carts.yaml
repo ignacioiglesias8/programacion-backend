@@ -3,4 +3,4 @@ paths:
     get:
       summary: Obtiene todos los carritos
       tags:
-        - carts
+        - Carts
