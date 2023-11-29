@@ -9,7 +9,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#components/requestBodies/updateUser'
+              $ref: '#components/requestBodies/createProduct'
       responses:
         "200":
           description: El producto fue creado satisfactoriamente
@@ -71,7 +71,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#components/requestBodies/updateUser'
+              $ref: '#components/requestBodies/updateProduct'
       responses:
         "200":
           description: El producto fue modificado satisfactoriamente
@@ -155,7 +155,7 @@ components:
         status: true
         owner: admin
   requestBodies:
-    createUser:
+    createProduct:
       type: object
       properties:
         title:
@@ -196,7 +196,7 @@ components:
         category: nacional
         status: true
         owner: admin
-    updateUser:
+    updateProduct:
       type: object
       properties:
         title:
