@@ -78,10 +78,6 @@ router.delete('/:cid/product/:pid', async (req, res) => {
 
     const result = await cartController.deleteProductFromCart(cartId, productId);
 
-    if (result.error) {
-        return res.status(404).send({ error: result.error });
-    }
-
     res.send(result);
 });
 
