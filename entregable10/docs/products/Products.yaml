@@ -16,7 +16,7 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#components/schemas/Products'
+                $ref: '#components/schemas/Product'
         "500":
           description: Error interno del servidor
     get:
@@ -29,9 +29,14 @@ paths:
           content: 
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#components/schemas/Products'
+                type: object
+                properties:
+                  status: 
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Productos obtenidos correctamente
         "500":
           description: Error interno del servidor
   /api/products/{pid}:
@@ -52,7 +57,7 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#components/schemas/Products'
+                $ref: '#components/schemas/Product'
         "500":
           description: Error interno del servidor
     put:
@@ -78,7 +83,7 @@ paths:
           content: 
             application/json:
               schema:
-                $ref: '#components/schemas/Products'
+                $ref: '#components/schemas/ProductModified'
         "500":
           description: Error interno del servidor
     delete:
@@ -110,7 +115,7 @@ paths:
           description: Error interno del servidor
 components:
   schemas:
-    Products:
+    Product:
       type: object
       properties:
         _id:
@@ -145,14 +150,58 @@ components:
           description: Creador del producto
       example:
         _id: 654e8d9cdd7bc5ac119b66c0
-        title: Valle de Punilla + Traslasierra
+        title: Catamarca
         description: 7 días, 6 noches
-        price: 100
+        price: 200
         thumbnails: [Sin imagen]
-        code: pack01
+        code: pack16
         stock: 25
         category: nacional
         status: true
+        owner: admin
+    ProductModified:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado por MongoDB
+        title:
+          type: String
+          description: Nombre del producto
+        description:
+          type: String
+          description: Descripción del producto
+        price:
+          type: Number
+          description: Precio del producto
+        thumbnails:
+          type: Array
+          description: Fotos del producto
+        code:
+          type: String
+          description: Código del producto
+        stock:
+          type: Number
+          description: Cantidad de productos en stock
+        category:
+          type: String
+          description: Categoría del producto
+        status:
+          type: Boolean
+          description: Disponibilidad del producto
+        owner:
+          type: String
+          description: Creador del producto
+      example:
+        _id: 654e8d9cdd7bc5ac119b66c0
+        title: Catamarca
+        description: 6 días, 5 noches
+        price: 220
+        thumbnails: [Sin imagen]
+        code: pack16
+        stock: 20
+        category: nacional
+        status: false
         owner: admin
   requestBodies:
     createProduct:
@@ -186,12 +235,11 @@ components:
           type: String
           description: Creador del producto
       example:
-        _id: 654e8d9cdd7bc5ac119b66c0
-        title: Valle de Punilla + Traslasierra
+        title: Catamarca
         description: 7 días, 6 noches
-        price: 100
+        price: 200
         thumbnails: [Sin imagen]
-        code: pack01
+        code: pack16
         stock: 25
         category: nacional
         status: true
@@ -224,13 +272,12 @@ components:
           type: Boolean
           description: Disponibilidad del producto
       example:
-        _id: 654e8d9cdd7bc5ac119b66c0
-        title: Valle de Punilla + Traslasierra
-        description: 7 días, 6 noches
-        price: 100
+        title: Catamarca
+        description: 6 días, 5 noches
+        price: 220
         thumbnails: [Sin imagen]
-        code: pack01
-        stock: 25
+        code: pack16
+        stock: 20
         category: nacional
-        status: true
+        status: false
         owner: admin
