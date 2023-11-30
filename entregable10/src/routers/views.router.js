@@ -61,8 +61,6 @@ router.post('/addToCart', authorization(['user', 'premium']), async (req, res) =
     const user = await userController.getUserByEmail(req.session.user.email);
     const cart = user[0].cart[0].cartInfo._id.toString();
 
-    console.log(req.user.role, product[0].owner, req.user.email)
-
     if (req.user.role === 'premium' && product[0].owner === req.user.email) {
         return res.status(403).send({ error: 'No puedes agregar tu propio producto al carrito' });
     }

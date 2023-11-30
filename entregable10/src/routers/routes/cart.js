@@ -41,8 +41,9 @@ router.post('/:cid/product/:pid', async (req, res) => {
     req.logger.info(product);
 
     await cartController.addProductToCart(cartId, product, 1);
+    const updatedCart = await cartController.getCartById(cartId);
 
-    res.send(cart);
+    res.send(updatedCart);
 });
 
 router.put('/:cid', async (req, res) => {
@@ -55,7 +56,9 @@ router.put('/:cid', async (req, res) => {
         return res.status(404).send({ error: result.error });
     }
 
-    res.send(result);
+    const updatedCart = await cartController.getCartById(cartId);
+    
+    res.send(updatedCart);
 });
 
 router.put('/:cid/product/:pid', async (req, res) => {
@@ -69,16 +72,9 @@ router.put('/:cid/product/:pid', async (req, res) => {
         return res.status(404).send({ error: result.error });
     }
 
-    res.send(result);
-});
+    const updatedCart = await cartController.getCartById(cartId);
 
-router.delete('/:cid/product/:pid', async (req, res) => {
-    const cartId = req.params.cid;
-    const productId = req.params.pid;
-
-    const result = await cartController.deleteProductFromCart(cartId, productId);
-
-    res.send(result);
+    res.send(updatedCart);
 });
 
 router.delete('/:cid', async (req, res) => {
@@ -89,7 +85,24 @@ router.delete('/:cid', async (req, res) => {
         return res.status(404).send({ error: result.error });
     }
 
-    res.send(result);
+    const updatedCart = await cartController.getCartById(cartId);
+
+    res.send(updatedCart);
+});
+
+router.delete('/:cid/product/:pid', async (req, res) => {
+    const cartId = req.params.cid;
+    const productId = req.params.pid;
+
+    const result = await cartController.deleteProductFromCart(cartId, productId);
+
+    if (result.error) {
+        return res.status(404).send({ error: result.error });
+    }
+
+    const updatedCart = await cartController.getCartById(cartId);
+
+    res.send(updatedCart);
 });
 
 router.get('/:cid/purchase', async (req, res) => {
