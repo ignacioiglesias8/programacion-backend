@@ -41,6 +41,8 @@ class TicketController {
             for (const product of productsAvailable) {
                 await cartsService.deleteOneProduct(cart, product.productId);
             }
+
+            return ticket;
         }else{
             console.error(`No hay productos para facturar`);
         }
