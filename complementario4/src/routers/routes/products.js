@@ -36,7 +36,7 @@ router.get('/:pid', async (req, res) => {
     res.send({product});
 })
 
-router.post('/', authorization(['admin', 'premium']), async (req,res,next)=> {
+router.post('/', /*authorization(['admin', 'premium']),*/ async (req,res,next)=> {
     try{
         const { title, description, price, thumbnails, code, stock, category, owner } = req.body;
 
@@ -60,7 +60,7 @@ router.post('/', authorization(['admin', 'premium']), async (req,res,next)=> {
     }
 })
 
-router.put('/:pid', authorization(['admin', 'premium']), async (req, res) => {
+router.put('/:pid', /*authorization(['admin', 'premium']),*/ async (req, res) => {
     const productId = req.params.pid;
     const modifications = req.body;
 
@@ -70,9 +70,9 @@ router.put('/:pid', authorization(['admin', 'premium']), async (req, res) => {
         return res.status(404).send({ error: 'Producto no encontrado' });
     }
     
-    if (req.user.role === 'premium' && req.user.email !== product[0].owner) {
+    /*if (req.user.role === 'premium' && req.user.email !== product[0].owner) {
         return res.status(403).send({ error: 'No tiene permisos para modificar este producto' });
-    }
+    }*/
 
     await productController.updateProduct(productId, modifications);
     const updatedProduct = await productController.getProductById(productId);
@@ -80,7 +80,7 @@ router.put('/:pid', authorization(['admin', 'premium']), async (req, res) => {
     res.send({ updatedProduct });
 });
 
-router.delete('/:pid', authorization(['admin', 'premium']), async (req, res) => {
+router.delete('/:pid', /*authorization(['admin', 'premium']),*/ async (req, res) => {
     const productId = req.params.pid;
 
     const product = await productController.getProductById(productId);
@@ -89,9 +89,9 @@ router.delete('/:pid', authorization(['admin', 'premium']), async (req, res) => 
         return res.status(404).send({ error: 'Producto no encontrado' });
     }
 
-    if (req.user.role === 'premium' && req.user.email !== product[0].owner) {
+    /*if (req.user.role === 'premium' && req.user.email !== product[0].owner) {
         return res.status(403).send({ error: 'No tiene permisos para eliminar este producto' });
-    }
+    }*/
 
     const result = await productController.deleteProduct(productId);
 

@@ -3,6 +3,7 @@ import chai from 'chai';
 import supertest from 'supertest';
 
 import { userModel } from '../src/dao/models/users.model.js';
+import { cartModel } from '../src/dao/models/carts.model.js';
 
 mongoose.connect('mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority')
 
@@ -10,6 +11,7 @@ const expect = chai.expect;
 const sessionRequest = supertest('http://localhost:8080/api/sessions')
 const userRequest = supertest('http://localhost:8080/api/users')
 let createdUserId;
+let createdCartId;
 
 describe('Testing Sessions Router', () => {
     describe('POST /register', () => {
@@ -32,6 +34,7 @@ describe('Testing Sessions Router', () => {
             const user = await userRequest.get(`/${userMock.email}`);
             const responseBody = JSON.parse(user.text);
             createdUserId =  responseBody.user[0]._id;
+            createdCartId = responseBody.user[0].cart[0].cartInfo._id
 
             expect(statusCode).to.equal(302);
             expect(header.location).to.equal('/login');
@@ -129,30 +132,8 @@ describe('Testing Sessions Router', () => {
         });
     });
 
-/*    describe('GET /current', () => {
-        it('Debe obtenerse los datos del usuario logeado', async () => {
-
-            const userCredentials = {
-                email: 'test@example.com',
-                password: 'test',
-            };
-
-            const req = await sessionRequest.post('/login').send(userCredentials);
-
-            console.log(req.request._data.email)
-
-            const {
-                statusCode, 
-                _body
-            } = await sessionRequest.get('/current').send(req.request._data.email) 
-
-            console.log(_body);
-            expect(statusCode).to.equal(200);
-
-        });
-    });*/
-
     after(async () => {
         await userModel.deleteOne({ _id: createdUserId });
+        await cartModel.deleteOne({ _id: createdCartId });
     });
 });

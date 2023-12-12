@@ -25,7 +25,7 @@ router.get('/:cid', async (req, res) => {
     res.send({cart});
 });
 
-router.post('/:cid/product/:pid', authorization(['user', 'premium']), async (req, res) => {
+router.post('/:cid/product/:pid', /*authorization(['user', 'premium']),*/ async (req, res) => {
     const cartId = req.params.cid;
     const productId = req.params.pid;
 
@@ -41,9 +41,9 @@ router.post('/:cid/product/:pid', authorization(['user', 'premium']), async (req
 
     req.logger.info(product);
 
-    if (req.user.role === 'premium' && product[0].owner === req.user.email) {
+    /*if (req.user.role === 'premium' && product[0].owner === req.user.email) {
         return res.status(403).send({ error: 'No puedes agregar tu propio producto al carrito' });
-    }
+    }*/
 
     await cartController.addProductToCart(cartId, product, 1);
     const updatedCart = await cartController.getCartById(cartId);

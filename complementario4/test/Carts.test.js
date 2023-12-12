@@ -18,7 +18,7 @@ describe('Testing Carts Router', () => {
                 statusCode, 
                 _body
             } = await request.post('/');
-    
+
             createdCartId = _body.cart._id;
     
             expect(statusCode).to.equal(200);
@@ -175,24 +175,3 @@ describe('Testing Carts Router', () => {
         await cartModel.deleteOne({ _id: createdCartId });
     });
 });
-
-/*describe('Ticket generator', () => {
-    describe('GET /', () => {
-        it('Debe generar un ticket', async () => {
-
-            const { _body } = await request.post('/');
-            const cartId = _body.cart._id;
-
-            const productId = "654e8d9cdd7bc5ac119b66c0"
-            await request.post(`/${cartId}/product/${productId}`);
-
-            const email = "ignacioniglesias8@gmail.com"
-
-            const {
-                statusCode,
-            } = await request.get(`/${cartId}/purchase`).send({ email: "ignacioiglesias8@gmail.com" });
-
-            expect(statusCode).to.equal(200);
-        })
-    })
-})*/
