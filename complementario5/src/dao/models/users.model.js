@@ -59,6 +59,10 @@ const userSchema = mongoose.Schema({
                 },
                 reference: {
                     type: String,
+                },
+                status: {
+                    type: Boolean,
+                    default: false
                 }
             }
         ],
