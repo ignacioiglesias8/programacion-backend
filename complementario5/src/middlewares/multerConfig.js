@@ -23,7 +23,12 @@ const storage = multer.diskStorage({
         cb(null,`../public/img/${destinationFolder}`)
     },
     filename: function(req,file,cb){
-        cb(null,file.originalname)
+        const userId = req.params.uid;
+        const currentDate = new Date().toISOString().replace(/[-T:\.Z]/g, "");
+
+        const customFileName = `${userId}_${currentDate}_${file.originalname}`;
+
+        cb(null,customFileName)
     }
 });  
 

@@ -50,7 +50,6 @@ router.post('/:uid/documents', uploader.single('file'), async (req, res) => {
     const userId = req.params.uid;
     const user = await userController.findOneUser({_id:userId});
     const folder = req.route.path.split('/')[2];
-    const name = req.file.originalname;
     const type = req.body.type
 
     if (!user) {
@@ -61,7 +60,7 @@ router.post('/:uid/documents', uploader.single('file'), async (req, res) => {
         return res.status(400).send({status:"error", message:"No se puede guardar la imagen"})
     }
 
-    uploadFile(name, folder, user, type)
+    uploadFile(folder, user, type)
 
     return res.status(200).send({ status: "success", message: "Archivo cargado exitosamente" });
 });
