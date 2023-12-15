@@ -17,13 +17,23 @@ router.get('/:email', async (req, res) => {
     res.send({user});
 })
 
-router.put('/premium/:uid', authorization('admin'), async (req, res) => {
+router.get('/premium/:uid', authorization('admin'), async (req, res) => {
     try {
         const userId = req.params.uid;
         const user = await userController.findOneUser({_id:userId});
 
         if (!user) {
             return res.status(404).send({ error: 'Usuario no encontrado' });
+        }
+
+        const requiredDocuments = ['id', 'address', 'account'];
+
+        const hasAllDocuments = requiredDocuments.every(doc => {
+            return user.documents.some(document => document.name.includes(doc));
+        });
+
+        if (!hasAllDocuments) {
+            return res.status(400).send({ error: 'El usuario no ha cargado todos los documentos requeridos' });
         }
 
         const newRole = user.role === 'user' ? 'premium' : 'user';
@@ -40,7 +50,8 @@ router.post('/:uid/documents', uploader.single('file'), async (req, res) => {
     const userId = req.params.uid;
     const user = await userController.findOneUser({_id:userId});
     const folder = req.route.path.split('/')[2];
-    const name = req.file.originalname
+    const name = req.file.originalname;
+    const type = req.body.type
 
     if (!user) {
         return res.status(404).send({ error: 'Usuario no encontrado' });
@@ -50,9 +61,11 @@ router.post('/:uid/documents', uploader.single('file'), async (req, res) => {
         return res.status(400).send({status:"error", message:"No se puede guardar la imagen"})
     }
 
-    uploadFile(name, folder, user)
+    uploadFile(name, folder, user, type)
 
     return res.status(200).send({ status: "success", message: "Archivo cargado exitosamente" });
 });
 
 export default router;
+
+    //user.last_connection = new Date(); esto va cuando hace un login y un logout

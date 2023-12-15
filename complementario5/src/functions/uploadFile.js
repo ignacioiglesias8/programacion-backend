@@ -1,7 +1,7 @@
-export const uploadFile = async (name, folder, user) => {
+export const uploadFile = async (name, folder, user, type) => {
     const documentInfo = {
-        name: name,
-        reference: `public/img/${folder}/${name}`,
+        name: `${type}`,
+        reference: `public/img/${folder}/${user._id}${type}${name}`,
         status: true,
     };
     user.documents.push(documentInfo);
