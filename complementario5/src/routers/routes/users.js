@@ -68,6 +68,3 @@ router.post('/:uid/documents', getCurrentDate, uploader.single('file'), async (r
 });
 
 export default router;
-
-    //user.last_connection = new Date(); esto va cuando hace un login y un logout
-    //await user.save()

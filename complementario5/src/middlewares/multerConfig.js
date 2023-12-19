@@ -1,11 +1,21 @@
 import multer from 'multer';
+import UserController from '../controllers/UserController.js';
+
+const userController = new UserController();
 
 const storage = multer.diskStorage({
-    destination: function(req,file,cb){
+    destination: async function(req, file, cb) {
+        const userId = req.params.uid;
+        const user = await userController.findOneUser({ _id: userId });
+
+        if (!user) {
+            cb(new Error('Usuario no encontrado'));
+            return;
+        }
+
         let destinationFolder;
 
         const routeType = req.route.path.split('/')[2];
-
         switch (routeType) {
             case 'profiles':
                 destinationFolder = 'profiles';
@@ -20,7 +30,8 @@ const storage = multer.diskStorage({
                 destinationFolder = '';
         }
 
-        cb(null,`../public/img/${destinationFolder}`)
+        cb(null, `../public/img/${destinationFolder}`);
+        
     },
     filename: function(req,file,cb){
         const userId = req.params.uid;
@@ -35,6 +46,8 @@ const storage = multer.diskStorage({
 export const uploader = multer({storage}) 
 
 export const getCurrentDate = (req, res, next) => {
-    req.currentDate = new Date().toISOString().replace(/[-T:\.Z]/g, "");
+    const currentDate = new Date();
+    currentDate.setTime(currentDate.getTime() - 3 * 60 * 60 * 1000);
+    req.currentDate = currentDate.toISOString().replace(/[-T:\.Z]/g, "");
     next();
 };

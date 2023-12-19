@@ -26,6 +26,11 @@ router.post(
             return res.status(400).send({status: "error", error: "Invalid credentials"});
         }
 
+        const currentDate = new Date();
+        currentDate.setTime(currentDate.getTime() - 3 * 60 * 60 * 1000);
+        req.user.last_connection = currentDate;
+        await req.user.save();
+
         req.session.user = {
             first_name: req.user.first_name,
             last_name: req.user.last_name,
@@ -46,7 +51,15 @@ router.get("/failLogin", (req, res) => {
     });
 });
 
-router.get("/logout", (req, res) => {
+router.get("/logout", async (req, res) => {
+    const userLogged = req.session.user;
+    const user = await userController.getUserByEmail(userLogged.email);
+
+    const currentDate = new Date();
+    currentDate.setTime(currentDate.getTime() - 3 * 60 * 60 * 1000);
+    user[0].last_connection = currentDate;
+    await user[0].save();
+
     req.session.destroy((err) => {
         if (err) {
             console.error("Error al cerrar la sesión: " + err.message);
@@ -55,14 +68,23 @@ router.get("/logout", (req, res) => {
     });
 });
 
-router.get("/github", passport.authenticate('github', {scope: ['user:email']}), (req, res) => {
+router.get("/github", passport.authenticate('github', {scope: ['user:email']}), 
+async (req, res) => {
     res.send({
         status: 'success',
         message: 'Success'
     });
 });
 
-router.get("/githubcallback", passport.authenticate('github', {failureRedirect: '/login'}), (req, res) => {
+router.get("/githubcallback", passport.authenticate('github', {failureRedirect: '/login'}), 
+async (req, res) => {
+    const currentDate = new Date();
+    currentDate.setTime(currentDate.getTime() - 3 * 60 * 60 * 1000);
+    req.user.last_connection = currentDate;
+    console.log(req.user)
+
+    await req.user.save();
+    
     req.session.user = req.user;
     res.redirect('/products');
 });

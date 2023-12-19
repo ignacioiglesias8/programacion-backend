@@ -89,18 +89,24 @@ const initializatePassport = () => {
             try {
                 let user = await userController.findOneUser({email: profile._json.email})
                 if(!user) {
+                    const currentDate = new Date();
+                    currentDate.setTime(currentDate.getTime() - 3 * 60 * 60 * 1000);
+
                     let newUser = {
                         first_name: profile._json.name,
                         last_name: '',
                         email: profile._json.email,
                         age: '',
                         password: '',
-                        role: 'user',
                         cart: [
                             {
                                 cartInfo: await cartController.addCartToUser(),
                             }
-                        ]
+                        ],
+                        role: 'user',
+                        ticket: [],
+                        documents: [],
+                        last_connection: currentDate,
                     }
                     let result = await userController.createUser(newUser);
                     done(null, result);
