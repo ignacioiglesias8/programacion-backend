@@ -1,6 +1,6 @@
 import {Router } from 'express';
 import { authorization } from '../../functions/auth.js';
-import { uploader } from '../../middlewares/multerConfig.js';
+import { uploader, getCurrentDate } from '../../middlewares/multerConfig.js';
 import { uploadFile } from '../../functions/uploadFile.js';
 import UserController from '../../controllers/UserController.js';
 
@@ -46,11 +46,13 @@ router.get('/premium/:uid', authorization('admin'), async (req, res) => {
     }
 });
 
-router.post('/:uid/documents', uploader.single('file'), async (req, res) => {
+router.post('/:uid/documents', getCurrentDate, uploader.single('file'), async (req, res) => {
     const userId = req.params.uid;
     const user = await userController.findOneUser({_id:userId});
     const folder = req.route.path.split('/')[2];
     const type = req.body.type
+    const date = req.currentDate
+    const name = req.file.originalname
 
     if (!user) {
         return res.status(404).send({ error: 'Usuario no encontrado' });
@@ -60,7 +62,7 @@ router.post('/:uid/documents', uploader.single('file'), async (req, res) => {
         return res.status(400).send({status:"error", message:"No se puede guardar la imagen"})
     }
 
-    uploadFile(folder, user, type)
+    uploadFile(folder, user, type, date, name)
 
     return res.status(200).send({ status: "success", message: "Archivo cargado exitosamente" });
 });
@@ -68,3 +70,4 @@ router.post('/:uid/documents', uploader.single('file'), async (req, res) => {
 export default router;
 
     //user.last_connection = new Date(); esto va cuando hace un login y un logout
+    //await user.save()

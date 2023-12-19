@@ -24,12 +24,17 @@ const storage = multer.diskStorage({
     },
     filename: function(req,file,cb){
         const userId = req.params.uid;
-        const currentDate = new Date().toISOString().replace(/[-T:\.Z]/g, "");
+        const date = req.currentDate
 
-        const customFileName = `${userId}_${currentDate}_${file.originalname}`;
+        const customFileName = `${userId}_${date}_${file.originalname}`;
 
         cb(null,customFileName)
     }
 });  
 
 export const uploader = multer({storage}) 
+
+export const getCurrentDate = (req, res, next) => {
+    req.currentDate = new Date().toISOString().replace(/[-T:\.Z]/g, "");
+    next();
+};
