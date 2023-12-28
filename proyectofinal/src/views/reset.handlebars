@@ -1,0 +1,17 @@
+<h1>{{title}}</h1>
+
+<form method="post" action="/reset">
+
+    <label for="newPass">Nueva contraseña</label>
+    <input type="newPass" name="newPass" id="newPass">
+
+    <input type="hidden" name="resetToken" id="resetToken" value="{{resetToken}}">
+
+    <button type="submit">Restablecer</button>
+</form>
+
+<script>
+    {{#if error}}
+        alert("{{message}}"); 
+    {{/if}}
+</script>

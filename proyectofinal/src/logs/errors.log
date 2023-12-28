@@ -1,0 +1,120 @@
+error: Failded Stratergy {"timestamp":"2023-11-10T13:33:54.114Z"}
+error: Failded Stratergy {"timestamp":"2023-11-10T13:34:23.720Z"}
+error: Failded Stratergy: Missing or duplicate param {"timestamp":"2023-11-10T13:36:02.403Z"}
+error: Failded Stratergy: Failed to login {"timestamp":"2023-11-10T13:36:17.062Z"}
+error: Error trying to create Product {"cause":"Error al generar producto. Se obtuvieron los siguientes datos: \n\t- title: undefined \n\t- description: undefined \n\t- price: undefined \n\t- code: undefined \n\t- stock: undefined \n\t- category: undefined","code":2,"name":"Product creation error","timestamp":"2023-11-10T20:05:41.380Z"}
+error: Error trying to create Product {"cause":"Error al generar producto. Se obtuvieron los siguientes datos: \n\t- title: undefined \n\t- description: undefined \n\t- price: undefined \n\t- code: undefined \n\t- stock: undefined \n\t- category: undefined","code":2,"name":"Product creation error","timestamp":"2023-11-10T20:06:27.908Z"}
+error: Error trying to create Product {"cause":"Error al generar producto. Se obtuvieron los siguientes datos: \n\t- title: undefined \n\t- description: undefined \n\t- price: undefined \n\t- code: undefined \n\t- stock: undefined \n\t- category: undefined","code":2,"name":"Product creation error","timestamp":"2023-11-10T20:06:29.432Z"}
+error: undefined {"timestamp":"2023-11-11T01:20:15.451Z"}
+error: undefined {"timestamp":"2023-11-11T01:21:34.630Z"}
+error: undefined {"timestamp":"2023-11-16T14:24:10.288Z","view":{"defaultEngine":"handlebars","ext":".handlebars","name":"resetPassword","root":"C:\\Users\\Nacho\\Desktop\\Programación\\Backend\\Entregas\\programacion-backend\\complementario3\\src/views"}}
+error: undefined {"timestamp":"2023-11-16T14:36:21.799Z","view":{"defaultEngine":"handlebars","ext":".handlebars","name":"/reset","root":"C:\\Users\\Nacho\\Desktop\\Programación\\Backend\\Entregas\\programacion-backend\\complementario3\\src/views"}}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-17T05:06:38.988Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-17T05:06:55.878Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-18T02:59:13.824Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-20T22:15:59.347Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-28T15:13:53.326Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-28T15:13:59.660Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-28T15:14:07.312Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-28T15:15:36.699Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-28T15:15:41.387Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-28T15:15:58.467Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-11-28T15:16:04.371Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:30:24.955Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:40:26.664Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:42:32.920Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:44:05.768Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:48:13.602Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:51:12.775Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:52:57.011Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:57:07.069Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T03:58:42.131Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:10:16.129Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:17:20.095Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:18:35.378Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:21:19.100Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:21:19.902Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:23:04.673Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:23:05.453Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:29:21.960Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:29:22.723Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:30:28.837Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:30:29.636Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:31:44.456Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:31:45.274Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:32:42.136Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:32:42.989Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:44:54.338Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:44:55.120Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:45:38.464Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:45:39.281Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:49:00.287Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:49:01.113Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:49:54.642Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:49:55.444Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:51:10.217Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:51:11.026Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T04:53:32.642Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T04:53:33.469Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:00:12.582Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:00:13.389Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:00:50.505Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:00:51.306Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:01:27.104Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:01:27.901Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:04:23.649Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:04:24.457Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:04:57.877Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:04:58.654Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:05:56.720Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:05:57.537Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:09:08.259Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:09:09.064Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:09:53.989Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:09:54.810Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:11:27.430Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:11:28.245Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:35:29.464Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:35:30.391Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:38:07.771Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:38:08.600Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:38:57.071Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:38:57.892Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:44:54.564Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:44:55.412Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:46:36.296Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:46:37.157Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:51:32.459Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:51:33.268Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T05:56:53.141Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T05:56:53.967Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T06:11:05.520Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T06:11:06.336Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T06:12:16.320Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T06:12:17.183Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-08T06:14:38.896Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-08T06:14:39.718Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T00:55:09.434Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T00:55:10.213Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T00:57:38.211Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T00:57:39.024Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:01:32.293Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:01:33.243Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:04:57.604Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:04:58.523Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:05:41.588Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:05:42.348Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:08:19.130Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:08:20.088Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:10:27.157Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:10:28.019Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:14:16.903Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:14:17.687Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:15:06.965Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:15:08.694Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:18:55.168Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:18:55.964Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:20:33.517Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:20:34.315Z"}
+error: Failded Strategy: Missing or duplicate param {"timestamp":"2023-12-12T01:21:13.410Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2023-12-12T01:21:14.192Z"}
