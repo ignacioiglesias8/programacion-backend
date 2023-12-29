@@ -95,7 +95,8 @@ router.get('/current', async (req, res) => {
     }
 
     const currentUser = await userController.getUserByEmail(req.session.user.email);
-    const user = await userController.showCurrentUser(currentUser[0])
+    const userRaw = await userController.showUsers(currentUser)
+    const user = userRaw.users
 
     res.send({ user });
 });

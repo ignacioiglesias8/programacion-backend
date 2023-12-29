@@ -67,4 +67,11 @@ router.post('/:uid/documents', getCurrentDate, uploader.single('file'), async (r
     return res.status(200).send({ status: "success", message: "Archivo cargado exitosamente" });
 });
 
+router.get('/', async (req, res) => {
+    const users = await userController.getUsers();
+    const usersToShow = await userController.showUsers(users);
+
+    res.send(usersToShow)
+})
+
 export default router;

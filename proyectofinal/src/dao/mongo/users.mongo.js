@@ -51,5 +51,10 @@ export default class Users {
             { $set: { role:newRole}},
         );
         return result;
-    } 
+    }
+    
+    getUsers = async () => {
+        let result = await userModel.find();
+        return result;
+    }
 }

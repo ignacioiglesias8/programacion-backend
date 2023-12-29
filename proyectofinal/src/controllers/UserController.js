@@ -37,16 +37,6 @@ class UserController {
         }
     }
 
-    async showCurrentUser(data) {
-        try {
-            const user = await usersService.showUser(data);
-            return user;
-        }catch (err) {
-            console.error('Error al buscar usuario:', err);
-            return null;
-        }
-    }
-
     async updateUserNewPassword(userId, newPassword) {
         try{
             const user = await usersService.updateNewPassword(userId, newPassword);
@@ -63,6 +53,27 @@ class UserController {
             return user;
         }catch (err) {
             console.error('Error al cambiar el password', err);
+            return null;
+        }
+    }
+
+    async getUsers() {
+        try {
+            const users = await usersService.getAllUsers();
+            console.log(users);
+            return users;
+        } catch (err) {
+            console.error('Error al obtener usuarios:', err);
+            return [];
+        }
+    }
+
+    async showUsers(data) {
+        try {
+            const user = await usersService.showAllUsers(data);
+            return user;
+        }catch (err) {
+            console.error('Error al buscar usuario:', err);
             return null;
         }
     }

@@ -1,4 +1,4 @@
-import UserDTO from "../dao/dto/usersDTO.js"
+import UsersDTO from "../dao/dto/usersDTO.js"
 
 export default class UserRepository {
     constructor (dao){
@@ -20,11 +20,6 @@ export default class UserRepository {
         return result
     }
 
-    showUser = async (data) => {
-        let result = new UserDTO(data);
-        return result
-    }
-
     addTicketToUser = async (email, ticket) => {
         let user = await this.dao.findByEmail(email)
         let result = await this.dao.addTicket(user[0]._id, ticket);
@@ -43,6 +38,16 @@ export default class UserRepository {
 
     updateNewRole = async (userId, newRole) => {
         let result = await this.dao.updateRole(userId, newRole);
+        return result
+    }
+
+    getAllUsers = async () => {
+        let result = await this.dao.getUsers();
+        return result
+    }
+
+    showAllUsers = async (data) => {
+        let result = new UsersDTO(data);
         return result
     }
 }
