@@ -1,14 +1,18 @@
 import { Router} from 'express';
 import { authorization } from '../../functions/auth.js';
-import ProductController from '../../controllers/ProductController.js';
-import CustomError from '../../error/CustomError.js';
-import ErrorCodes from '../../error/enums.js';
 import { generateProductErrorInfo } from '../../error/info.js';
 import { createSearchParams } from '../../functions/searchParams.js';
+import { sendEmailProductDeleted } from '../../functions/sendEmailProductDeleted.js';
+
+import ProductController from '../../controllers/ProductController.js';
+import UserController from '../../controllers/UserController.js';
+import CustomError from '../../error/CustomError.js';
+import ErrorCodes from '../../error/enums.js';
 
 const router = Router();
 
 const productController = new ProductController();
+const userController = new UserController();
 
 router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit);
@@ -94,6 +98,9 @@ router.delete('/:pid', authorization(['admin', 'premium']), async (req, res) => 
     }
 
     const result = await productController.deleteProduct(productId);
+    
+    const user = await userController.getUserByEmail(product[0].owner);
+    sendEmailProductDeleted(product, user)
 
     res.send({result, message: `El producto con Id ${productId} fue eliminado`});
 })
