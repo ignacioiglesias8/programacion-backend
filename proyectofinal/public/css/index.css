@@ -39,7 +39,7 @@ hr {
     padding: 5px;
 }
 
-#cartWarning {
+#userWarning {
     display: flex;
     flex-direction: column;
     justify-content: center;

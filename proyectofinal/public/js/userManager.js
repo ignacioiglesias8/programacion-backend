@@ -145,3 +145,32 @@ function deleteUser(event) {
         console.error('Error al eliminar el usuario:', error);
     });
 }
+
+function clearAllUsers(event) {
+    event.preventDefault();
+
+    const confirmDelete = window.confirm('¿Estás seguro que desea eliminar todos los usuarios?');
+
+    if (!confirmDelete) {
+        return;
+    }
+
+    fetch(`/api/users/`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la solicitud');
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert("Los usuarios fueron eliminados con éxito");
+    })
+    .catch(error => {
+        console.error('Error al eliminar el usuario:', error);
+    });
+}

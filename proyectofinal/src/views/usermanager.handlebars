@@ -21,19 +21,16 @@
     <button type="submit">Eliminar usuario</button>
 </form>
 
-<form method="get" onsubmit="clearAllCarts(event)">
-
-    <button type="submit">Limpiar todos los carritos</button>
-
-</form>
-
-<div id="cartWarning">
-    <p>Para limpiar un carrito específico, primero busque el carrito por id y 
-        seleccione la opción "Vaciar carrito"
-    </p>
-    <p>Para limpiar todos los carritos debido a inactividad mayor a 2 días,
-        haga click en "Limpiar todos los carritos"
+<div id="userWarning">
+    <p>Para limpiar todos los usuarios debido a inactividad mayor a 2 días, haga 
+        click en "Limpiar todos los usuarios". 
     </p>
 </div>
+
+<form method="get" onsubmit="clearAllUsers(event)">
+
+    <button type="submit">Limpiar todos los usuarios</button>
+
+</form>
 
 <script src="js/userManager.js"></script>

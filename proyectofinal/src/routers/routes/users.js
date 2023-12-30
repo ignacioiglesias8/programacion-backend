@@ -2,6 +2,7 @@ import {Router } from 'express';
 import { authorization } from '../../functions/auth.js';
 import { uploader, getCurrentDate } from '../../middlewares/multerConfig.js';
 import { uploadFile } from '../../functions/uploadFile.js';
+import { sendEmailUserDeleted } from '../../functions/sendEmail.js';
 import UserController from '../../controllers/UserController.js';
 import CartController from '../../controllers/CartController.js';
 
@@ -75,6 +76,23 @@ router.get('/', async (req, res) => {
 
     res.send(usersToShow)
 })
+
+router.delete('/', authorization(['admin']), async (req, res) => {
+    const users = await userController.getUsers();
+
+    const thresholdTime = new Date();
+    thresholdTime.setDate(thresholdTime.getDate() - 2);
+
+    const usersToDelete = users.filter(user => new Date(user.last_connection) < thresholdTime);
+
+    for (const user of usersToDelete) {
+        await cartController.deleteCart(user.cart[0].cartInfo._id)
+        await userController.deleteUser(user._id);
+        sendEmailUserDeleted(user)
+    }
+
+    res.send({ message: `Los usuarios inactivos fueron eliminados` });
+});
 
 router.delete('/:uid', authorization(['admin']), async (req, res) => {
     const userId = req.params.uid;
