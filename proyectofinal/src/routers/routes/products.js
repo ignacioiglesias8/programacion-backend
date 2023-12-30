@@ -2,7 +2,7 @@ import { Router} from 'express';
 import { authorization } from '../../functions/auth.js';
 import { generateProductErrorInfo } from '../../error/info.js';
 import { createSearchParams } from '../../functions/searchParams.js';
-import { sendEmailProductDeleted } from '../../functions/sendEmailProductDeleted.js';
+import { sendEmailProductDeleted } from '../../functions/sendEmail.js';
 
 import ProductController from '../../controllers/ProductController.js';
 import UserController from '../../controllers/UserController.js';

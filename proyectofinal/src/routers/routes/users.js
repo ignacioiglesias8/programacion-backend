@@ -2,10 +2,13 @@ import {Router } from 'express';
 import { authorization } from '../../functions/auth.js';
 import { uploader, getCurrentDate } from '../../middlewares/multerConfig.js';
 import { uploadFile } from '../../functions/uploadFile.js';
+import { sendEmailUserDeleted } from '../../functions/sendEmail.js';
 import UserController from '../../controllers/UserController.js';
+import CartController from '../../controllers/CartController.js';
 
 const router = Router();
 const userController = new UserController();
+const cartController = new CartController();
 
 router.get('/:email', async (req, res) => {
     const user = await userController.getUserByEmail(req.params.email);
@@ -72,6 +75,23 @@ router.get('/', async (req, res) => {
     const usersToShow = await userController.showUsers(users);
 
     res.send(usersToShow)
+})
+
+router.delete('/:uid', authorization(['admin']), async (req, res) => {
+    const userId = req.params.uid;
+    const user = await userController.findOneUser({_id:userId});
+
+    if (!user) {
+        return res.status(404).send({ error: 'Usuario no encontrado' });
+    }
+
+    await cartController.deleteCart(user.cart[0].cartInfo._id)
+    await userController.deleteUser(userId);
+    console.log(user.cart[0].cartInfo._id)
+    
+    sendEmailUserDeleted(user)
+
+    res.send({message: `El usuario ${user.email} fue eliminado`});
 })
 
 export default router;

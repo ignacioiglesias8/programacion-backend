@@ -57,4 +57,9 @@ export default class Users {
         let result = await userModel.find();
         return result;
     }
+
+    deleteUserById = async (_id) => {
+        let result = await userModel.deleteOne(_id);
+        return result;
+    }
 }

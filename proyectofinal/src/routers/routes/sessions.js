@@ -27,7 +27,7 @@ router.post(
         }
 
         const currentDate = new Date();
-        currentDate.setTime(currentDate.getTime() - 3 * 60 * 60 * 1000);
+        currentDate.setTime(currentDate.getTime());
         req.user.last_connection = currentDate;
         await req.user.save();
 
@@ -56,7 +56,7 @@ router.get("/logout", async (req, res) => {
     const user = await userController.getUserByEmail(userLogged.email);
 
     const currentDate = new Date();
-    currentDate.setTime(currentDate.getTime() - 3 * 60 * 60 * 1000);
+    currentDate.setTime(currentDate.getTime());
     user[0].last_connection = currentDate;
     await user[0].save();
 
@@ -79,7 +79,7 @@ async (req, res) => {
 router.get("/githubcallback", passport.authenticate('github', {failureRedirect: '/login'}), 
 async (req, res) => {
     const currentDate = new Date();
-    currentDate.setTime(currentDate.getTime() - 3 * 60 * 60 * 1000);
+    currentDate.setTime(currentDate.getTime());
     req.user.last_connection = currentDate;
     console.log(req.user)
 

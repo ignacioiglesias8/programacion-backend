@@ -63,4 +63,9 @@ export default class Cart {
         );
         return result;
     }
+
+    deleteCartById = async (_id) => {
+        let result = await cartModel.deleteOne(_id);
+        return result;
+    }
 }

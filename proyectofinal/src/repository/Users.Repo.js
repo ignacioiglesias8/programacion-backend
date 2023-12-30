@@ -50,4 +50,9 @@ export default class UserRepository {
         let result = new UsersDTO(data);
         return result
     }
+
+    deleteOneUser = async (_id) => {
+        let result = await this.dao.deleteUserById(_id);
+        return result
+    }
 }

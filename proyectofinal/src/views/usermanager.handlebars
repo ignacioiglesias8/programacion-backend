@@ -1,0 +1,24 @@
+<h1>{{title}}</h1>
+
+<form method="get" onsubmit="getUser(event)">
+
+    <label for="userEamil">Email del usuario:</label>
+    <input type="text" id="userEmail" name="userEmail" required>
+
+    <button type="submit">Buscar usuario</button>
+</form>
+
+<div id="userDataContainer"></div>
+
+<form method="get" onsubmit="changeUserRole(event)">
+
+    <button type="submit">Cambiar Rol</button>
+
+</form>
+
+<form method="get" onsubmit="deleteUser(event)">
+
+    <button type="submit">Eliminar usuario</button>
+</form>
+
+<script src="js/userManager.js"></script>

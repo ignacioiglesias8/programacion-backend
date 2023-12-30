@@ -241,10 +241,25 @@ router.post('/reset', async (req, res) => {
 
 router.get('/manager', authorization(['admin', 'premium']), async (req, res) => {
 
+    const user = req.session.user;
+    const isAdmin = user.role === 'admin';
+
     res.render(
         'manager',
         {
             title: "Gestión",
+            style: "index.css",
+            isAdmin
+        }
+    );
+});
+
+router.get('/productmanager', authorization(['admin', 'premium']), async (req, res) => {
+
+    res.render(
+        'productmanager',
+        {
+            title: "Gestión de productos",
             style: "index.css",
         }
     );
@@ -281,6 +296,17 @@ router.get('/updateproduct', authorization(['admin', 'premium']), async (req, re
         'updateproduct',
         {
             title: "Modificar un producto",
+            style: "index.css",
+        }
+    );
+});
+
+router.get('/usermanager', authorization(['admin']), async (req, res) => {
+
+    res.render(
+        'usermanager',
+        {
+            title: "Gestionar usuarios",
             style: "index.css",
         }
     );

@@ -77,6 +77,15 @@ class UserController {
             return null;
         }
     }
+
+    async deleteUser(_id) {
+        try {
+            const result = await usersService.deleteOneUser({_id});
+            return result
+        }catch (err) {
+            console.error('Error al leer el archivo de usuarios:', err);
+        }
+    }
 }
 
     export default UserController;

@@ -29,3 +29,22 @@ export const sendEmailProductDeleted = async (product, user) => {
 
     return email;
 }
+
+export const sendEmailUserDeleted = async (user) => {
+    if (!emailRegex.test(user.email)) throw new Error ('Invalid email');
+    if (user){
+        const email = await transport.sendMail({
+            from: 'Ecommerce <ignacioiglesias8@gmail.com>',
+            to: user.email,
+            subject: 'Usuario eliminado',
+            html:   `<div>
+                        <h1>Usuario eliminado</h1>
+                        <p>El usuario ${user.email} con Id: ${user._id}
+                        ha sido eliminado del sistema</p>
+                    </div>`,
+        })
+        return email
+    }
+
+    return email;
+}

@@ -114,6 +114,15 @@ class CartController {
             console.error('Error al eliminar todos los productos del carrito:', error);
         }
     }
+
+    async deleteCart(_id) {
+        try {
+            const result = await cartsService.deleteOneCart({_id});
+            return result
+        }catch (err) {
+            console.error('Error al leer el archivo de usuarios:', err);
+        }
+    }
 }
 
     export default CartController;
