@@ -312,6 +312,17 @@ router.get('/usermanager', authorization(['admin']), async (req, res) => {
     );
 });
 
+router.get('/cartmanager', authorization(['admin']), async (req, res) => {
+
+    res.render(
+        'cartmanager',
+        {
+            title: "Gestionar carritos",
+            style: "index.css",
+        }
+    );
+});
+
 function auth(req, res, next) {
     if (!req.session.user) {
         return res.redirect("/login");

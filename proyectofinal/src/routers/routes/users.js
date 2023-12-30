@@ -2,7 +2,6 @@ import {Router } from 'express';
 import { authorization } from '../../functions/auth.js';
 import { uploader, getCurrentDate } from '../../middlewares/multerConfig.js';
 import { uploadFile } from '../../functions/uploadFile.js';
-import { sendEmailUserDeleted } from '../../functions/sendEmail.js';
 import UserController from '../../controllers/UserController.js';
 import CartController from '../../controllers/CartController.js';
 
@@ -87,9 +86,6 @@ router.delete('/:uid', authorization(['admin']), async (req, res) => {
 
     await cartController.deleteCart(user.cart[0].cartInfo._id)
     await userController.deleteUser(userId);
-    console.log(user.cart[0].cartInfo._id)
-    
-    sendEmailUserDeleted(user)
 
     res.send({message: `El usuario ${user.email} fue eliminado`});
 })

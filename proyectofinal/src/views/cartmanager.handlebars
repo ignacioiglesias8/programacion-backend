@@ -1,0 +1,19 @@
+<h1>{{title}}</h1>
+
+<form method="get" onsubmit="getCart(event)">
+
+    <label for="cartId">Id del carrito:</label>
+    <input type="text" id="cartId" name="cartId" required>
+
+    <button type="submit">Buscar carrito</button>
+</form>
+
+<div id="cartDataContainer"></div>
+
+<form method="get" onsubmit="clearOneCart(event)">
+
+    <button type="submit">Vaciar carrito</button>
+
+</form>
+
+<script src="js/cartManager.js"></script>
