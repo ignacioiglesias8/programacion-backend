@@ -13,6 +13,8 @@ const cartController = new CartController();
 const userController = new UserController();
 const ticketsController = new TicketController();
 
+//Configuración de productos
+
 router.get('/products', auth, async (req, res) => {
     const limit = parseInt(req.query.limit);
     const page = parseInt(req.query.page);
@@ -53,6 +55,8 @@ router.get('/products', auth, async (req, res) => {
     );
 });
 
+//Configuración de carritos y tickets
+
 let cart = {};
 
 router.post('/addToCart', authorization(['user', 'premium']), async (req, res) => {
@@ -68,6 +72,31 @@ router.post('/addToCart', authorization(['user', 'premium']), async (req, res) =
     await cartController.addProductToCart(cart, product, 1);   
 
     res.status(204).send();
+});
+
+router.get('/cart', async (req, res) => {
+
+    const user = await userController.getUserByEmail(req.session.user.email)
+    const cart = await cartController.getCartById(user[0].cart[0].cartInfo._id)
+    
+    const cartId = cart[0]._id.toString();
+    const products = cart[0].products.map((item) => ({
+        title: item.product.title,
+        description: item.product.description,
+        price: item.product.price,
+        id: item.product._id,
+        quantity: item.quantity,
+    }));
+
+    res.render(
+        'cart',
+        {
+            title: "Carrito de compras",
+            style: "index.css",
+            cartId: cartId,
+            products: products
+        }
+    );
 });
 
 router.post('/purchase', async (req, res) => {
@@ -107,30 +136,7 @@ router.put('/tickets/finish', async (req, res) => {
     res.send();
 })
 
-router.get('/cart', async (req, res) => {
-
-    const user = await userController.getUserByEmail(req.session.user.email)
-    const cart = await cartController.getCartById(user[0].cart[0].cartInfo._id)
-    
-    const cartId = cart[0]._id.toString();
-    const products = cart[0].products.map((item) => ({
-        title: item.product.title,
-        description: item.product.description,
-        price: item.product.price,
-        id: item.product._id,
-        quantity: item.quantity,
-    }));
-
-    res.render(
-        'cart',
-        {
-            title: "Carrito de compras",
-            style: "index.css",
-            cartId: cartId,
-            products: products
-        }
-    );
-});
+//Configuración del chat
 
 router.get('/chat', authorization('user'), async (req, res) => {
 
@@ -142,28 +148,7 @@ router.get('/chat', authorization('user'), async (req, res) => {
     )
 })
 
-/*router.get('/cart/:cid', async (req, res) => {
-    const cart= await cartController.getCartById(req.params.cid)
-
-    const cartId = cart[0]._id.toString();
-
-    const products = cart[0].products.map((item) => ({
-        title: item.product.title,
-        description: item.product.description,
-        price: item.product.price,
-        id: item.product._id,
-        quantity: item.quantity,
-    }));
-
-    res.render(
-        'cart',
-        {
-            style: "cart.css",
-            cartId: cartId,
-            products: products,
-        }
-    )
-})*/
+//Configuración de usuarios y sesiones
 
 router.get("/", auth, async (req, res) => {
     res.render(
@@ -197,6 +182,8 @@ router.get("/register", logged, async (req, res) => {
         }
     );
 });
+
+//Configuración para reseteo de password
 
 router.get("/recovery", logged, async (req, res) => {
 
@@ -263,6 +250,8 @@ router.post('/reset', async (req, res) => {
         return res.redirect('/recovery');
     }
 })
+
+//Configuración de las rutas del manager
 
 router.get('/manager', authorization(['admin', 'premium']), async (req, res) => {
 
