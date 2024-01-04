@@ -1,12 +1,24 @@
+<h1>{{title}}</h1>
+
 <div>
-    <h1>Carrito Id: {{cartId}}</h1>
+    <h3 id="cart-id" data-cart-id="{{cartId}}">Carrito Id: {{cartId}}</h3>
     {{#each products}}
-        <div class="product-card">
+        <div class="cart-card">
             <h2>{{title}}</h2>
             <p>{{description}}</p>
             <p>Precio: {{price}}</p>
             <p>Id: {{id}}</p>
-            <p>Quantity: {{quantity}}</p>
+            <p>Cantidad: {{quantity}}</p>
+            <button class="delete-product" data-product-id="{{id}}">Eliminar producto</button>
         </div>
     {{/each}}
 </div>
+
+<div>
+    <button class="empty-cart">Vaciar carrito</button>
+    <button class="purchase">Terminar Compra</button>
+</div>
+
+<script src="js/finishPurchaseButton.js"></script>
+<script src="js/deleteProductFromCartButton.js"></script>
+<script src="js/emptyCartButton.js"></script>

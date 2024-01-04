@@ -107,6 +107,31 @@ router.put('/tickets/finish', async (req, res) => {
     res.send();
 })
 
+router.get('/cart', async (req, res) => {
+
+    const user = await userController.getUserByEmail(req.session.user.email)
+    const cart = await cartController.getCartById(user[0].cart[0].cartInfo._id)
+    
+    const cartId = cart[0]._id.toString();
+    const products = cart[0].products.map((item) => ({
+        title: item.product.title,
+        description: item.product.description,
+        price: item.product.price,
+        id: item.product._id,
+        quantity: item.quantity,
+    }));
+
+    res.render(
+        'cart',
+        {
+            title: "Carrito de compras",
+            style: "index.css",
+            cartId: cartId,
+            products: products
+        }
+    );
+});
+
 router.get('/chat', authorization('user'), async (req, res) => {
 
     res.render(
@@ -117,7 +142,7 @@ router.get('/chat', authorization('user'), async (req, res) => {
     )
 })
 
-router.get('/cart/:cid', async (req, res) => {
+/*router.get('/cart/:cid', async (req, res) => {
     const cart= await cartController.getCartById(req.params.cid)
 
     const cartId = cart[0]._id.toString();
@@ -138,7 +163,7 @@ router.get('/cart/:cid', async (req, res) => {
             products: products,
         }
     )
-})
+})*/
 
 router.get("/", auth, async (req, res) => {
     res.render(

@@ -37,9 +37,10 @@
         {{/each}}
     </div>
 
-    <div>
-        <button class="purchase">Terminar Compra</button>
-    </div>
+    <form method="get" action="/cart">
+
+        <button type="submit">Ir al carrito</button>
+    </form>
 
     <form action="/api/sessions/logout" method="GET">
         <button type="submit">Cerrar sesión</button>
@@ -48,4 +49,3 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="js/addToCartButtons.js"></script>
-<script src="js/finishPurchaseButton.js"></script>

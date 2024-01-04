@@ -82,7 +82,7 @@ router.put('/:cid/product/:pid', async (req, res) => {
     res.send(updatedCart);
 });
 
-router.delete('/:cid', authorization(['admin']), async (req, res) => {
+router.delete('/:cid', async (req, res) => {
     const cartId = req.params.cid;
     const result = await cartController.deleteAllProductsFromCart(cartId);
 
