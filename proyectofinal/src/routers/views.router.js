@@ -45,12 +45,16 @@ router.get('/products', auth, async (req, res) => {
         nextLink: products.hasNextPage ? `/products?page=${products.nextPage}&${queryString}` : '',
     };
 
+    const user = req.session.user;
+    const isAuth = user.role === 'admin' || user.role === 'premium';
+
     res.render(
         'products',
         {
             style: "products.css",
             products: response,
-            user: req.session.user 
+            user: req.session.user,
+            isAuth
         }
     );
 });

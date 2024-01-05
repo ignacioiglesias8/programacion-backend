@@ -1,6 +1,12 @@
 <h1>Bienvenido {{user.first_name}} {{user.last_name}}</h1>
 <hr>
 
+{{#if isAuth}}
+    <form method="get" action="/manager">
+        <button type="submit">Manager</button>
+    </form>
+{{/if}}
+
 <h2>Datos Básicos</h2>
 <div class="userData">
     <p><b>Nombre:</b> {{user.first_name}}</p>
@@ -38,7 +44,6 @@
     </div>
 
     <form method="get" action="/cart">
-
         <button type="submit">Ir al carrito</button>
     </form>
 

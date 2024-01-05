@@ -1,8 +1,8 @@
 <h1>{{title}}</h1>
 
-    <form method="get" action="/productmanager">
-        <button type="submit">Gestionar Productos</button>
-    </form>
+<form method="get" action="/productmanager">
+    <button type="submit">Gestionar Productos</button>
+</form>
 
 {{#if isAdmin}}
     <form method="get" action="/usermanager">
@@ -15,3 +15,7 @@
         <button type="submit">Gestionar Carritos</button>
     </form>
 {{/if}}
+
+<form method="get" action="/products">
+    <button type="submit">Salir</button>
+</form>

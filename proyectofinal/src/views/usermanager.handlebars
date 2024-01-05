@@ -11,13 +11,10 @@
 <div id="userDataContainer"></div>
 
 <form method="get" onsubmit="changeUserRole(event)">
-
     <button type="submit">Cambiar Rol</button>
-
 </form>
 
 <form method="get" onsubmit="deleteUser(event)">
-
     <button type="submit">Eliminar usuario</button>
 </form>
 
@@ -28,9 +25,11 @@
 </div>
 
 <form method="get" onsubmit="clearAllUsers(event)">
-
     <button type="submit">Limpiar todos los usuarios</button>
+</form>
 
+<form method="get" action="/manager">
+    <button type="submit">Volver</button>
 </form>
 
 <script src="js/userManager.js"></script>
