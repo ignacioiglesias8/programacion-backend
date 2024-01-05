@@ -126,3 +126,12 @@ error: Failded Strategy: Failed to login {"timestamp":"2023-12-29T01:30:06.500Z"
 error: Failded Strategy: Failed to login {"timestamp":"2023-12-29T01:30:15.745Z"}
 error: Failded Strategy: Failed to login {"timestamp":"2023-12-29T01:30:30.997Z"}
 error: Failded Strategy: Failed to login {"timestamp":"2024-01-04T01:52:21.776Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2024-01-05T14:48:22.789Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2024-01-05T14:55:24.547Z"}
+error: Cannot read properties of undefined (reading '_id') {"timestamp":"2024-01-05T14:56:35.746Z"}
+error: Cannot read properties of undefined (reading '_id') {"timestamp":"2024-01-05T14:56:57.364Z"}
+error: Cannot read properties of undefined (reading '_id') {"timestamp":"2024-01-05T14:57:59.001Z"}
+error: User not found {"timestamp":"2024-01-05T15:00:42.894Z"}
+error: Passwprd recovery unavailable: User not found {"timestamp":"2024-01-05T15:01:42.704Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2024-01-05T15:08:15.035Z"}
+error: Failded Strategy: Failed to login {"timestamp":"2024-01-05T15:08:20.954Z"}

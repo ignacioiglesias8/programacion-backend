@@ -60,7 +60,6 @@ class UserController {
     async getUsers() {
         try {
             const users = await usersService.getAllUsers();
-            console.log(users);
             return users;
         } catch (err) {
             console.error('Error al obtener usuarios:', err);

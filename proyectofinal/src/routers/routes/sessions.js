@@ -81,7 +81,6 @@ async (req, res) => {
     const currentDate = new Date();
     currentDate.setTime(currentDate.getTime());
     req.user.last_connection = currentDate;
-    console.log(req.user)
 
     await req.user.save();
     

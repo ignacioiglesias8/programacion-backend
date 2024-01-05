@@ -10,7 +10,7 @@ router.post('/recovery', async (req, res) => {
         const {email}= req.body;
         const userResult = await userController.getUserByEmail(email);
 
-        if (!userResult) throw new Error('User not found');
+        if (userResult.length === 0) throw new Error('Password recovery unavailable: User not found: ');
 
         const user = {
             id: userResult[0]._id,
@@ -24,7 +24,7 @@ router.post('/recovery', async (req, res) => {
         
         res.redirect('/login')
     }catch(error){
-        console.log(error.message);
+        req.logger.error(error.message, email);
         res.send(error.message);
     }
 })

@@ -32,7 +32,7 @@ function updateUserData(user) {
     userDataContainer.innerHTML = '';
 
     const data = user.user[0]; 
-    console.log(data);
+
     const nameElement = document.createElement('p');
     nameElement.textContent = 'Nombre: ' + data.first_name;
 

@@ -240,8 +240,12 @@ router.post('/reset', async (req, res) => {
 
         const user = await userController.getUserByEmail(resetTokenParse.user.email)
 
+        if (newPass.length < 3) {
+            throw new Error('Contraseña inválida: Debe utilizar 3 carácteres o más');
+        }
+
         if (isValidPassword({password: user[0].password}, newPass)) {
-            return res.cookie('errorMessage', 'No se puede utilizar la misma contraseña', {maxAge: 6000}).redirect('reset');
+            throw new Error('No se puede utilizar la misma contraseña');
         }
 
         const newPassword = createHash(newPass);
@@ -250,8 +254,8 @@ router.post('/reset', async (req, res) => {
 
         return res.redirect('/login');
     }catch (error) {
-        console.log(error);
-        return res.redirect('/recovery');
+        req.logger.warning(error.message);
+        return res.cookie('errorMessage', error.message, {maxAge: 6000}).redirect('reset');
     }
 })
 
