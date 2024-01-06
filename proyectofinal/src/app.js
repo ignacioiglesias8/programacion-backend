@@ -21,7 +21,7 @@ import { addLogger } from './middlewares/logger.js';
 
 const app = express();
 const uri= process.env.MONGO_URL
-const PORT= process.env.PORT;
+const PORT= process.env.PORT||8080;
 
 app.engine('handlebars', handlebars.engine());
 app.set('views', __dirname + '/views');
