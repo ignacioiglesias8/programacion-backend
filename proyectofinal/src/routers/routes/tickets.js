@@ -1,11 +1,12 @@
 import { Router } from 'express';
+import { authorization } from '../../functions/auth.js';
 import TicketController from '../../controllers/TicketsController.js';
 
 const router = Router();
 
 const ticketController = new TicketController();
 
-router.get('/:tid', async (req, res) => {
+router.get('/:tid', authorization(['admin']), async (req, res) => {
     const ticket = await ticketController.getTicketById(req.params.tid);
     if (!ticket) {
         return res.status(404).json({ error: 'Ticket no encontrado' });

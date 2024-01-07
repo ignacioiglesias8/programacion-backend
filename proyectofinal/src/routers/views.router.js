@@ -345,6 +345,17 @@ router.get('/cartmanager', authorization(['admin']), async (req, res) => {
     );
 });
 
+router.get('/ticketsearch', async (req, res) => {
+
+    res.render(
+        'ticketsearch',
+        {
+            title: "Buscador de tickets",
+            style: "index.css",
+        }
+    );
+});
+
 function auth(req, res, next) {
     if (!req.session.user) {
         return res.redirect("/login");

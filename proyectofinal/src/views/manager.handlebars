@@ -16,6 +16,12 @@
     </form>
 {{/if}}
 
+{{#if isAdmin}}
+    <form method="get" action="/ticketsearch">
+        <button type="submit">Buscador de tickets</button>
+    </form>
+{{/if}}
+
 <form method="get" action="/products">
     <button type="submit">Salir</button>
 </form>

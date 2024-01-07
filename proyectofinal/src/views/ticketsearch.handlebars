@@ -1,0 +1,19 @@
+<h1>{{title}}</h1>
+
+<form method="get" onsubmit="getTicket(event)">
+
+    <label for="ticketId">Ticket ID:</label>
+    <input type="text" id="ticketId" name="ticketId" required>
+
+    <button type="submit">Buscar ticket</button>
+</form>
+
+<div id="ticketDataContainer"></div>
+
+<div>
+    <form action="/manager" method="GET">
+        <button type="submit">Volver</button>
+    </form>
+</div>
+
+<script src="js/ticketSearchButton.js"></script>

@@ -18,8 +18,12 @@ function getUser(event) {
         return response.json();
     })
     .then(data => {
-        currentUser = data.user[0]; 
-        updateUserData(data);
+        if (data.user.length === 0) {
+            alert("Usuario no encontrado")
+        }else{
+            currentUser = data.user[0]; 
+            updateUserData(data);
+        }
     })
     .catch(error => {
         console.error('Error al obtener datos del usuario:', error);
@@ -84,7 +88,7 @@ function changeUserRole(event) {
     })
     .then(response => {
         if (!response.ok) {
-            throw new Error('Error en la solicitud');
+            alert("Usuario no encontrado o posee documentación pendiente");
         }
         return response.json();
     })
