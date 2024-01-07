@@ -1,33 +1,32 @@
 <h1>{{title}}</h1>
 
-<form method="post" action="/api/products/" onsubmit="onSubmitForm(event)">
+<label for="title">Nombre</label>
+<input type="text" name="title" id="title">
 
-    <label for="title">Nombre</label>
-    <input type="text" name="title" id="title">
+<label for="description">Descripción</label>
+<input type="text" name="description" id="description">
 
-    <label for="description">Descripción</label>
-    <input type="text" name="description" id="description">
+<label for="price">Precio</label>
+<input type="number" name="price" id="price">
 
-    <label for="price">Precio</label>
-    <input type="number" name="price" id="price">
+<label for="code">Código</label>
+<input type="text" name="code" id="code">
 
-    <label for="code">Código</label>
-    <input type="text" name="code" id="code">
+<label for="stock">Stock</label>
+<input type="number" name="stock" id="stock">
 
-    <label for="stock">Stock</label>
-    <input type="number" name="stock" id="stock">
+<label for="category">Categoría</label>
+<select name="category" id="category">
+    <option value="nacional">Nacional</option>
+    <option value="internacional">Internacional</option>
+</select>
 
-    <label for="category">Categoría</label>
-    <select name="category" id="category">
-        <option value="nacional">Nacional</option>
-        <option value="internacional">Internacional</option>
-    </select>
+<input type="hidden" name="owner" id="owner" value="{{email}}">
 
-    <input type="hidden" name="owner" id="owner" value="{{email}}">
-
-    <button type="submit">Enviar producto</button>
-</form>
+<button type="button" class="createProduct">Crear producto</button>
 
 <form method="get" action="/productmanager">
     <button type="submit">Volver</button>
 </form>
+
+<script src="js/createProductButton.js"></script>
