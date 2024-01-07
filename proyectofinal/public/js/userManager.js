@@ -50,6 +50,13 @@ function updateUserData(user) {
     roleElement.textContent = 'Rol: ' + data.role;
     roleElement.id = 'userRole';
 
+    const documentsElement = document.createElement('div');
+    documentsElement.innerHTML = '<strong>Documentos:</strong>';
+    
+    createDocElement('id', data, documentsElement);
+    createDocElement('address', data, documentsElement);
+    createDocElement('account', data, documentsElement);
+
     const cartStatusElement = document.createElement('p');
     let cartStatus
     if (data.cart[0].cartInfo.products.length > 0) {
@@ -67,7 +74,23 @@ function updateUserData(user) {
     idElement.textContent = 'ID: ' + data._id;
 
     userDataContainer.append(nameElement, lastNameElement, emailElement, roleElement, 
-        cartStatusElement, lastConnectionElement, idElement);
+        documentsElement, cartStatusElement, lastConnectionElement, idElement);
+}
+
+function createDocElement(type, data, documentsElement) {
+    const docType = data.documents.find(document => document.name === type);
+
+    const documentElement = document.createElement('p');
+
+    if (docType) {
+        documentElement.textContent = `${docType.name}: Cargado`;
+        documentElement.classList.add('docParagraph', 'greenText');
+    } else {
+        documentElement.textContent = `${type}: Pendiente`;
+        documentElement.classList.add('docParagraph', 'redText');
+    }
+
+    documentsElement.appendChild(documentElement);
 }
 
 function changeUserRole(event) {

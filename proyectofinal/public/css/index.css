@@ -47,3 +47,15 @@ hr {
     border: 1px solid white;
     padding: 5px;
 }
+
+.docParagraph {
+    margin-left: 20px; 
+}
+
+.greenText {
+    color: green;
+}
+
+.redText {
+    color: red;
+}

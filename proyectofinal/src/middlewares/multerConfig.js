@@ -1,5 +1,6 @@
 import multer from 'multer';
 import UserController from '../controllers/UserController.js';
+import __dirname from '../utils.js';
 
 const userController = new UserController();
 
@@ -30,7 +31,7 @@ const storage = multer.diskStorage({
                 destinationFolder = '';
         }
 
-        cb(null, `../public/img/${destinationFolder}`);
+        cb(null, __dirname + `../../public/img/${destinationFolder}`);
         
     },
     filename: function(req,file,cb){
