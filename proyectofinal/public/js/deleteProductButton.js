@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Producto eliminado correctamente");
                 document.getElementById("productId").value = "";
             } else {
+                alert("No estas autorizado a eliminar este producto");
                 console.error("Error al eliminar el producto.");
             }
         })

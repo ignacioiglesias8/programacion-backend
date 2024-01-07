@@ -47,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 document.getElementById("code").value = "";
                 document.getElementById("stock").value = "";
             } else {
+                alert("No estás autorizado a modificar este producto.")
                 console.error("Error al modificar el producto.");
             }
         })
