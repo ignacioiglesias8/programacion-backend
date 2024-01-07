@@ -17,5 +17,4 @@ router.use('/users', usersRouter);
 router.use('/tickets', ticketsRouter);
 router.use('/emails', emailRouter);
 
-
 export default router;
