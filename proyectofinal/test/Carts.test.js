@@ -1,13 +1,17 @@
+import 'dotenv/config'; 
 import mongoose from "mongoose";
 import chai from 'chai';
 import supertest from 'supertest';
 
+const uri= process.env.MONGO_URL
+const PORT = process.env.PORT
+
 import { cartModel } from '../src/dao/models/carts.model.js';
 
-mongoose.connect('mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority')
+mongoose.connect(uri)
 
 const expect = chai.expect;
-const request = supertest('http://localhost:8080/api/carts')
+const request = supertest(`http://localhost:${PORT}/api/carts`)
 let createdCartId;
 
 describe('Testing Carts Router', () => {

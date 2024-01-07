@@ -1,15 +1,19 @@
+import 'dotenv/config'; 
 import mongoose from "mongoose";
 import chai from 'chai';
 import supertest from 'supertest';
 
+const uri= process.env.MONGO_URL
+const PORT = process.env.PORT
+
 import { userModel } from '../src/dao/models/users.model.js';
 import { cartModel } from '../src/dao/models/carts.model.js';
 
-mongoose.connect('mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority')
+mongoose.connect(uri)
 
 const expect = chai.expect;
-const sessionRequest = supertest('http://localhost:8080/api/sessions')
-const userRequest = supertest('http://localhost:8080/api/users')
+const sessionRequest = supertest(`http://localhost:${PORT}/api/sessions`)
+const userRequest = supertest(`http://localhost:${PORT}/api/users`)
 let createdUserId;
 let createdCartId;
 

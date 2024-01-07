@@ -9,10 +9,12 @@ const transport = nodemailer.createTransport({
     }
 })
 
+const PORT = process.env.PORT
+
 const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
 export const sendRecoveryPasswordEmail = async (token, email) => {
-    const link = `http://localhost:8080/recovery/${token}`
+    const link = `http://localhost:${PORT}/recovery/${token}`
 
     await transport.sendMail({
         from: 'Ecommerce <ignacioiglesias8@gmail.com>',

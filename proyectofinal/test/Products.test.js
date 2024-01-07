@@ -1,11 +1,15 @@
+import 'dotenv/config'; 
 import mongoose from "mongoose";
 import chai from 'chai';
 import supertest from 'supertest';
 
-mongoose.connect('mongodb+srv://ignacioiglesias8:9HzbVxanl92pkney@cluster0.paoiaa9.mongodb.net/ecommerce?retryWrites=true&w=majority')
+const uri= process.env.MONGO_URL
+const PORT = process.env.PORT
+
+mongoose.connect(uri)
 
 const expect = chai.expect;
-const request = supertest('http://localhost:8080/api/products')
+const request = supertest(`http://localhost:${PORT}/api/products`)
 let createdProductId;
 
 describe('Testing Products Router', () => {
