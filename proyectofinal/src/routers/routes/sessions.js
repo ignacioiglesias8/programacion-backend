@@ -37,6 +37,8 @@ router.post(
             email: req.user.email,
             age: req.user.age,
             role: req.user.role,
+            documents: req.user.documents,
+            id: req.user._id
         }
 
         res.redirect("/products");

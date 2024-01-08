@@ -42,6 +42,8 @@ router.get('/products', auth, async (req, res) => {
 
     const user = req.session.user;
     const isAuth = user.role === 'admin' || user.role === 'premium';
+    const userForDocs = await userController.getUserByEmail(req.session.user.email)
+    const docs = userForDocs[0].documents.map(doc => doc.toObject({ virtuals: true }));
 
     res.render(
         'products',
@@ -49,7 +51,8 @@ router.get('/products', auth, async (req, res) => {
             style: "products.css",
             products: response,
             user: req.session.user,
-            isAuth
+            isAuth,
+            docs: docs
         }
     );
 });

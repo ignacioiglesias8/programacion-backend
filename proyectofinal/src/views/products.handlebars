@@ -7,13 +7,37 @@
     </form>
 {{/if}}
 
-<h2>Datos Básicos</h2>
-<div class="userData">
-    <p><b>Nombre:</b> {{user.first_name}}</p>
-    <p><b>Apellido:</b> {{user.last_name}}</p>
-    <p><b>Email:</b> {{user.email}}</p>
-    <p><b>Edad:</b> {{user.age}}</p>
-    <p><b>Rol:</b> {{user.role}}</p>
+<div class="userInfo">
+    <div class="userData">
+        <h2>Datos Básicos</h2>
+        <p><b>Nombre:</b> {{user.first_name}}</p>
+        <p><b>Apellido:</b> {{user.last_name}}</p>
+        <p><b>Email:</b> {{user.email}}</p>
+        <p><b>Edad:</b> {{user.age}}</p>
+        <p><b>Rol:</b> {{user.role}}</p>
+        <p><b>Id:</b> {{user.id}}</p>
+    </div>
+
+    <div class="userDocs">
+        <h2>Documentos cargados:</h2>
+        {{#each docs}}
+            <p id="{{ name }}">{{ name }}</p>
+        {{/each}}
+    </div>
+
+    <div class="uploader">
+        <h2>Cargar documentos:</h2>
+        <div class="uploaderButtons">
+            <input type="file" name="id" id="idInput"></input>
+            <button class="uploadButton" data-user-id="{{user.id}}" onclick="uploadFile('idInput')">Cargar Id</button>
+
+            <input type="file" name="address" id="addressInput"></input>
+            <button class="uploadButton" data-user-id="{{user.id}}" onclick="uploadFile('addressInput')">Cargar address</button>
+
+            <input type="file" name="account" id="accountInput"></input>
+            <button class="uploadButton" data-user-id="{{user.id}}" onclick="uploadFile('accountInput')">Cargar account</button>
+        </div>
+    </div>
 </div>
 
 <div>
@@ -54,3 +78,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="js/addToCartButtons.js"></script>
+<script src="js/uploadFilesButtons.js"></script>
