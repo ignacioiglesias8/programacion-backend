@@ -31,7 +31,7 @@ document.querySelectorAll('.uploadButton').forEach(function(button) {
         })
         .then(data => {
             alert("Archivo cargado exitosamente");
-            window.location.href = '/products'
+            window.location.href = '/profile'
         })
         .catch(error => {
             console.error('Error:', error);

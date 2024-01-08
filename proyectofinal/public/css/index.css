@@ -59,3 +59,25 @@ hr {
 .redText {
     color: red;
 }
+
+.userInfo{
+    display: flex;
+    justify-content:space-between;
+    flex-direction: row;
+}
+
+.userDocs{
+    margin: 0px 100px;
+}
+
+.uploaderButtons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.uploaderButtons button {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 150px;
+}
